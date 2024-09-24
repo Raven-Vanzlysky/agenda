@@ -93,7 +93,7 @@
 
           <div class="card-header">
             <img class="img" style="width: 100px; height: 100px;" src="img/g1W.png" alt="">
-            <h3 class="ms-3">Login</h3>
+            <h3 class="ms-3">Logon</h3>
           </div>
 
         <div class="card-body">
