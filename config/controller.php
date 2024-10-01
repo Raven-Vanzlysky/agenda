@@ -365,6 +365,56 @@
     return mysqli_affected_rows($db);
   }
 
+?>
+
+<?php //Tahun Ajaran
+
+  // fungsi menambahkan data tahun ajaran
+  function tambah_data_thnajar($post)
+  {
+    global $db;
+
+    $thn = strip_tags($post['thn_ajr']);  
+    
+    // query tambah data
+    $query = "INSERT INTO thn_ajar VALUES(null, '$thn')";
+    
+    mysqli_query($db, $query);
+    
+    return mysqli_affected_rows($db);
+  }
+  
+  // fungsi ubah data tahun ajaran
+  function ubah_data_thnajar($post)
+  {
+    global $db;
+    
+    $id   = strip_tags($post['id_ajr']);
+    $thn = strip_tags($post['thn_ajr']);
+    
+    // query ubah data
+    $query = "UPDATE thn_ajar SET tahun_ajaran = '$thn' WHERE id_ajaran = $id";
+    
+    mysqli_query($db, $query);
+    
+    return mysqli_affected_rows($db);
+  }
+  
+  // fungsi menghapus data tahun ajaran
+  function hapus_data_thnajar($post)
+  {
+    global $db;
+
+    $id = strip_tags($post['id_ajr']);
+    
+    // query hapus data mata_pljrn
+    $query = "DELETE FROM thn_ajar WHERE id_ajaran = $id";
+    
+    mysqli_query($db, $query);
+    
+    return mysqli_affected_rows($db);
+  }
+
 
 ?>
 
