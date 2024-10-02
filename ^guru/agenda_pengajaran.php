@@ -97,38 +97,43 @@
       <!-- .card-body -->
       <div class="card-body">
 
-        <table id="example2" class="table table-bordered table-hover">
-          <thead>
-            <tr>
-              <th class="bg-secondary">No</th>
-              <th class="bg-secondary">Mata Pelajaran</th>
-              <th class="bg-secondary">Kelas</th>
-              <th class="bg-secondary">Jurusan</th>
-              <th class="bg-secondary">Opsi</th>
-            </tr>
-          </thead>
+        <div class="table-responsive">
 
-          <tbody>
-            <?php $no = 1; ?>
-              <?php foreach ($data_hasil as $x) : ?>
-                <tr>
-                  <td><?= $no++; ?></td>
-                  <td><?= $x['mpl']; ?></td>
-                  <td><?= $x['kls']; ?></td>
-                  <td><?= $x['jrsn']; ?></td>
-                  <td class="text-center">
-                    <button type="button" class="btn btn-success mb-1" data-bs-toggle="modal" data-bs-target="#extraLargeModal<?= $x['id_hsil']; ?>">
-                      <svg 
-                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                      </svg>
-                      View Agenda
-                    </button>
-                  </td>
-                </tr>
-              <?php endforeach; ?>
-          </tbody>
-        </table>
+          <table id="table" class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th class="bg-secondary">No</th>
+                <th class="bg-secondary">Mata Pelajaran</th>
+                <th class="bg-secondary">Kelas</th>
+                <th class="bg-secondary">Jurusan</th>
+                <th class="bg-secondary">Opsi</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <?php $no = 1; ?>
+                <?php foreach ($data_hasil as $x) : ?>
+                  <tr>
+                    <td><?= $no++; ?></td>
+                    <td><?= $x['mpl']; ?></td>
+                    <td><?= $x['kls']; ?></td>
+                    <td><?= $x['jrsn']; ?></td>
+                    <td class="text-center">
+                      <button type="button" class="btn btn-success mb-1" data-bs-toggle="modal" data-bs-target="#extraLargeModal<?= $x['id_hsil']; ?>">
+                        <svg 
+                          xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                        </svg>
+                        View Agenda
+                      </button>
+                    </td>
+                  </tr>
+                <?php endforeach; ?>
+            </tbody>
+          </table>
+
+        </div>
+
       </div>
       <!-- /.card-body -->
     </div>
