@@ -6,7 +6,16 @@
   if (!isset($_SESSION["login"])) {
     echo "<script>
             alert('AKSES DI TOLAK!');
-            document.location.href = '../login.php';
+            document.location.href = '../index.php';
+          </script>";
+    exit;
+  }
+
+  // membatasi halaman sesuai user login
+  if ($_SESSION["level"] != 'Guru') {
+    echo "<script>
+           alert('AKSES DI TOLAK!');
+           document.location.href = '../index.php';
           </script>";
     exit;
   }

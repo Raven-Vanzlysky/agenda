@@ -6,7 +6,7 @@
   if (!isset($_SESSION["login"])) {
     echo "<script>
             alert('AKSES DI TOLAK!');
-            document.location.href = '../login.php';
+            document.location.href = '../index.php';
           </script>";
     exit;
   }
@@ -15,7 +15,7 @@
   if ($_SESSION["level"] != 'Admin') {
     echo "<script>
            alert('AKSES DI TOLAK!');
-           document.location.href = '../login.php';
+           document.location.href = '../index.php';
           </script>";
     exit;
   }
