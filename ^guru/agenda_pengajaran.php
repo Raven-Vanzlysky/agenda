@@ -2,8 +2,6 @@
 
   session_start();
 
-  var_dump($_SESSION['id_hsil']);
-
   // membatasi halaman sebelum login
   if (!isset($_SESSION["login"])) {
     echo "<script>
