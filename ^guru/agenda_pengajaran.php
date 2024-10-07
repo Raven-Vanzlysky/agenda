@@ -2,6 +2,8 @@
 
   session_start();
 
+  var_dump($_SESSION['id_hsil']);
+
   // membatasi halaman sebelum login
   if (!isset($_SESSION["login"])) {
     echo "<script>
@@ -40,10 +42,10 @@
       //         document.location.href = 'agenda_pengajaran.php';
       //       </script>";
     } else {
-        // echo "<script>
-        //       alert('Data Absensi Gagal Ditambahkan');
-        //       document.location.href = 'agenda_pengajaran.php';
-        //     </script>";
+        echo "<script>
+              alert('Data Absensi Gagal Ditambahkan');
+              document.location.href = 'agenda_pengajaran.php';
+            </script>";
     }
   }
 
@@ -136,6 +138,7 @@
 
       </div>
       <!-- /.card-body -->
+
     </div>
   <!-- /Card -->
 
@@ -152,37 +155,41 @@
 
             <div class="modal-body">
                   
-                  <table align="center" style="width: max-content;" id="example2" class="table table-bordered table-hover">
+              <div class="table-responsive">
+
+                <table align="center" style="width: max-content;" id="table2" class="table table-bordered table-hover">
+                
+                    <tr>
+                      <th style="width: 230px;" class="bg-secondary">Nama Mata Pelajaran</th>
+                      <td style="width: 10px;" class="text-center">:</td>
+                      <td style="width: 230px;" class=""><?= $x['mpl']; ?></td>
+                    </tr>
+
+                    <tr>
+                      <th style="width: 230px;" class="bg-secondary">Kelas</th>
+                      <td style="width: 10px;" class="text-center">:</td>
+                      <td style="width: 230px;" class=""><?= $x['kls']; ?></td>
+                    </tr>
+
+                    <tr>
+                      <th style="width: 230px;" class="bg-secondary">Jurusan</th>
+                      <td style="width: 10px;" class="text-center">:</td>
+                      <td style="width: 230px;" class=""><?= $x['jrsn']; ?></td>
+                    </tr>
                   
-                      <tr>
-                        <th style="width: 230px;" class="bg-secondary">Nama Mata Pelajaran</th>
-                        <td style="width: 10px;" class="text-center">:</td>
-                        <td style="width: 230px;" class=""><?= $x['mpl']; ?></td>
-                      </tr>
+                </table>
+                
+              </div>
 
-                      <tr>
-                        <th style="width: 230px;" class="bg-secondary">Kelas</th>
-                        <td style="width: 10px;" class="text-center">:</td>
-                        <td style="width: 230px;" class=""><?= $x['kls']; ?></td>
-                      </tr>
+                <hr>
 
-                      <tr>
-                        <th style="width: 230px;" class="bg-secondary">Jurusan</th>
-                        <td style="width: 10px;" class="text-center">:</td>
-                        <td style="width: 230px;" class=""><?= $x['jrsn']; ?></td>
-                      </tr>
-                    
-                  </table> 
+                <div class="card">
 
-                  <hr>
+                  <div class="card-header">
+                    <h3 class="card-title"><?= $subtitle; ?></h3>
+                  </div>
 
-                  <div class="card">
-
-                    <div class="card-header">
-                      <h3 class="card-title"><?= $subtitle; ?></h3>
-                    </div>
-
-                    <div class="card-body">
+                  <div class="card-body">
 
                     <button type="button" class="btn btn-primary btn-sm mb-1" data-bs-toggle="modal" data-bs-target="#modalTambahAbsn">
                       <svg 
@@ -192,8 +199,10 @@
                       </svg>
                       Tambah
                     </button> 
-                    
-                    <table id="example2" class="table table-bordered table-hover">
+                  
+                    <div class="table-responsive">
+
+                      <table id="table3" class="table table-bordered table-hover">
                         <thead>
                           <tr>
                             <th class="bg-secondary">No</th>
@@ -236,10 +245,12 @@
                             <?php endforeach; ?>
                         </tbody>
                       </table>
-                    
-                    </div>
 
+                    </div>
+                  
                   </div>
+
+                </div>
 
             </div>
 
