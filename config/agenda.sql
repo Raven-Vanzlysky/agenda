@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 11 Sep 2024 pada 04.28
+-- Waktu pembuatan: 08 Okt 2024 pada 04.03
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -24,12 +24,30 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `dftr_agnd`
+--
+
+CREATE TABLE `dftr_agnd` (
+  `id_agnd` int(11) NOT NULL,
+  `id_hsil` int(11) NOT NULL,
+  `tgl` date NOT NULL,
+  `jam` time NOT NULL,
+  `mtri` varchar(255) NOT NULL,
+  `absn` varchar(255) NOT NULL,
+  `ktr` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `guru`
 --
 
 CREATE TABLE `guru` (
-  `nip` int(30) NOT NULL,
+  `id_guru` int(30) NOT NULL,
+  `nip` int(50) NOT NULL,
   `nama` varchar(255) NOT NULL,
+  `alamat` text NOT NULL,
   `jenis_kelamin` varchar(50) NOT NULL,
   `agama` varchar(30) NOT NULL,
   `foto` varchar(150) NOT NULL,
@@ -43,9 +61,10 @@ CREATE TABLE `guru` (
 -- Dumping data untuk tabel `guru`
 --
 
-INSERT INTO `guru` (`nip`, `nama`, `jenis_kelamin`, `agama`, `foto`, `email`, `username`, `password`, `level`) VALUES
-(1, 'Prof. Raven', 'Pria', 'Islam', '66dff22dd5cf9.png', 'asdjcds@gmail.com', 'Chiron', '$2y$10$OnPmkODqWT9Jr557uksT1uTJJL2PD3DF1/AckFgPvak8kk/MNnYTW', 'Admin'),
-(4, 'Suki', 'Wanita', 'Konghuchu', '66deae68b2363.png', 'cdsada@gmail.com', 'Admin', '$2y$10$gKhyr5HGsEp20zSIk1FO1.QjQ8C0L4/mAbOXCxazSPRAUIGryEA6y', 'Guru');
+INSERT INTO `guru` (`id_guru`, `nip`, `nama`, `alamat`, `jenis_kelamin`, `agama`, `foto`, `email`, `username`, `password`, `level`) VALUES
+(1, 1, 'Prof. Raven', 'Galaxy Bimasakti', 'Pria', 'Islam', '67035976632cd.png', 'asdjcds@gmail.com', 'Chiron', '$2y$10$yzFphaV4fWBIyfn8DPqs6uhfpMssXAPzT3hlBRz5B/SuiDILWIk4e', 'Admin'),
+(2, 4324374, 'Suki', 'Pluto', 'Wanita', 'Konghuchu', '67035aeeb62d4.jpg', 'cdsada@gmail.com', 'Guru0', '$2y$10$z7rcgBvpVmo3OxBd6bBlleDIIYsgita8l8ZcAMm5hYla1oiVDe9Z6', 'Guru'),
+(3, 0, 'Bozetmars', 'Merkurius', 'Pria', 'Islam', '67035b7d020cc.png', 'bozet@gmail.com', 'Guru', '$2y$10$W2lhUapTgS3ao6PtCbrJ4ed1WOa2Svp9BfaFC6OGRDa9ie4USX2vS', 'Guru');
 
 -- --------------------------------------------------------
 
@@ -54,7 +73,7 @@ INSERT INTO `guru` (`nip`, `nama`, `jenis_kelamin`, `agama`, `foto`, `email`, `u
 --
 
 CREATE TABLE `hasil_guru` (
-  `id` int(11) NOT NULL,
+  `id_hsil` int(11) NOT NULL,
   `nip` int(30) NOT NULL,
   `mpl` varchar(255) NOT NULL,
   `kls` varchar(50) NOT NULL,
@@ -125,23 +144,53 @@ INSERT INTO `mapel` (`id_mapel`, `mpl`) VALUES
 (6, 'Bahasa Inggris'),
 (7, 'Bahasa Sunda'),
 (8, 'Matematika'),
-(9, 'Pendidikan Kewarganegaraan');
+(9, 'Pendidikan Kewarganegaraan'),
+(10, 'Ilmu Pengetahuan Alam & Sosial'),
+(11, 'Pendidikan Jasmani'),
+(12, 'Pendidikan Agama & Budi Pekerti'),
+(13, 'PKKR'),
+(14, 'Sejarah'),
+(15, 'Bimbingan Konseling');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `thn_ajar`
+--
+
+CREATE TABLE `thn_ajar` (
+  `id_ajaran` int(11) NOT NULL,
+  `tahun_ajaran` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `thn_ajar`
+--
+
+INSERT INTO `thn_ajar` (`id_ajaran`, `tahun_ajaran`) VALUES
+(1, '2024 - 2025');
 
 --
 -- Indexes for dumped tables
 --
 
 --
+-- Indeks untuk tabel `dftr_agnd`
+--
+ALTER TABLE `dftr_agnd`
+  ADD PRIMARY KEY (`id_agnd`);
+
+--
 -- Indeks untuk tabel `guru`
 --
 ALTER TABLE `guru`
-  ADD PRIMARY KEY (`nip`);
+  ADD PRIMARY KEY (`id_guru`);
 
 --
 -- Indeks untuk tabel `hasil_guru`
 --
 ALTER TABLE `hasil_guru`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id_hsil`);
 
 --
 -- Indeks untuk tabel `jurusan`
@@ -162,14 +211,32 @@ ALTER TABLE `mapel`
   ADD PRIMARY KEY (`id_mapel`);
 
 --
+-- Indeks untuk tabel `thn_ajar`
+--
+ALTER TABLE `thn_ajar`
+  ADD PRIMARY KEY (`id_ajaran`);
+
+--
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
+
+--
+-- AUTO_INCREMENT untuk tabel `dftr_agnd`
+--
+ALTER TABLE `dftr_agnd`
+  MODIFY `id_agnd` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT untuk tabel `guru`
+--
+ALTER TABLE `guru`
+  MODIFY `id_guru` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `hasil_guru`
 --
 ALTER TABLE `hasil_guru`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_hsil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT untuk tabel `jurusan`
@@ -181,13 +248,19 @@ ALTER TABLE `jurusan`
 -- AUTO_INCREMENT untuk tabel `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `mapel`
 --
 ALTER TABLE `mapel`
-  MODIFY `id_mapel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_mapel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT untuk tabel `thn_ajar`
+--
+ALTER TABLE `thn_ajar`
+  MODIFY `id_ajaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

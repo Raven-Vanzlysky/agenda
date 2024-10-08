@@ -106,51 +106,15 @@
 
 <?php //Perguruan
 
-  // fungsi tambah akun
-  function tambah_data_guru($post)
-  {
-    global $db;
-
-    $nip       = strip_tags($post['nip']);
-    $nama      = strip_tags($post['nama']);
-    $jnis_klmn   = strip_tags($post['jenis_kelamin']);
-    $agama   = strip_tags($post['agama']);
-    $foto   = upload_foto();
-    $email   = strip_tags($post['email']);
-    $username   = strip_tags($post['username']);
-    $password   = strip_tags($post['password']);
-    $level   = strip_tags($post['level']);
-
-   // check upload foto
-    if (!$foto) {
-      return false;
-    }
-    
-    // enkripsi password
-    $password = password_hash($password, PASSWORD_DEFAULT);
-    
-    // query tambah data
-    $query = "INSERT INTO guru VALUES('$nip','$nama', '$jnis_klmn', '$agama', '$foto', '$email', '$username', '$password', '$level')";
-    
-    mysqli_query($db, $query);
-    
-    return mysqli_affected_rows($db);
-  }
-
-  // fungsi ubah akun
-  function ubah_data_guru($post)
+  // fungsi ubah foto profile
+  function ubah_profile_guru($post)
   {
     global $db;
     
-    $nip         = strip_tags($post['nip']);
-    $nama       = strip_tags($post['nama']);
-    $jnis_klmn       = strip_tags($post['jenis_kelamin']);
-    $agama       = strip_tags($post['agama']);
+    $id         = strip_tags($post['id_guru']);
     $fotoLama   = strip_tags($post['fotoLama']);
-    $email       = strip_tags($post['email']);
     $username   = strip_tags($post['username']);
     $password   = strip_tags($post['password']);
-    $level   = strip_tags($post['level']);
 
     // Hapus Foto
     $filePoto = '../client/foto/' . $fotoLama;
@@ -171,12 +135,69 @@
     } else {
       $foto = upload_foto();
     }
+    
+    // query ubah data
+    $query = "UPDATE guru SET foto = '$foto', username = '$username', password = '$password' WHERE id_guru = $id";
+    
+    mysqli_query($db, $query);
+
+    return mysqli_affected_rows($db);
+
+  }
+
+  // fungsi tambah akun
+  function tambah_data_guru($post)
+  {
+    global $db;
+
+    $nip       = strip_tags($post['nip']);
+    $nama      = strip_tags($post['nama']);
+    $alamat      = strip_tags($post['alamat']);
+    $jnis_klmn   = strip_tags($post['jenis_kelamin']);
+    $agama   = strip_tags($post['agama']);
+    $foto   = upload_foto();
+    $email   = strip_tags($post['email']);
+    $username   = strip_tags($post['username']);
+    $password   = strip_tags($post['password']);
+    $level   = strip_tags($post['level']);
+
+   // check upload foto
+    if (!$foto) {
+      return false;
+    }
+    
+    // enkripsi password
+    $password = password_hash($password, PASSWORD_DEFAULT);
+    
+    // query tambah data
+    $query = "INSERT INTO guru VALUES('', '$nip', '$nama', '$alamat', '$jnis_klmn', '$agama', '$foto', '$email', '$username', '$password', '$level')";
+    
+    mysqli_query($db, $query);
+    
+    return mysqli_affected_rows($db);
+  }
+
+  // fungsi ubah akun
+  function ubah_data_guru($post)
+  {
+    global $db;
+    
+    $id         = strip_tags($post['id_guru']);
+    $nip         = strip_tags($post['nip']);
+    $nama       = strip_tags($post['nama']);
+    $alm       = strip_tags($post['alamat']);
+    $jnis_klmn       = strip_tags($post['jenis_kelamin']);
+    $agama       = strip_tags($post['agama']);
+    $email       = strip_tags($post['email']);
+    $username   = strip_tags($post['username']);
+    $password   = strip_tags($post['password']);
+    $level   = strip_tags($post['level']);
 
     // enkripsi password
     $password = password_hash($password, PASSWORD_DEFAULT);
     
     // query ubah data
-    $query = "UPDATE guru SET nama = '$nama', jenis_kelamin = '$jnis_klmn', agama = '$agama', foto = '$foto', email = '$email', username = '$username', password = '$password', level = '$level' WHERE nip = $nip";
+    $query = "UPDATE guru SET nip = '$nip', nama = '$nama', alamat = '$alm', jenis_kelamin = '$jnis_klmn', agama = '$agama', email = '$email', username = '$username', password = '$password', level = '$level' WHERE id_guru = $id";
     
     mysqli_query($db, $query);
 
@@ -189,7 +210,7 @@
   {
     global $db;
     
-    $nip = strip_tags($post['nip']);
+    $id = strip_tags($post['id_guru']);
     $fotoLama = strip_tags($post['fotoLama']);
 
     // Hapus Foto
@@ -206,7 +227,7 @@
     }
     
     // query hapus data mapel
-    $query = "DELETE FROM guru WHERE nip = $nip";
+    $query = "DELETE FROM guru WHERE id_guru = $id";
     
     mysqli_query($db, $query);
     

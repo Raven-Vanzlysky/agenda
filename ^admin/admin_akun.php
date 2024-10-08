@@ -125,6 +125,7 @@
                 <th class="bg-secondary">No</th>
                 <th class="bg-secondary">NIP</th>
                 <th class="bg-secondary">Nama</th>
+                <th class="bg-secondary">Alamat</th>
                 <th class="bg-secondary">Jenis Kelamin</th>
                 <th class="bg-secondary">Agama</th>
                 <th class="bg-secondary">Foto</th>
@@ -142,6 +143,7 @@
                     <td><?= $no++; ?></td>
                     <td><?= $x['nip']; ?></td>
                     <td><?= $x['nama']; ?></td>
+                    <td><?= $x['alamat']; ?></td>
                     <td><?= $x['jenis_kelamin']; ?></td>
                     <td><?= $x['agama']; ?></td>
                     <td><img src="../client/foto/<?= $x['foto']; ?>" alt="" width="70px" height="70px"></td>
@@ -149,7 +151,8 @@
                     <td><?= $x['username']; ?></td>
                     <td><?= $x['level']; ?></td>
                     <td class="text-center">
-                      <button type="button" class="btn btn-success mb-1" data-bs-toggle="modal" data-bs-target="#modalUbah<?= $x['nip']; ?>">
+                    
+                      <button type="button" class="btn btn-success mb-1" data-bs-toggle="modal" data-bs-target="#modalUbah<?= $x['id_guru']; ?>">
                         <svg 
                           xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
                           <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
@@ -157,7 +160,7 @@
                         Ubah
                       </button>
 
-                      <button type="button" class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#modalHapus<?= $x['nip']; ?>">
+                      <button type="button" class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#modalHapus<?= $x['id_guru']; ?>">
                         <svg 
                           xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                           <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
@@ -204,6 +207,10 @@
                   <div class="form-floating mb-2">
                     <input type="text" name="nama" id="floatingInput" class="form-control" placeholder="Nama" required>
                     <label for="floatingInput">Nama</label>
+                  </div>
+
+                  <div class="form-floating mb-2">
+                    <textarea name="alamat" id="floatingInput" class="form-control" placeholder="Alamat" required></textarea>
                   </div>
 
                   <div class="form-group mb-2">
@@ -272,7 +279,7 @@
 
       <!-- Modal Ubah Akun -->
         <?php foreach ($data_guru as $x) : ?>
-          <div class="modal fade" id="modalUbah<?= $x['nip']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal fade" id="modalUbah<?= $x['id_guru']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
 
@@ -284,12 +291,20 @@
                 <div class="modal-body">
 
                   <form action="" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="nip" value="<?= $x['nip']; ?>">
-                    <input type="hidden" name="fotoLama" value="<?= $x['foto']; ?>">
+                    <input type="hidden" name="id_guru" value="<?= $x['id_guru']; ?>">
+
+                      <div class="form-floating mb-3">
+                        <input type="text" name="nip" id="floatingInput" class="form-control" placeholder="NIP" value="<?= $x['nip']; ?>" required>
+                        <label for="floatingInput">NIP</label>
+                      </div>
 
                       <div class="form-floating mb-3">
                         <input type="text" name="nama" id="floatingInput" class="form-control" placeholder="Nama" value="<?= $x['nama']; ?>" required>
                         <label for="floatingInput">Nama</label>
+                      </div>
+
+                      <div class="form-floating mb-2">
+                        <textarea name="alamat" id="floatingInput" class="form-control" placeholder="" required><?= $x['alamat']; ?></textarea>
                       </div>
 
                       <div class="form-group mb-3">
@@ -309,17 +324,6 @@
                           <option value="Konghuchu" <?= $x['agama'] == 'Konghuchu' ? 'selected' : null  ?>>Konghuchu</option>
                         </select>
                       </div>
-
-                      <div class="form-group mb-3">
-                        <label for="file"><b>Foto</b></label><br>
-                        <div class="custom-file">
-                          <label class="custom-file-label" for="file">Pilih ulang gambar...</label>
-                          <input type="file" class="custom-file-input" id="foto" name="foto" onchange="previewImg()" required>
-                        </div>
-                        <div class="mt-1">
-                          <img src="../client/foto/<?= $x['foto']; ?>" alt="" class="img-thumbnail img-preview" width="100px">
-                        </div>
-                    </div>
 
                       <div class="form-floating mb-3">
                         <input type="email" name="email" id="floatingInput" class="form-control" placeholder="Email" value="<?= $x['email']; ?>" required>
@@ -359,7 +363,7 @@
 
       <!-- Modal Hapus Akun -->
         <?php foreach ($data_guru as $x) : ?>
-          <div class="modal fade" id="modalHapus<?= $x['nip']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal fade" id="modalHapus<?= $x['id_guru']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                   <div class="modal-content">
 
@@ -370,7 +374,7 @@
 
                       <div class="modal-body">
                         <form action="" method="post">
-                        <input type="hidden" name="nip" value="<?= $x['nip']; ?>">
+                        <input type="hidden" name="id_guru" value="<?= $x['id_guru']; ?>">
                         <input type="hidden" name="fotoLama" value="<?= $x['foto']; ?>">
                           <p>Yakin Ingin Menghapus <?= $subtitle; ?> : <?= $x['nama']; ?>.?</p>
                       </div>

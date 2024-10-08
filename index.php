@@ -23,6 +23,7 @@
       if (password_verify($password, $hasil['password'])) {
           // set session
           $_SESSION['login']         = true;
+          $_SESSION['id_guru']       = $hasil['id_guru'];
           $_SESSION['nip']           = $hasil['nip'];
           $_SESSION['nama']          = $hasil['nama'];
           $_SESSION['jenis_kelamin'] = $hasil['jenis_kelamin'];
@@ -37,10 +38,6 @@
             header("Location: ^admin/admin_akun.php");
           exit;
           } else {
-            // Buat session mapel
-            $result0 = mysqli_query($db, "SELECT * FROM hasil_guru");
-            $hasil0 = mysqli_fetch_assoc($result0);
-            $_SESSION['id_hsil']  = $hasil0['id_hsil'];
             header("Location: ^guru/main.php");
           exit;
           }
