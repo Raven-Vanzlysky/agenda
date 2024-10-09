@@ -26,11 +26,11 @@
   include '../layout/header.php';
 
   $PK = $_SESSION["nip"];
-  $IDH = $_SESSION['id_hsil'];
+
 
   $data_hasil = select("SELECT * FROM hasil_guru WHERE nip = '$PK'");
   
-  $data_agenda = select("SELECT * FROM dftr_agnd WHERE id_hsil = '$IDH'");
+  $data_agenda = select("SELECT * FROM dftr_agnd");
 
   // jika tombol tambah di tekan jalankan script berikut
   if (isset($_POST['tambah'])) {
@@ -281,7 +281,12 @@
 
                     <form action="" method="post" enctype="multipart/form-data">
 
-                      <input type="hidden" name="id_hsil" value="<?= $IDH; ?>">
+                    <?php foreach ($data_hasil as $x) : ?>
+                      <input type="hidden" name="nip" value="<?= $x['nip'] ?>">
+                      <input type="hidden" name="mpl" value="<?= $x['mpl'] ?>">
+                      <input type="hidden" name="kls" value="<?= $x['kls'] ?>">
+                      <input type="hidden" name="jrsn" value="<?= $x['jrsn'] ?>">
+                    <?php endforeach;?>
 
                       <div class="form-floating mb-2">
                         <input type="date" name="tgl" id="floatingInput" class="form-control" placeholder="Tanggal" required>
@@ -319,7 +324,7 @@
         </div>
       <!-- /Modal Tambah -->
 
-      <!-- Modal Ubah Akun -->
+      <!-- Modal Ubah  -->
       <?php foreach ($data_agenda as $x) : ?>
           <div class="modal fade" id="modalUbahAbsn<?= $x['id_agnd']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">

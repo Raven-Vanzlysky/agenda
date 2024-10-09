@@ -52,7 +52,7 @@
 
   // jika tombol ubah di tekan jalankan script berikut
   if (isset($_POST['ubah'])) {
-    if (ubah_data_mapel($_POST) > 0) {
+    if (ubah_data_thnajar($_POST) > 0) {
         echo "<script>
                 alert('Data Tahun Ajaran Berhasil Diubah');
                 document.location.href = 'admin_tahun_ajaran.php';
@@ -67,7 +67,7 @@
 
   // jika tombol hapus di tekan jalankan script berikut
   if (isset($_POST['hapus'])) {
-    if (hapus_data_mapel($_POST) > 0) {
+    if (hapus_data_thnajar($_POST) > 0) {
         echo "<script>
                 alert('Data Tahun Ajaran Berhasil Dihapus');
                 document.location.href = 'admin_tahun_ajaran.php';
@@ -124,6 +124,7 @@
               <tr>
                 <th class="bg-secondary">No</th>
                 <th class="bg-secondary">Tahun Ajaran</th>
+                <th class="bg-secondary">Status</th>
                 <th class="bg-secondary">Opsi</th>
               </tr>
             </thead>
@@ -134,6 +135,7 @@
                   <tr>
                     <td><?= $no++; ?></td>
                     <td><?= $x['tahun_ajaran']; ?></td>
+                    <td><?= $x['status']; ?></td>
                     <td class="text-center">
                       <button type="button" class="btn btn-success mb-1" data-bs-toggle="modal" data-bs-target="#modalUbah<?= $x['id_ajaran']; ?>">
                         <svg 
@@ -187,6 +189,15 @@
                     <label for="floatingInput">Tahun Ajaran</label>
                   </div>
 
+                  <div class="form-group mb-2">
+                    <label for="status">Status</label>
+                    <select name="status" id="status" class="form-control" required>
+                      <option>-- Pilih --</option>
+                      <option value="Y">Y</option>
+                      <option value="T">T</option>
+                    </select>
+                  </div>
+
               </div>
 
                 <div class="modal-footer">
@@ -219,6 +230,14 @@
                       <div class="form-floating mb-3">
                         <input type="text" name="thn_ajr" id="floatingInput" class="form-control" placeholder="Tahun Ajaran" value="<?= $x['tahun_ajaran']; ?>" required>
                         <label for="floatingInput">Tahun Ajaran</label>
+                      </div>
+
+                      <div class="form-group mb-3">
+                        <label for="floatingInput">Status</label>
+                        <select name="status" id="level" class="form-control" required>
+                          <option value="Y" <?= $x['status'] == 'Y' ? 'selected' : null  ?>>Y</option>
+                          <option value="T" <?= $x['status'] == 'T' ? 'selected' : null  ?>>T</option>
+                        </select>
                       </div>
 
                 </div>

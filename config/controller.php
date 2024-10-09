@@ -396,9 +396,10 @@
     global $db;
 
     $thn = strip_tags($post['thn_ajr']);  
+    $sts = strip_tags($post['status']);  
     
     // query tambah data
-    $query = "INSERT INTO thn_ajar VALUES(null, '$thn')";
+    $query = "INSERT INTO thn_ajar VALUES(null, '$thn', '$sts')";
     
     mysqli_query($db, $query);
     
@@ -412,9 +413,10 @@
     
     $id   = strip_tags($post['id_ajr']);
     $thn = strip_tags($post['thn_ajr']);
+    $sts = strip_tags($post['status']);
     
     // query ubah data
-    $query = "UPDATE thn_ajar SET tahun_ajaran = '$thn' WHERE id_ajaran = $id";
+    $query = "UPDATE thn_ajar SET tahun_ajaran = '$thn', status = '$sts' WHERE id_ajaran = $id";
     
     mysqli_query($db, $query);
     
@@ -547,7 +549,13 @@
   {
     global $db;
 
-    $id_hsil   = strip_tags($post['id_hsil']);
+    $a = $post['nip'];
+    $b = $post['mpl'];
+    $c = $post['kls'];
+    $d = $post['jrsn'];
+
+    $id_hsil = select("SELECT id_hsil FROM hasil_guru WHERE id_hsil = '$a' AND '$b'");
+
     $tgl = strip_tags($post['tgl']);   
     $jam = strip_tags($post['jam']);  
     $mtri = strip_tags($post['mtri']);  

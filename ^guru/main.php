@@ -35,14 +35,10 @@
   // jika tombol tambah di tekan jalankan script berikut
   if (isset($_POST['tambah'])) {
     if (tambah_data_hg($_POST) > 0) {
-      // echo "<script>
-      //         alert('Data Isi Berhasil Ditambahkan');
-      //         document.location.href = 'main.php';
-      //       </script>";
-      // Membuat session baru
-      $data_hasil = select("SELECT * FROM hasil_guru WHERE nip = '$PK'");
-      $_SESSION['id_hsil'] = $data_hasil['id_hsil'];
-      var_dump($_SESSION['id_hsil']);
+      echo "<script>
+              alert('Data Isi Berhasil Ditambahkan');
+              document.location.href = 'main.php';
+            </script>";
     } else {
         echo "<script>
               alert('Data Isi Gagal Ditambahkan');
@@ -92,13 +88,13 @@
   <!-- Card -->
   <div class="card animate__animated animate__zoomInDown">
 
-    <!-- .card-header -->
+    <!-- card-header -->
     <div class="card-header">
       <h3 class="card-title"><?= $title; ?></h3>
     </div>
-    <!-- /.card-header -->
+    <!-- /card-header -->
 
-    <!-- .card-body -->
+    <!-- card-body -->
     <div class="card-body">
 
       <button type="button" class="btn btn-primary btn-sm mb-1" data-bs-toggle="modal" data-bs-target="#modalTambah">
@@ -157,7 +153,7 @@
       </div>
       
     </div>
-    <!-- /.card-body -->
+    <!-- /card-body -->
   </div>
 
   <!-- Modal Tambah -->
