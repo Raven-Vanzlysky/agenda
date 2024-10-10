@@ -14,6 +14,8 @@
         echo "<script>
                 alert('Data Akun Berhasil Diubah');
               </script>";
+        header("Refresh: 0");
+        exit();
     } else {
         echo "<script>
                 alert('Data Akun Gagal Diubah');
@@ -54,7 +56,7 @@
 
     <header>
 
-      <nav class="navbar bg-secondary navbar-expand-lg mt-1 ms-1 me-1">
+      <nav id="themeNavbar" class="navbar bg-secondary navbar-expand-lg mt-1 ms-1 me-1">
         <div class="container-fluid d-flex justify-content-between align-items-center">
           
             <a class="navbar-brand animate__animated animate__bounceIn" href="https://www.instagram.com/ioreum.d?igsh=YnVrbWlwMXdkbGpo">
