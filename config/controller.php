@@ -111,10 +111,10 @@
   {
     global $db;
     
-    $id         = strip_tags($post['id_guru']);
-    $fotoLama   = strip_tags($post['fotoLama']);
-    $username   = strip_tags($post['username']);
-    $password   = strip_tags($post['password']);
+    $id         = htmlspecialchars(strip_tags($post['id_guru']));
+    $fotoLama   = htmlspecialchars(strip_tags($post['fotoLama']));
+    $username   = htmlspecialchars(strip_tags($post['username']));
+    $password   = htmlspecialchars(strip_tags($post['password']));
 
     // Hapus Foto
     $filePoto = '../client/foto/' . $fotoLama;
@@ -136,6 +136,9 @@
       $foto = upload_foto();
     }
     
+    // enkripsi password
+    $password = password_hash($password, PASSWORD_DEFAULT);
+
     // query ubah data
     $query = "UPDATE guru SET foto = '$foto', username = '$username', password = '$password' WHERE id_guru = $id";
     
@@ -150,16 +153,16 @@
   {
     global $db;
 
-    $nip       = strip_tags($post['nip']);
-    $nama      = strip_tags($post['nama']);
-    $alamat      = strip_tags($post['alamat']);
-    $jnis_klmn   = strip_tags($post['jenis_kelamin']);
-    $agama   = strip_tags($post['agama']);
+    $nip       = htmlspecialchars(strip_tags($post['nip']));
+    $nama      = htmlspecialchars(strip_tags($post['nama']));
+    $alamat      = htmlspecialchars(strip_tags($post['alamat']));
+    $jnis_klmn   = htmlspecialchars(strip_tags($post['jenis_kelamin']));
+    $agama   = htmlspecialchars(strip_tags($post['agama']));
     $foto   = upload_foto();
-    $email   = strip_tags($post['email']);
-    $username   = strip_tags($post['username']);
-    $password   = strip_tags($post['password']);
-    $level   = strip_tags($post['level']);
+    $email   = htmlspecialchars(strip_tags($post['email']));
+    $username   = htmlspecialchars(strip_tags($post['username']));
+    $password   = htmlspecialchars(strip_tags($post['password']));
+    $level   = htmlspecialchars(strip_tags($post['level']));
 
    // check upload foto
     if (!$foto) {
@@ -182,16 +185,16 @@
   {
     global $db;
     
-    $id         = strip_tags($post['id_guru']);
-    $nip         = strip_tags($post['nip']);
-    $nama       = strip_tags($post['nama']);
-    $alm       = strip_tags($post['alamat']);
-    $jnis_klmn       = strip_tags($post['jenis_kelamin']);
-    $agama       = strip_tags($post['agama']);
-    $email       = strip_tags($post['email']);
-    $username   = strip_tags($post['username']);
-    $password   = strip_tags($post['password']);
-    $level   = strip_tags($post['level']);
+    $id         = htmlspecialchars(strip_tags($post['id_guru']));
+    $nip         = htmlspecialchars(strip_tags($post['nip']));
+    $nama       = htmlspecialchars(strip_tags($post['nama']));
+    $alm       = htmlspecialchars(strip_tags($post['alamat']));
+    $jnis_klmn       = htmlspecialchars(strip_tags($post['jenis_kelamin']));
+    $agama       = htmlspecialchars(strip_tags($post['agama']));
+    $email       = htmlspecialchars(strip_tags($post['email']));
+    $username   = htmlspecialchars(strip_tags($post['username']));
+    $password   = htmlspecialchars(strip_tags($post['password']));
+    $level   = htmlspecialchars(strip_tags($post['level']));
 
     // enkripsi password
     $password = password_hash($password, PASSWORD_DEFAULT);
@@ -243,7 +246,7 @@
   {
     global $db;
 
-    $mapel = strip_tags($post['mpl']);  
+    $mapel = htmlspecialchars(strip_tags($post['mpl']));  
     
     // query tambah data
     $query = "INSERT INTO mapel VALUES(null, '$mapel')";
@@ -258,8 +261,8 @@
   {
     global $db;
     
-    $id   = strip_tags($post['id_mapel']);
-    $mapel = strip_tags($post['mpl']);
+    $id   = htmlspecialchars(strip_tags($post['id_mapel']));
+    $mapel = htmlspecialchars(strip_tags($post['mpl']));
     
     // query ubah data
     $query = "UPDATE mapel SET mpl = '$mapel' WHERE id_mapel = $id";
@@ -294,7 +297,7 @@
   {
     global $db;
 
-    $jurusan = strip_tags($post['jrsn']);  
+    $jurusan = htmlspecialchars(strip_tags($post['jrsn']));  
     
     // query tambah data
     $query = "INSERT INTO jurusan VALUES(null, '$jurusan')";
@@ -309,8 +312,8 @@
   {
     global $db;
     
-    $id   = strip_tags($post['id_jurusan']);
-    $jurusan = strip_tags($post['jrsn']);
+    $id   = htmlspecialchars(strip_tags($post['id_jurusan']));
+    $jurusan = htmlspecialchars(strip_tags($post['jrsn']));
     
     // query ubah data
     $query = "UPDATE jurusan SET jrsn = '$jurusan' WHERE id_jurusan = $id";
@@ -345,7 +348,7 @@
   {
     global $db;
 
-    $kelas = strip_tags($post['kls']);  
+    $kelas = htmlspecialchars(strip_tags($post['kls']));  
     
     // query tambah data
     $query = "INSERT INTO kelas VALUES(null, '$kelas')";
@@ -360,8 +363,8 @@
   {
     global $db;
     
-    $id   = strip_tags($post['id_kelas']);
-    $kelas = strip_tags($post['kls']);
+    $id   = htmlspecialchars(strip_tags($post['id_kelas']));
+    $kelas = htmlspecialchars(strip_tags($post['kls']));
     
     // query ubah data
     $query = "UPDATE kelas SET kls = '$kelas' WHERE id_kelas = $id";
@@ -395,8 +398,8 @@
   {
     global $db;
 
-    $thn = strip_tags($post['thn_ajr']);  
-    $sts = strip_tags($post['status']);  
+    $thn = htmlspecialchars(strip_tags($post['thn_ajr']));  
+    $sts = htmlspecialchars(strip_tags($post['status']));  
     
     // query tambah data
     $query = "INSERT INTO thn_ajar VALUES(null, '$thn', '$sts')";
@@ -411,9 +414,9 @@
   {
     global $db;
     
-    $id   = strip_tags($post['id_ajr']);
-    $thn = strip_tags($post['thn_ajr']);
-    $sts = strip_tags($post['status']);
+    $id   = htmlspecialchars(strip_tags($post['id_ajr']));
+    $thn = htmlspecialchars(strip_tags($post['thn_ajr']));
+    $sts = htmlspecialchars(strip_tags($post['status']));
     
     // query ubah data
     $query = "UPDATE thn_ajar SET tahun_ajaran = '$thn', status = '$sts' WHERE id_ajaran = $id";
@@ -556,11 +559,11 @@
 
     $id_hsil = select("SELECT id_hsil FROM hasil_guru WHERE id_hsil = '$a' AND '$b'");
 
-    $tgl = strip_tags($post['tgl']);   
-    $jam = strip_tags($post['jam']);  
-    $mtri = strip_tags($post['mtri']);  
-    $absn = strip_tags($post['absn']);  
-    $ktr = strip_tags($post['ktr']);  
+    $tgl = htmlspecialchars(strip_tags($post['tgl']));   
+    $jam = htmlspecialchars(strip_tags($post['jam']));  
+    $mtri = htmlspecialchars(strip_tags($post['mtri']));  
+    $absn = htmlspecialchars(strip_tags($post['absn']));  
+    $ktr = htmlspecialchars(strip_tags($post['ktr']));  
     
     // query tambah data
     $query = "INSERT INTO dftr_agnd VALUES(null, '$id_hsil', '$tgl', '$jam', '$mtri', '$absn', '$ktr')";
@@ -575,13 +578,13 @@
   {
     global $db;
     
-    $id   = strip_tags($post['id']);
-    $id_hsil   = strip_tags($post['id_hsil']);
-    $tgl = strip_tags($post['tgl']);  
-    $jam = strip_tags($post['jam']);  
-    $mtri = strip_tags($post['mtri']);  
-    $absn = strip_tags($post['absn']);  
-    $ktr = strip_tags($post['ktr']);  
+    $id   = htmlspecialchars(strip_tags($post['id']));
+    $id_hsil   = htmlspecialchars(strip_tags($post['id_hsil']));
+    $tgl = htmlspecialchars(strip_tags($post['tgl']));  
+    $jam = htmlspecialchars(strip_tags($post['jam']));  
+    $mtri = htmlspecialchars(strip_tags($post['mtri']));  
+    $absn = htmlspecialchars(strip_tags($post['absn']));  
+    $ktr = htmlspecialchars(strip_tags($post['ktr']));  
     
     // query ubah data
     $query = "UPDATE dftr_agnd SET id_hsil = '$id_hsil', tgl = '$tgl', jam = '$jam', mtri = '$mtri', absn = '$absn', ktr = '$ktr' WHERE id_agnd = $id";

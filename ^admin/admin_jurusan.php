@@ -104,7 +104,7 @@
 
         <div class="table-responsive">
 
-          <table id="table" class="table table-bordered table-hover">
+          <table id="table" class="table table-sm table-bordered table-hover">
             <thead>
               <tr>
                 <th class="bg-secondary">No</th>
