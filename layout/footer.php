@@ -20,19 +20,14 @@
     </script>
     <!-- Toggle theme -->
     <script>
-      document.getElementById('themeSwitch').addEventListener('change', function() {
-        // Get the current theme from the data attribute
-        const currentTheme = document.documentElement.getAttribute('data-bs-theme');
-        
-        // Toggle between dark and light theme
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        
+      // Function to update theme and elements
+      function updateTheme(theme) {
         // Set the new theme on the html element
-        document.documentElement.setAttribute('data-bs-theme', newTheme);
-        
+        document.documentElement.setAttribute('data-bs-theme', theme);
+
         // Update the navbar theme
         const navbar = document.getElementById('themeNavbar');
-        if (newTheme === 'dark') {
+        if (theme === 'dark') {
           navbar.classList.remove('navbar-light', 'bg-primary');
           navbar.classList.add('navbar-dark', 'bg-secondary');
         } else {
@@ -42,7 +37,7 @@
 
         // Mengubah table header style sesuai dengan theme
         const tableHeaders = document.querySelectorAll('table thead th');
-        if (newTheme === 'dark') {
+        if (theme === 'dark') {
           tableHeaders.forEach(th => {
             th.classList.remove('text-dark', 'bg-primary');
             th.classList.add('text-light', 'bg-secondary');
@@ -54,9 +49,24 @@
           });
         }
 
-        // Update label text berdasarkan theme
-        document.querySelector('.form-check-label').textContent = newTheme === 'dark' ? 'Light Mode' : 'Dark Mode';
+        // Update label text based on theme
+        document.querySelector('.form-check-label').textContent = theme === 'dark' ? 'Light Mode' : 'Dark Mode';
+      }
+
+      // On page load, check localStorage for the theme and apply it
+      document.addEventListener('DOMContentLoaded', function() {
+        const savedTheme = localStorage.getItem('theme') || 'dark'; // Default to dark theme
+        updateTheme(savedTheme);
+        document.getElementById('themeSwitch').checked = savedTheme === 'light'; // Set switch state
       });
+
+      // Toggle theme on switch change
+      document.getElementById('themeSwitch').addEventListener('change', function() {
+        const newTheme = this.checked ? 'light' : 'dark';
+        updateTheme(newTheme);
+        localStorage.setItem('theme', newTheme); // Save theme to localStorage
+      });
+
     </script>
   </body>
 </html>
