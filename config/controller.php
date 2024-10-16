@@ -104,7 +104,7 @@
 
 ?>
 
-<?php //Perguruan
+<?php //Pengguna
 
   // fungsi ubah foto profile
   function ubah_profile_guru($post)
@@ -208,7 +208,7 @@
 
   }
 
-  // fungsi menghapus data guru
+  // fungsi menghapus data akun
   function hapus_data_guru($post)
   {
     global $db;
@@ -272,7 +272,7 @@
     return mysqli_affected_rows($db);
   }
   
-  // fungsi menghapus data mata_pljrn
+  // fungsi menghapus data mapel
   function hapus_data_mapel($post)
   {
     global $db;
@@ -323,7 +323,7 @@
     return mysqli_affected_rows($db);
   }
   
-  // fungsi menghapus data mata_pljrn
+  // fungsi menghapus data kelas
   function hapus_data_jurusan($post)
   {
     global $db;
@@ -374,7 +374,7 @@
     return mysqli_affected_rows($db);
   }
   
-  // fungsi menghapus data mata_pljrn
+  // fungsi menghapus data kelas
   function hapus_data_kelas($post)
   {
     global $db;
@@ -446,44 +446,44 @@
 
 <?php //Hasil Guru
 
-  // fungsi menambahkan data kelas
+  // fungsi menambahkan data hasil guru
   function tambah_data_hg($post)
   {
     global $db;
 
-    $nip = strip_tags($post['nip']);  
+    $id = strip_tags($post['id']);  
     $mapel = strip_tags($post['mpl']);  
     $kelas = strip_tags($post['kls']);  
     $jurusan = strip_tags($post['jrsn']);
     
     // query tambah data
-    $query = "INSERT INTO hasil_guru VALUES(null, '$nip', '$mapel', '$kelas', '$jurusan', '')";
+    $query = "INSERT INTO hasil_guru VALUES(null, '$id', '$kelas', '$mapel', '$jurusan', '')";
     
     mysqli_query($db, $query);
     
     return mysqli_affected_rows($db);
   }
   
-  // fungsi ubah data kelas
+  // fungsi ubah data hasil guru
   function ubah_data_hg($post)
   {
     global $db;
     
-    $id   = strip_tags($post['id']);
-    $nip   = strip_tags($post['nip']);
+    $id   = strip_tags($post['id_hsil']);
+    $idg   = strip_tags($post['idg']);
     $mapel = strip_tags($post['mpl']);
     $kelas = strip_tags($post['kls']);
     $jurusan = strip_tags($post['jrsn']);
     
     // query ubah data
-    $query = "UPDATE hasil_guru SET mpl = '$mapel', nip = '$nip', kls = '$kelas', jrsn = '$jurusan', '' WHERE id_hsil = $id";
+    $query = "UPDATE hasil_guru SET id_guru = '$idg', id_kelas = '$kelas', id_mapel = '$mapel', id_jurusan = '$jurusan' WHERE id_hsil = '$id'";
     
     mysqli_query($db, $query);
     
     return mysqli_affected_rows($db);
   }
   
-  // fungsi menghapus data mata_pljrn
+  // fungsi menghapus data hasil guru
   function hapus_data_hg($post)
   {
     global $db;
@@ -512,7 +512,7 @@
     return mysqli_affected_rows($db);
   }
 
-  // fungsi ubah data kelas
+  // fungsi tambah file
   function tambah_data_upload_hg($post)
   {
     global $db;
@@ -573,7 +573,7 @@
     return mysqli_affected_rows($db);
   }
   
-  // fungsi ubah data mapel
+  // fungsi ubah data absensi
   function ubah_data_absn($post)
   {
     global $db;
@@ -594,7 +594,7 @@
     return mysqli_affected_rows($db);
   }
   
-  // fungsi menghapus data mata_pljrn
+  // fungsi menghapus data absensi
   function hapus_data_absn($post)
   {
     global $db;

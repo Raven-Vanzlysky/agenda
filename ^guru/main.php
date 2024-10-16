@@ -24,9 +24,23 @@
 
   include '../layout/header.php';
 
-  $PK = $_SESSION["nip"];
+  $ID = $_SESSION["id_guru"];
 
-  $data_hasil = select("SELECT * FROM hasil_guru WHERE nip = '$PK'");
+  // Data Akun
+  if(isset($_POST['cari'])) 
+  {
+    $kata_cari = htmlspecialchars(strip_tags($_POST['kata_cari']));
+    $data_hasil = select("SELECT hasil_guru.id_hsil, mapel.mpl, kelas.kls, jurusan.jrsn, file FROM hasil_guru
+    INNER JOIN mapel ON hasil_guru.id_mapel = mapel.id_mapel
+    INNER JOIN kelas ON hasil_guru.id_kelas = kelas.id_kelas
+    INNER JOIN jurusan ON hasil_guru.id_jurusan = jurusan.id_jurusan WHERE id_hsil like '%$kata_cari%' OR jrsn like '%$kata_cari%' OR mpl like '%$kata_cari%' ORDER BY id_mapel ASC");
+   } else {
+    $data_hasil = select("SELECT hasil_guru.id_hsil, mapel.mpl, kelas.kls, jurusan.jrsn, file FROM hasil_guru
+    INNER JOIN mapel ON hasil_guru.id_mapel = mapel.id_mapel
+    INNER JOIN kelas ON hasil_guru.id_kelas = kelas.id_kelas
+    INNER JOIN guru ON hasil_guru.id_guru = guru.id_guru
+    INNER JOIN jurusan ON hasil_guru.id_jurusan = jurusan.id_jurusan WHERE hasil_guru.id_guru = $ID");
+  }
 
   $data_mapel = select("SELECT * FROM mapel");
   $data_kelas = select("SELECT * FROM kelas");
@@ -174,14 +188,14 @@
 
             <form action="" method="post" enctype="multipart/form-data">
 
-              <input type="hidden" name="nip" value="<?= $PK;?>">
+              <input type="hidden" name="id" value="<?= $ID;?>">
 
               <div class="form-group mb-2">
                 <label for="mpl">Mapel</label>
                 <select name="mpl" id="mpl" class="form-control" required>
                   <option value="">-- Pilih Mapel --</option>
                   <?php foreach ($data_mapel as $x) : ?>
-                  <option value="<?= $x['mpl']; ?>"><?= $x['mpl']; ?></option>
+                  <option value="<?= $x['id_mapel']; ?>"><?= $x['mpl']; ?></option>
                   <?php endforeach; ?>
                 </select>
               </div>
@@ -191,7 +205,7 @@
                 <select name="kls" id="kls" class="form-control" required>
                   <option value="">-- Pilih Kelas --</option>
                   <?php foreach ($data_kelas as $x) : ?>
-                  <option value="<?= $x['kls']; ?>"><?= $x['kls']; ?></option>
+                  <option value="<?= $x['id_kelas']; ?>"><?= $x['kls']; ?></option>
                   <?php endforeach; ?>
                 </select>
               </div>
@@ -201,7 +215,7 @@
                 <select name="jrsn" id="jrsn" class="form-control" required>
                   <option value="">-- Pilih Jurusan --</option>
                   <?php foreach ($data_jurusan as $x) : ?>
-                  <option value="<?= $x['jrsn']; ?>"><?= $x['jrsn']; ?></option>
+                  <option value="<?= $x['id_jurusan']; ?>"><?= $x['jrsn']; ?></option>
                   <?php endforeach; ?>
                 </select>
               </div>
@@ -233,15 +247,15 @@
             <div class="modal-body">
 
               <form action="" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="id" value="<?= $x['id_hsil']; ?>">
-                <input type="hidden" name="nip" value="<?= $PK;?>">
+                <input type="hidden" name="id_hsil" value="<?= $x['id_hsil']; ?>">
+                <input type="hidden" name="idg" value="<?= $ID;?>">
 
                 <div class="form-group mb-3">
                   <label for="mpl">Mata Pelajaran</label>
                   <select name="mpl" id="mpl" class="form-control" required>
                     <option value="">-- Pilih Mata Pelajaran --</option>
                   <?php foreach ($data_mapel as $mapel) : ?>
-                    <option value="<?= $mapel['mpl']; ?>" <?= $mapel['mpl'] == $x['mpl'] ? 'selected' : null ; ?>>
+                    <option value="<?= $mapel['id_mapel']; ?>" <?= $mapel['mpl'] == $x['mpl'] ? 'selected' : null ; ?>>
                       <?= $mapel['mpl']; ?>
                     </option>
                   <?php endforeach; ?>
@@ -253,7 +267,7 @@
                 <select name="kls" id="kls" class="form-control" required>
                   <option value="">-- Pilih Kelas --</option>
                 <?php foreach ($data_kelas as $kelas) : ?>
-                  <option value="<?= $kelas['kls']; ?>" <?= $kelas['kls'] == $x['kls'] ? 'selected' : null ; ?>>
+                  <option value="<?= $kelas['id_kelas']; ?>" <?= $kelas['kls'] == $x['kls'] ? 'selected' : null ; ?>>
                     <?= $kelas['kls']; ?>
                   </option>
                 <?php endforeach; ?>
@@ -265,7 +279,7 @@
                 <select name="jrsn" id="jrsn" class="form-control" required>
                   <option value="">-- Pilih Jurusan --</option>
                 <?php foreach ($data_jurusan as $jurusan) : ?>
-                  <option value="<?= $jurusan['jrsn']; ?>" <?= $jurusan['jrsn'] == $x['jrsn'] ? 'selected' : null ; ?>>
+                  <option value="<?= $jurusan['id_jurusan']; ?>" <?= $jurusan['jrsn'] == $x['jrsn'] ? 'selected' : null ; ?>>
                     <?= $jurusan['jrsn']; ?>
                   </option>
                 <?php endforeach; ?>
