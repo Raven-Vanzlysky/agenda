@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 08 Okt 2024 pada 04.03
+-- Waktu pembuatan: 16 Okt 2024 pada 08.57
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -30,6 +30,10 @@ SET time_zone = "+00:00";
 CREATE TABLE `dftr_agnd` (
   `id_agnd` int(11) NOT NULL,
   `id_hsil` int(11) NOT NULL,
+  `id_guru` int(30) NOT NULL,
+  `id_mapel` int(11) NOT NULL,
+  `id_kelas` int(11) NOT NULL,
+  `id_jurusan` int(11) NOT NULL,
   `tgl` date NOT NULL,
   `jam` time NOT NULL,
   `mtri` varchar(255) NOT NULL,
@@ -62,8 +66,8 @@ CREATE TABLE `guru` (
 --
 
 INSERT INTO `guru` (`id_guru`, `nip`, `nama`, `alamat`, `jenis_kelamin`, `agama`, `foto`, `email`, `username`, `password`, `level`) VALUES
-(1, 1, 'Prof. Raven', 'Galaxy Bimasakti', 'Pria', 'Islam', '67035976632cd.png', 'asdjcds@gmail.com', 'Chiron', '$2y$10$yzFphaV4fWBIyfn8DPqs6uhfpMssXAPzT3hlBRz5B/SuiDILWIk4e', 'Admin'),
-(2, 4324374, 'Suki', 'Pluto', 'Wanita', 'Konghuchu', '67035aeeb62d4.jpg', 'cdsada@gmail.com', 'Guru0', '$2y$10$z7rcgBvpVmo3OxBd6bBlleDIIYsgita8l8ZcAMm5hYla1oiVDe9Z6', 'Guru'),
+(1, 1, 'Prof. Raven', 'Galaxy Bimasakti', 'Pria', 'Islam', '670617a80703c.png', 'asdjcds@gmail.com', 'Chiron', '$2y$10$4Ofh8kITMUueNVsRlII8iOvHOaQfX9HdiPGB0ctQivmWkeTw5ReQu', 'Admin'),
+(2, 4324374, 'Suki', 'Pluto', 'Wanita', 'Konghuchu', '670616053a624.jpg', 'cdsada@gmail.com', 'Guru0', '$2y$10$8bABsXxmEGtQFMAK6kzaWuyMDxTSfrwtyEWioQog.S/u5/nLFQ2l.', 'Guru'),
 (3, 0, 'Bozetmars', 'Merkurius', 'Pria', 'Islam', '67035b7d020cc.png', 'bozet@gmail.com', 'Guru', '$2y$10$W2lhUapTgS3ao6PtCbrJ4ed1WOa2Svp9BfaFC6OGRDa9ie4USX2vS', 'Guru');
 
 -- --------------------------------------------------------
@@ -74,12 +78,19 @@ INSERT INTO `guru` (`id_guru`, `nip`, `nama`, `alamat`, `jenis_kelamin`, `agama`
 
 CREATE TABLE `hasil_guru` (
   `id_hsil` int(11) NOT NULL,
-  `nip` int(30) NOT NULL,
-  `mpl` varchar(255) NOT NULL,
-  `kls` varchar(50) NOT NULL,
-  `jrsn` varchar(255) NOT NULL,
+  `id_guru` int(30) NOT NULL,
+  `id_kelas` int(11) NOT NULL,
+  `id_mapel` int(11) NOT NULL,
+  `id_jurusan` int(11) NOT NULL,
   `file` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `hasil_guru`
+--
+
+INSERT INTO `hasil_guru` (`id_hsil`, `id_guru`, `id_kelas`, `id_mapel`, `id_jurusan`, `file`) VALUES
+(37, 2, 5, 3, 2, '');
 
 -- --------------------------------------------------------
 
@@ -160,15 +171,16 @@ INSERT INTO `mapel` (`id_mapel`, `mpl`) VALUES
 
 CREATE TABLE `thn_ajar` (
   `id_ajaran` int(11) NOT NULL,
-  `tahun_ajaran` varchar(50) NOT NULL
+  `tahun_ajaran` varchar(50) NOT NULL,
+  `status` varchar(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `thn_ajar`
 --
 
-INSERT INTO `thn_ajar` (`id_ajaran`, `tahun_ajaran`) VALUES
-(1, '2024 - 2025');
+INSERT INTO `thn_ajar` (`id_ajaran`, `tahun_ajaran`, `status`) VALUES
+(2, '2024 - 2025', 'Y');
 
 --
 -- Indexes for dumped tables
@@ -178,7 +190,12 @@ INSERT INTO `thn_ajar` (`id_ajaran`, `tahun_ajaran`) VALUES
 -- Indeks untuk tabel `dftr_agnd`
 --
 ALTER TABLE `dftr_agnd`
-  ADD PRIMARY KEY (`id_agnd`);
+  ADD PRIMARY KEY (`id_agnd`),
+  ADD KEY `id_hsil` (`id_hsil`,`id_guru`,`id_mapel`,`id_kelas`,`id_jurusan`),
+  ADD KEY `id_guru` (`id_guru`),
+  ADD KEY `id_mapel` (`id_mapel`),
+  ADD KEY `id_kelas` (`id_kelas`),
+  ADD KEY `id_jurusan` (`id_jurusan`);
 
 --
 -- Indeks untuk tabel `guru`
@@ -190,7 +207,11 @@ ALTER TABLE `guru`
 -- Indeks untuk tabel `hasil_guru`
 --
 ALTER TABLE `hasil_guru`
-  ADD PRIMARY KEY (`id_hsil`);
+  ADD PRIMARY KEY (`id_hsil`),
+  ADD KEY `id_guru` (`id_guru`,`id_kelas`,`id_mapel`,`id_jurusan`),
+  ADD KEY `id_kelas` (`id_kelas`),
+  ADD KEY `id_mapel` (`id_mapel`),
+  ADD KEY `id_jurusan` (`id_jurusan`);
 
 --
 -- Indeks untuk tabel `jurusan`
@@ -224,19 +245,19 @@ ALTER TABLE `thn_ajar`
 -- AUTO_INCREMENT untuk tabel `dftr_agnd`
 --
 ALTER TABLE `dftr_agnd`
-  MODIFY `id_agnd` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_agnd` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT untuk tabel `guru`
 --
 ALTER TABLE `guru`
-  MODIFY `id_guru` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_guru` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `hasil_guru`
 --
 ALTER TABLE `hasil_guru`
-  MODIFY `id_hsil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_hsil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT untuk tabel `jurusan`
@@ -260,7 +281,30 @@ ALTER TABLE `mapel`
 -- AUTO_INCREMENT untuk tabel `thn_ajar`
 --
 ALTER TABLE `thn_ajar`
-  MODIFY `id_ajaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_ajaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+--
+
+--
+-- Ketidakleluasaan untuk tabel `dftr_agnd`
+--
+ALTER TABLE `dftr_agnd`
+  ADD CONSTRAINT `dftr_agnd_ibfk_1` FOREIGN KEY (`id_hsil`) REFERENCES `hasil_guru` (`id_hsil`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `dftr_agnd_ibfk_2` FOREIGN KEY (`id_guru`) REFERENCES `hasil_guru` (`id_guru`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `dftr_agnd_ibfk_3` FOREIGN KEY (`id_mapel`) REFERENCES `hasil_guru` (`id_mapel`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `dftr_agnd_ibfk_4` FOREIGN KEY (`id_kelas`) REFERENCES `hasil_guru` (`id_kelas`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `dftr_agnd_ibfk_5` FOREIGN KEY (`id_jurusan`) REFERENCES `hasil_guru` (`id_jurusan`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `hasil_guru`
+--
+ALTER TABLE `hasil_guru`
+  ADD CONSTRAINT `hasil_guru_ibfk_1` FOREIGN KEY (`id_kelas`) REFERENCES `kelas` (`id_kelas`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `hasil_guru_ibfk_2` FOREIGN KEY (`id_guru`) REFERENCES `guru` (`id_guru`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `hasil_guru_ibfk_3` FOREIGN KEY (`id_mapel`) REFERENCES `mapel` (`id_mapel`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `hasil_guru_ibfk_4` FOREIGN KEY (`id_jurusan`) REFERENCES `jurusan` (`id_jurusan`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
