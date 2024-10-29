@@ -25,20 +25,40 @@
 
   include '../layout/header.php';
 
-  $PK = $_SESSION["nip"];
+  $ID = $_SESSION["id_guru"];
 
-
-  $data_hasil = select("SELECT * FROM hasil_guru WHERE nip = '$PK'");
+   // Data Akun
+   if(isset($_POST['cari'])) 
+   {
+     $kata_cari = htmlspecialchars(strip_tags($_POST['kata_cari']));
+     $data_hasil = select("SELECT hasil_guru.id_hsil, mapel.mpl, kelas.kls, jurusan.jrsn, file FROM hasil_guru
+     INNER JOIN mapel ON hasil_guru.id_mapel = mapel.id_mapel
+     INNER JOIN kelas ON hasil_guru.id_kelas = kelas.id_kelas
+     INNER JOIN jurusan ON hasil_guru.id_jurusan = jurusan.id_jurusan WHERE hasil_guru.id_guru = $ID AND id_hsil like '%$kata_cari%' OR jrsn like '%$kata_cari%' OR mpl like '%$kata_cari%' ORDER BY id_mapel ASC");
+    } else {
+     $data_hasil = select("SELECT hasil_guru.id_hsil, hasil_guru.id_mapel, guru.id_guru, mapel.id_mapel, mapel.mpl, kelas.id_kelas, kelas.kls, jurusan.id_jurusan, jurusan.jrsn, file FROM hasil_guru
+     INNER JOIN mapel ON hasil_guru.id_mapel = mapel.id_mapel
+     INNER JOIN kelas ON hasil_guru.id_kelas = kelas.id_kelas
+     INNER JOIN guru ON hasil_guru.id_guru = guru.id_guru
+     INNER JOIN jurusan ON hasil_guru.id_jurusan = jurusan.id_jurusan WHERE hasil_guru.id_guru = $ID");
+   }
   
-  $data_agenda = select("SELECT * FROM dftr_agnd");
+   $data_agenda = select("SELECT dftr_agnd.*, hasil_guru.id_hsil, guru.id_guru, mapel.mpl, mapel.id_mapel, kelas.kls, jurusan.jrsn
+   FROM dftr_agnd 
+   INNER JOIN hasil_guru ON dftr_agnd.id_hsil = hasil_guru.id_hsil
+   INNER JOIN mapel ON hasil_guru.id_mapel = mapel.id_mapel
+   INNER JOIN kelas ON hasil_guru.id_kelas = kelas.id_kelas
+   INNER JOIN guru ON hasil_guru.id_guru = guru.id_guru 
+   INNER JOIN jurusan ON hasil_guru.id_jurusan = jurusan.id_jurusan 
+   WHERE hasil_guru.id_guru = '$ID'");
 
   // jika tombol tambah di tekan jalankan script berikut
   if (isset($_POST['tambah'])) {
     if (tambah_data_absn($_POST) > 0) {
-      // echo "<script>
-      //         alert('Data Absensi Berhasil Ditambahkan');
-      //         document.location.href = 'agenda_pengajaran.php';
-      //       </script>";
+      echo "<script>
+              alert('Data Absensi Berhasil Ditambahkan');
+              document.location.href = 'agenda_pengajaran.php';
+            </script>";
     } else {
         echo "<script>
               alert('Data Absensi Gagal Ditambahkan');
@@ -118,6 +138,7 @@
                     <td><?= $x['mpl']; ?></td>
                     <td><?= $x['kls']; ?></td>
                     <td><?= $x['jrsn']; ?></td>
+                    
                     <td class="text-center">
                       <button type="button" class="btn btn-success mb-1" data-bs-toggle="modal" data-bs-target="#extraLargeModal<?= $x['id_hsil']; ?>">
                         <svg 
@@ -189,7 +210,7 @@
 
                   <div class="card-body">
 
-                    <button type="button" class="btn btn-primary btn-sm mb-1" data-bs-toggle="modal" data-bs-target="#modalTambahAbsn">
+                    <button type="button" class="btn btn-primary btn-sm mb-1" data-bs-toggle="modal" data-bs-target="#modalTambahAbsn<?= $x['id_mapel']; ?>">
                       <svg 
                         xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
                         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
@@ -213,7 +234,15 @@
                         </thead>
 
                         <tbody>
-                          <?php $no = 1; ?>
+                          <?php $no = 1; $id = $x['id_hsil'] ?>
+                          <?php $data_agenda = select("SELECT dftr_agnd.*, hasil_guru.id_hsil, guru.id_guru, mapel.mpl, mapel.id_mapel, kelas.kls, jurusan.jrsn
+                          FROM dftr_agnd 
+                          INNER JOIN hasil_guru ON dftr_agnd.id_hsil = hasil_guru.id_hsil
+                          INNER JOIN mapel ON hasil_guru.id_mapel = mapel.id_mapel
+                          INNER JOIN kelas ON hasil_guru.id_kelas = kelas.id_kelas
+                          INNER JOIN guru ON hasil_guru.id_guru = guru.id_guru 
+                          INNER JOIN jurusan ON hasil_guru.id_jurusan = jurusan.id_jurusan 
+                          WHERE hasil_guru.id_guru = '$ID' AND dftr_agnd.id_hsil ='$id'");?>
                             <?php foreach ($data_agenda as $x) : ?>
                               <tr>
                                 <td><?= $no++; ?></td>
@@ -265,121 +294,154 @@
   <!-- /Modal Detail -->
 
   <!-- Modal Absensi/Agenda -->
-    <div class="modal-absen">
+    
+      <div class="modal-absen">
 
-      <!-- Modal Tambah -->
-        <div class="modal fade" id="modalTambahAbsn" tabindex="-1" aria-labelledby="defaultModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
+        <!-- Modal Tambah Absen -->
+          <?php foreach ($data_hasil as $x) : ?>
+            <div class="modal fade" id="modalTambahAbsn<?= $x['id_mapel'];?>" tabindex="-1" aria-labelledby="defaultModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
 
-              <div class="modal-header">
-                <h5 class="modal-title" id="modalTambahAbsn">Tambah <?= $subtitle; ?></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"/>
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="modalTambahAbsn">Tambah <?= $subtitle; ?></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"/>
+                  </div>
+
+                  <div class="modal-body">
+
+                        <form action="" method="post" enctype="multipart/form-data">
+
+                        <?php foreach ($data_hasil as $x) : ?>
+                          <input type="hidden" name="id_hsil" value="<?= $x['id_hsil']; ?>">
+                          <input type="hidden" name="id_guru" value="<?= $x['id_guru']; ?>">
+                          <input type="hidden" name="id_mapel" value="<?= $x['id_mapel']; ?>">
+                          <input type="hidden" name="id_kelas" value="<?= $x['id_kelas']; ?>">
+                          <input type="hidden" name="id_jurusan" value="<?= $x['id_jurusan']; ?>">
+                        <?php endforeach;?>
+
+                          <div class="form-floating mb-2">
+                            <input type="date" name="tgl" id="floatingInput" class="form-control" placeholder="Tanggal" required>
+                            <label for="floatingInput">Tanggal</label>
+                          </div>
+
+                          <div class="form-floating mb-2">
+                            <input type="time" name="jam" id="floatingInput" class="form-control" placeholder="Jam" required>
+                            <label for="floatingInput">Jam</label>
+                          </div>
+
+                          <div class="form-group mb-2">
+                            <textarea name="mtri" id="floatingInput" class="form-control" placeholder="Pokok Bahasan" required></textarea>
+                          </div>
+
+                          <div class="form-group mb-2">
+                            <input type="text" name="absn" id="floatingInput" class="form-control" placeholder="Absen" required>
+                          </div>
+
+                          <div class="form-group mb-2">
+                            <textarea name="ktr" id="floatingInput" class="form-control" placeholder="Keterangan" required></textarea>
+                          </div>
+
+                          
+                  </div>
+
+                  <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                          <button type="submit" name="tambah" class="btn btn-primary">Tambah</button>
+                  </div>
+                        
+                    </form>
+                </div>
               </div>
+            </div>
+          <?php endforeach; ?>
+        <!-- /Modal Tambah Absen -->
 
-              <div class="modal-body">
+        <!-- Modal Ubah Absen -->
+          <?php foreach ($data_agenda as $x) : ?>
+            <div class="modal fade" id="modalUbahAbsn<?= $x['id_agnd']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ubah <?= $subtitle; ?></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"/>
+                  </div>
+
+                  <div class="modal-body">
 
                     <form action="" method="post" enctype="multipart/form-data">
+                      <input type="hidden" name="id_agnd" value="<?= $x['id_agnd']; ?>">
 
-                    <?php foreach ($data_hasil as $x) : ?>
-                      <input type="hidden" name="nip" value="<?= $x['nip'] ?>">
-                      <input type="hidden" name="mpl" value="<?= $x['mpl'] ?>">
-                      <input type="hidden" name="kls" value="<?= $x['kls'] ?>">
-                      <input type="hidden" name="jrsn" value="<?= $x['jrsn'] ?>">
-                    <?php endforeach;?>
+                        <div class="form-floating mb-3">
+                          <input type="date" name="tgl" id="floatingInput" class="form-control" placeholder="Tanggal" value="<?= $x['tgl']; ?>" required>
+                          <label for="floatingInput">Tanggal</label>
+                        </div>
 
-                      <div class="form-floating mb-2">
-                        <input type="date" name="tgl" id="floatingInput" class="form-control" placeholder="Tanggal" required>
-                        <label for="floatingInput">Tanggal</label>
-                      </div>
+                        <div class="form-floating mb-3">
+                          <input type="time" name="jam" id="floatingInput" class="form-control" placeholder="Jam" value="<?= $x['jam']; ?>" required>
+                          <label for="floatingInput">Jam</label>
+                        </div>
 
-                      <div class="form-floating mb-2">
-                        <input type="time" name="jam" id="floatingInput" class="form-control" placeholder="Jam" required>
-                        <label for="floatingInput">Jam</label>
-                      </div>
+                        <div class="form-group mb-3">
+                          <label for="groupInput">Materi</label>
+                          <textarea name="mtri" id="groupInput" class="form-control" placeholder="Pokok Bahasan" required><?= $x['mtri']; ?></textarea>
+                        </div>
 
-                      <div class="form-group mb-2">
-                        <textarea name="mtri" id="floatingInput" class="form-control" placeholder="Pokok Bahasan" required></textarea>
-                      </div>
+                        <div class="form-floating mb-3">
+                          <input type="text" name="absn" id="floatingInput" class="form-control" placeholder="Absen" value="<?= $x['absn']; ?>" required>
+                          <label for="floatingInput">Absen</label>
+                        </div>
 
-                      <div class="form-group mb-2">
-                        <input type="text" name="absn" id="floatingInput" class="form-control" placeholder="Absen" required>
-                      </div>
+                        <div class="form-group mb-3">
+                          <label for="groupInput">Keterangan</label>
+                          <textarea name="ktr" id="groupInput" class="form-control" placeholder="Keterangan" required><?= $x['ktr']; ?></textarea>
+                        </div>
 
-                      <div class="form-group mb-2">
-                        <textarea name="ktr" id="floatingInput" class="form-control" placeholder="Keterangan" required></textarea>
-                      </div>
+                  </div>
 
-                      
-              </div>
-
-              <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                      <button type="submit" name="tambah" class="btn btn-primary">Tambah</button>
-              </div>
-                    
-                </form>
-            </div>
-          </div>
-        </div>
-      <!-- /Modal Tambah -->
-
-      <!-- Modal Ubah  -->
-      <?php foreach ($data_agenda as $x) : ?>
-          <div class="modal fade" id="modalUbahAbsn<?= $x['id_agnd']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Ubah <?= $subtitle; ?></h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal"/>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                    <button type="submit" name="ubah" class="btn btn-primary">Ubah</button>
+                  </div>
+                    </form>
                 </div>
-
-                <div class="modal-body">
-
-                  <form action="" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="id" value="<?= $x['id_agnd']; ?>">
-                    <input type="hidden" name="nip" value="<?= $PK;?>">
-
-                      <div class="form-floating mb-3">
-                        <input type="date" name="tgl" id="floatingInput" class="form-control" placeholder="Tanggal" value="<?= $x['tgl']; ?>" required>
-                        <label for="floatingInput">Tanggal</label>
-                      </div>
-
-                      <div class="form-floating mb-3">
-                        <input type="time" name="jam" id="floatingInput" class="form-control" placeholder="Jam" value="<?= $x['jam']; ?>" required>
-                        <label for="floatingInput">Jam</label>
-                      </div>
-
-                      <div class="form-group mb-3">
-                        <label for="groupInput">Materi</label>
-                        <textarea name="mtri" id="groupInput" class="form-control" placeholder="Pokok Bahasan" required><?= $x['mtri']; ?></textarea>
-                      </div>
-
-                      <div class="form-floating mb-3">
-                        <input type="text" name="absn" id="floatingInput" class="form-control" placeholder="Absen" value="<?= $x['absn']; ?>" required>
-                        <label for="floatingInput">Absen</label>
-                      </div>
-
-                      <div class="form-group mb-3">
-                        <label for="groupInput">Keterangan</label>
-                        <textarea name="ktr" id="groupInput" class="form-control" placeholder="Keterangan" required><?= $x['ktr']; ?></textarea>
-                      </div>
-
-                </div>
-
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                  <button type="submit" name="ubah" class="btn btn-primary">Ubah</button>
-                </div>
-                  </form>
               </div>
             </div>
-          </div>
-        <?php endforeach; ?>
-      <!-- /Modal Ubah AKun -->
+          <?php endforeach; ?>
+        <!-- /Modal Ubah Absen -->
 
-    </div>
+        <!-- Modal Hapus Akun -->
+          <?php foreach ($data_agenda as $x) : ?>
+            <div class="modal fade" id="modalHapusAbsn<?= $x['id_agnd']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Hapus <?= $title; ?></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"/>
+                  </div>
+
+                  <div class="modal-body">
+                    <form action="" method="post">
+                      <input type="hidden" name="id" value="<?= $x['id_agnd']; ?>">
+                        <p>Yakin Ingin Menghapus Absen Mata Pelajaran <?= $x['mpl']; ?> <?= $x['kls'] . ' ' . $x['jrsn']; ?>.?</p>
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                    <button type="submit" class="btn btn-danger" name="hapus">Hapus</button>
+                  </div>
+
+                    </form>
+                </div>
+              </div>
+            </div>
+          <?php endforeach; ?>
+        <!-- /Modal Hapus Akun -->
+
+      </div>
+   
   <!-- /Modal Absensi/Agenda -->
       
 </main>    

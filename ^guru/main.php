@@ -26,7 +26,7 @@
 
   $ID = $_SESSION["id_guru"];
 
-  // Data Akun
+  // Data Guru Mapel
   if(isset($_POST['cari'])) 
   {
     $kata_cari = htmlspecialchars(strip_tags($_POST['kata_cari']));
@@ -299,7 +299,7 @@
     <?php endforeach; ?>
   <!-- /Modal Ubah Isi -->
 
-  <!-- Modal Hapus Akun -->
+  <!-- Modal Hapus Mapel -->
     <?php foreach ($data_hasil as $x) : ?>
       <div class="modal fade" id="modalHapus<?= $x['id_hsil']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -327,7 +327,7 @@
         </div>
       </div>
     <?php endforeach; ?>
-  <!-- /Modal Hapus Akum -->
+  <!-- /Modal Hapus Akun -->
       
 </main>    
 

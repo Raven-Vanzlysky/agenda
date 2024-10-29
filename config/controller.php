@@ -506,8 +506,10 @@
     
     // query hapus data mata_pljrn
     $query = "DELETE FROM hasil_guru WHERE id_hsil = $id";
+    $query1 = "DELETE FROM dftr_agnd WHERE id_hsil = $id";
     
     mysqli_query($db, $query);
+    mysqli_query($db, $query1);
     
     return mysqli_affected_rows($db);
   }
@@ -552,13 +554,11 @@
   {
     global $db;
 
-    $a = $post['nip'];
-    $b = $post['mpl'];
-    $c = $post['kls'];
-    $d = $post['jrsn'];
-
-    $id_hsil = select("SELECT id_hsil FROM hasil_guru WHERE id_hsil = '$a' AND '$b'");
-
+    $id_hsil = htmlspecialchars(strip_tags($post['id_hsil']));   
+    $id_guru = htmlspecialchars(strip_tags($post['id_guru']));   
+    $id_mapel = htmlspecialchars(strip_tags($post['id_mapel']));   
+    $id_kelas = htmlspecialchars(strip_tags($post['id_kelas']));   
+    $id_jurusan = htmlspecialchars(strip_tags($post['id_jurusan']));   
     $tgl = htmlspecialchars(strip_tags($post['tgl']));   
     $jam = htmlspecialchars(strip_tags($post['jam']));  
     $mtri = htmlspecialchars(strip_tags($post['mtri']));  
@@ -566,7 +566,7 @@
     $ktr = htmlspecialchars(strip_tags($post['ktr']));  
     
     // query tambah data
-    $query = "INSERT INTO dftr_agnd VALUES(null, '$id_hsil', '$tgl', '$jam', '$mtri', '$absn', '$ktr')";
+    $query = "INSERT INTO dftr_agnd VALUES(null, '$id_hsil', '$id_guru', '$id_mapel', '$id_kelas', '$id_jurusan', '$tgl', '$jam', '$mtri', '$absn', '$ktr')";
     
     mysqli_query($db, $query);
     
@@ -578,8 +578,7 @@
   {
     global $db;
     
-    $id   = htmlspecialchars(strip_tags($post['id']));
-    $id_hsil   = htmlspecialchars(strip_tags($post['id_hsil']));
+    $id   = htmlspecialchars(strip_tags($post['id_agnd']));
     $tgl = htmlspecialchars(strip_tags($post['tgl']));  
     $jam = htmlspecialchars(strip_tags($post['jam']));  
     $mtri = htmlspecialchars(strip_tags($post['mtri']));  
@@ -587,7 +586,7 @@
     $ktr = htmlspecialchars(strip_tags($post['ktr']));  
     
     // query ubah data
-    $query = "UPDATE dftr_agnd SET id_hsil = '$id_hsil', tgl = '$tgl', jam = '$jam', mtri = '$mtri', absn = '$absn', ktr = '$ktr' WHERE id_agnd = $id";
+    $query = "UPDATE dftr_agnd SET tgl = '$tgl', jam = '$jam', mtri = '$mtri', absn = '$absn', ktr = '$ktr' WHERE id_agnd = $id";
     
     mysqli_query($db, $query);
     
