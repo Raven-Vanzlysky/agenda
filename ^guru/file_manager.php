@@ -24,15 +24,19 @@
 
   include '../layout/header.php';
 
-  $PK = $_SESSION["nip"];
+  $PK = $_SESSION["id_guru"];
 
   // Data Isi
   if(isset($_POST['cari'])) 
   {
     $kata_cari = $_POST['kata_cari'];
-    $data_hasil = select("SELECT * FROM hasil_guru WHERE (mpl like '%$kata_cari%' OR kls like '%$kata_cari%' OR jrsn like '%$kata_cari%') AND nip = '$PK' ");
-  } else {
-    $data_hasil = select("SELECT * FROM hasil_guru WHERE nip = '$PK'");
+    $data_hasil = select("SELECT * FROM hasil_guru WHERE (mpl like '%$kata_cari%' OR kls like '%$kata_cari%' OR jrsn like '%$kata_cari%') AND id_guru = '$PK' ");
+    } else {
+    $data_hasil = select("SELECT hasil_guru.*, mapel.mpl, kelas.kls, jurusan.jrsn FROM hasil_guru
+    INNER JOIN guru ON hasil_guru.id_guru = guru.id_guru
+    INNER JOIN mapel ON hasil_guru.id_mapel = mapel.id_mapel
+    INNER JOIN kelas ON hasil_guru.id_kelas = kelas.id_kelas
+    INNER JOIN jurusan ON hasil_guru.id_jurusan = jurusan.id_jurusan WHERE hasil_guru.id_guru = '$PK'");
   }
 
   // jika tombol upload di tekan jalankan script berikut

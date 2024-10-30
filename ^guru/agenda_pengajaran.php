@@ -242,7 +242,7 @@
                           INNER JOIN kelas ON hasil_guru.id_kelas = kelas.id_kelas
                           INNER JOIN guru ON hasil_guru.id_guru = guru.id_guru 
                           INNER JOIN jurusan ON hasil_guru.id_jurusan = jurusan.id_jurusan 
-                          WHERE hasil_guru.id_guru = '$ID' AND hasil_guru.id_hsil ='$id'");?>
+                          WHERE dftr_agnd.id_guru = '$ID' AND dftr_agnd.id_hsil ='$id'");?>
                             <?php foreach ($data_agenda as $x) : ?>
                               <tr>
                                 <td><?= $no++; ?></td>
@@ -257,6 +257,7 @@
                                       <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
                                     </svg>  
                                     Ubah
+                                    <?= $x['id_agnd']; ?>
                                   </button>
 
                                   <button type="button" class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#modalHapusAbsn<?= $x['id_agnd']; ?>">
@@ -361,7 +362,7 @@
                 <div class="modal-content">
 
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ubah <?= $subtitle; ?></h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Ubah <?= $subtitle; ?> <?= $x['id_agnd'];?></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"/>
                   </div>
 
