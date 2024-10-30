@@ -210,7 +210,7 @@
 
                   <div class="card-body">
 
-                    <button type="button" class="btn btn-primary btn-sm mb-1" data-bs-toggle="modal" data-bs-target="#modalTambahAbsn<?= $x['id_mapel']; ?>">
+                    <button type="button" class="btn btn-primary btn-sm mb-1" data-bs-toggle="modal" data-bs-target="#modalTambahAbsn<?= $x['id_hsil']; ?>">
                       <svg 
                         xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
                         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
@@ -234,15 +234,15 @@
                         </thead>
 
                         <tbody>
-                          <?php $no = 1; $id = $x['id_hsil'] ?>
-                          <?php $data_agenda = select("SELECT dftr_agnd.*, hasil_guru.id_hsil, guru.id_guru, mapel.mpl, mapel.id_mapel, kelas.kls, jurusan.jrsn
+                          <?php $no = 1; $id = $x['id_hsil']; ?>
+                          <?php $data_agenda = select("SELECT dftr_agnd.*, hasil_guru.*, guru.id_guru, mapel.mpl, mapel.id_mapel, kelas.kls, jurusan.jrsn
                           FROM dftr_agnd 
                           INNER JOIN hasil_guru ON dftr_agnd.id_hsil = hasil_guru.id_hsil
                           INNER JOIN mapel ON hasil_guru.id_mapel = mapel.id_mapel
                           INNER JOIN kelas ON hasil_guru.id_kelas = kelas.id_kelas
                           INNER JOIN guru ON hasil_guru.id_guru = guru.id_guru 
                           INNER JOIN jurusan ON hasil_guru.id_jurusan = jurusan.id_jurusan 
-                          WHERE hasil_guru.id_guru = '$ID' AND dftr_agnd.id_hsil ='$id'");?>
+                          WHERE hasil_guru.id_guru = '$ID' AND hasil_guru.id_hsil ='$id'");?>
                             <?php foreach ($data_agenda as $x) : ?>
                               <tr>
                                 <td><?= $no++; ?></td>
@@ -283,7 +283,6 @@
 
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-              <button type="submit" name="ubah" class="btn btn-primary">Ubah</button>
             </div>
         
           </div>
@@ -299,7 +298,7 @@
 
         <!-- Modal Tambah Absen -->
           <?php foreach ($data_hasil as $x) : ?>
-            <div class="modal fade" id="modalTambahAbsn<?= $x['id_mapel'];?>" tabindex="-1" aria-labelledby="defaultModalLabel" aria-hidden="true">
+            <div class="modal fade" id="modalTambahAbsn<?= $x['id_hsil'];?>" tabindex="-1" aria-labelledby="defaultModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
 
@@ -309,16 +308,14 @@
                   </div>
 
                   <div class="modal-body">
-
+                  
                         <form action="" method="post" enctype="multipart/form-data">
 
-                        <?php foreach ($data_hasil as $x) : ?>
                           <input type="hidden" name="id_hsil" value="<?= $x['id_hsil']; ?>">
                           <input type="hidden" name="id_guru" value="<?= $x['id_guru']; ?>">
                           <input type="hidden" name="id_mapel" value="<?= $x['id_mapel']; ?>">
                           <input type="hidden" name="id_kelas" value="<?= $x['id_kelas']; ?>">
                           <input type="hidden" name="id_jurusan" value="<?= $x['id_jurusan']; ?>">
-                        <?php endforeach;?>
 
                           <div class="form-floating mb-2">
                             <input type="date" name="tgl" id="floatingInput" class="form-control" placeholder="Tanggal" required>
