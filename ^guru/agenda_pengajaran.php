@@ -31,12 +31,12 @@
    if(isset($_POST['cari'])) 
    {
      $kata_cari = htmlspecialchars(strip_tags($_POST['kata_cari']));
-     $data_hasil = select("SELECT hasil_guru.id_hsil, mapel.mpl, kelas.kls, jurusan.jrsn, file FROM hasil_guru
+     $data_hasil = select("SELECT hasil_guru.id_hsil, mapel.mpl, kelas.kls, jurusan.jrsn FROM hasil_guru
      INNER JOIN mapel ON hasil_guru.id_mapel = mapel.id_mapel
      INNER JOIN kelas ON hasil_guru.id_kelas = kelas.id_kelas
      INNER JOIN jurusan ON hasil_guru.id_jurusan = jurusan.id_jurusan WHERE hasil_guru.id_guru = $ID AND id_hsil like '%$kata_cari%' OR jrsn like '%$kata_cari%' OR mpl like '%$kata_cari%' ORDER BY id_mapel ASC");
     } else {
-     $data_hasil = select("SELECT hasil_guru.id_hsil, hasil_guru.id_mapel, guru.id_guru, mapel.id_mapel, mapel.mpl, kelas.id_kelas, kelas.kls, jurusan.id_jurusan, jurusan.jrsn, file FROM hasil_guru
+     $data_hasil = select("SELECT hasil_guru.id_hsil, hasil_guru.id_mapel, guru.id_guru, mapel.id_mapel, mapel.mpl, kelas.id_kelas, kelas.kls, jurusan.id_jurusan, jurusan.jrsn FROM hasil_guru
      INNER JOIN mapel ON hasil_guru.id_mapel = mapel.id_mapel
      INNER JOIN kelas ON hasil_guru.id_kelas = kelas.id_kelas
      INNER JOIN guru ON hasil_guru.id_guru = guru.id_guru
@@ -161,9 +161,9 @@
     </div>
   <!-- /Card -->
 
-  <!-- Modal Detail -->
-    <?php foreach ($data_hasil as $x) : ?>
-      <div class="modal fade" id="extraLargeModal<?= $x['id_hsil']; ?>" tabindex="-1" aria-labelledby="extraLargeModalLabel" aria-hidden="true">
+<!-- Modal Detail -->
+  <?php foreach ($data_hasil as $x0) : ?>
+      <div class="modal fade" id="extraLargeModal<?= $x0['id_hsil']; ?>" tabindex="-1" aria-labelledby="extraLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
 
@@ -181,19 +181,19 @@
                     <tr>
                       <th style="width: 230px;" class="bg-secondary">Nama Mata Pelajaran</th>
                       <td style="width: 10px;" class="text-center">:</td>
-                      <td style="width: 230px;" class=""><?= $x['mpl']; ?></td>
+                      <td style="width: 230px;" class=""><?= $x0['mpl']; ?></td>
                     </tr>
 
                     <tr>
                       <th style="width: 230px;" class="bg-secondary">Kelas</th>
                       <td style="width: 10px;" class="text-center">:</td>
-                      <td style="width: 230px;" class=""><?= $x['kls']; ?></td>
+                      <td style="width: 230px;" class=""><?= $x0['kls']; ?></td>
                     </tr>
 
                     <tr>
                       <th style="width: 230px;" class="bg-secondary">Jurusan</th>
                       <td style="width: 10px;" class="text-center">:</td>
-                      <td style="width: 230px;" class=""><?= $x['jrsn']; ?></td>
+                      <td style="width: 230px;" class=""><?= $x0['jrsn']; ?></td>
                     </tr>
                   
                 </table>
@@ -210,7 +210,7 @@
 
                   <div class="card-body">
 
-                    <button type="button" class="btn btn-primary btn-sm mb-1" data-bs-toggle="modal" data-bs-target="#modalTambahAbsn<?= $x['id_hsil']; ?>">
+                    <button type="button" class="btn btn-primary btn-sm mb-1" data-bs-toggle="modal" data-bs-target="#modalTambahAbsn<?= $x0['id_hsil']; ?>">
                       <svg 
                         xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
                         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
@@ -234,7 +234,7 @@
                         </thead>
 
                         <tbody>
-                          <?php $no = 1; $id = $x['id_hsil']; ?>
+                          <?php $no = 1; $id = $x0['id_hsil']; ?>
                           <?php $data_agenda = select("SELECT dftr_agnd.*, hasil_guru.*, guru.id_guru, mapel.mpl, mapel.id_mapel, kelas.kls, jurusan.jrsn
                           FROM dftr_agnd 
                           INNER JOIN hasil_guru ON dftr_agnd.id_hsil = hasil_guru.id_hsil
@@ -243,24 +243,24 @@
                           INNER JOIN guru ON hasil_guru.id_guru = guru.id_guru 
                           INNER JOIN jurusan ON hasil_guru.id_jurusan = jurusan.id_jurusan 
                           WHERE dftr_agnd.id_guru = '$ID' AND dftr_agnd.id_hsil ='$id'");?>
-                            <?php foreach ($data_agenda as $x) : ?>
+                            <?php foreach ($data_agenda as $x1) : ?>
                               <tr>
                                 <td><?= $no++; ?></td>
-                                <td><?= $x['tgl']; ?></td>
-                                <td><?= $x['mtri']; ?></td>
-                                <td><?= $x['absn']; ?></td>
-                                <td><?= $x['ktr']; ?></td>
+                                <td><?= $x1['tgl']; ?></td>
+                                <td><?= $x1['mtri']; ?></td>
+                                <td><?= $x1['absn']; ?></td>
+                                <td><?= $x1['ktr']; ?></td>
                                 <td class="text-center">
-                                  <button type="button" class="btn btn-success mb-1" data-bs-toggle="modal" data-bs-target="#modalUbahAbsn<?= $x['id_agnd']; ?>">
+                                  <button type="button" class="btn btn-success mb-1" data-bs-toggle="modal" data-bs-target="#modalUbahAbsn<?= $x1['id_agnd']; ?>">
                                     <svg 
                                       xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
                                       <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
                                     </svg>  
                                     Ubah
-                                    <?= $x['id_agnd']; ?>
+                                    <?= $x1['id_agnd']; ?>
                                   </button>
 
-                                  <button type="button" class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#modalHapusAbsn<?= $x['id_agnd']; ?>">
+                                  <button type="button" class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#modalHapusAbsn<?= $x1['id_agnd']; ?>">
                                     <svg 
                                       xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                       <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
@@ -290,16 +290,16 @@
         </div>
       
       </div>
-    <?php endforeach; ?>
-  <!-- /Modal Detail -->
+    
+<!-- /Modal Detail -->
 
   <!-- Modal Absensi/Agenda -->
     
       <div class="modal-absen">
 
         <!-- Modal Tambah Absen -->
-          <?php foreach ($data_hasil as $x) : ?>
-            <div class="modal fade" id="modalTambahAbsn<?= $x['id_hsil'];?>" tabindex="-1" aria-labelledby="defaultModalLabel" aria-hidden="true">
+          <?php foreach ($data_hasil as $x2) : ?>
+            <div class="modal fade" id="modalTambahAbsn<?= $x2['id_hsil'];?>" tabindex="-1" aria-labelledby="defaultModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
 
@@ -312,11 +312,11 @@
                   
                         <form action="" method="post" enctype="multipart/form-data">
 
-                          <input type="hidden" name="id_hsil" value="<?= $x['id_hsil']; ?>">
-                          <input type="hidden" name="id_guru" value="<?= $x['id_guru']; ?>">
-                          <input type="hidden" name="id_mapel" value="<?= $x['id_mapel']; ?>">
-                          <input type="hidden" name="id_kelas" value="<?= $x['id_kelas']; ?>">
-                          <input type="hidden" name="id_jurusan" value="<?= $x['id_jurusan']; ?>">
+                          <input type="hidden" name="id_hsil" value="<?= $x2['id_hsil']; ?>">
+                          <input type="hidden" name="id_guru" value="<?= $x2['id_guru']; ?>">
+                          <input type="hidden" name="id_mapel" value="<?= $x2['id_mapel']; ?>">
+                          <input type="hidden" name="id_kelas" value="<?= $x2['id_kelas']; ?>">
+                          <input type="hidden" name="id_jurusan" value="<?= $x2['id_jurusan']; ?>">
 
                           <div class="form-floating mb-2">
                             <input type="date" name="tgl" id="floatingInput" class="form-control" placeholder="Tanggal" required>
@@ -356,44 +356,44 @@
         <!-- /Modal Tambah Absen -->
 
         <!-- Modal Ubah Absen -->
-          <?php foreach ($data_agenda as $x) : ?>
-            <div class="modal fade" id="modalUbahAbsn<?= $x['id_agnd']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <?php foreach ($data_agenda as $x3) : ?>
+            <div class="modal fade" id="modalUbahAbsn<?= $x3['id_agnd']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
 
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ubah <?= $subtitle; ?> <?= $x['id_agnd'];?></h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Ubah <?= $subtitle; ?> <?= $x3['id_agnd'];?></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"/>
                   </div>
 
                   <div class="modal-body">
 
                     <form action="" method="post" enctype="multipart/form-data">
-                      <input type="hidden" name="id_agnd" value="<?= $x['id_agnd']; ?>">
+                      <input type="hidden" name="id_agnd" value="<?= $x3['id_agnd']; ?>">
 
                         <div class="form-floating mb-3">
-                          <input type="date" name="tgl" id="floatingInput" class="form-control" placeholder="Tanggal" value="<?= $x['tgl']; ?>" required>
+                          <input type="date" name="tgl" id="floatingInput" class="form-control" placeholder="Tanggal" value="<?= $x3['tgl']; ?>" required>
                           <label for="floatingInput">Tanggal</label>
                         </div>
 
                         <div class="form-floating mb-3">
-                          <input type="time" name="jam" id="floatingInput" class="form-control" placeholder="Jam" value="<?= $x['jam']; ?>" required>
+                          <input type="time" name="jam" id="floatingInput" class="form-control" placeholder="Jam" value="<?= $x3['jam']; ?>" required>
                           <label for="floatingInput">Jam</label>
                         </div>
 
                         <div class="form-group mb-3">
                           <label for="groupInput">Materi</label>
-                          <textarea name="mtri" id="groupInput" class="form-control" placeholder="Pokok Bahasan" required><?= $x['mtri']; ?></textarea>
+                          <textarea name="mtri" id="groupInput" class="form-control" placeholder="Pokok Bahasan" required><?= $x3['mtri']; ?></textarea>
                         </div>
 
                         <div class="form-floating mb-3">
-                          <input type="text" name="absn" id="floatingInput" class="form-control" placeholder="Absen" value="<?= $x['absn']; ?>" required>
+                          <input type="text" name="absn" id="floatingInput" class="form-control" placeholder="Absen" value="<?= $x3['absn']; ?>" required>
                           <label for="floatingInput">Absen</label>
                         </div>
 
                         <div class="form-group mb-3">
                           <label for="groupInput">Keterangan</label>
-                          <textarea name="ktr" id="groupInput" class="form-control" placeholder="Keterangan" required><?= $x['ktr']; ?></textarea>
+                          <textarea name="ktr" id="groupInput" class="form-control" placeholder="Keterangan" required><?= $x3['ktr']; ?></textarea>
                         </div>
 
                   </div>
@@ -410,8 +410,8 @@
         <!-- /Modal Ubah Absen -->
 
         <!-- Modal Hapus Akun -->
-          <?php foreach ($data_agenda as $x) : ?>
-            <div class="modal fade" id="modalHapusAbsn<?= $x['id_agnd']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <?php foreach ($data_agenda as $x4) : ?>
+            <div class="modal fade" id="modalHapusAbsn<?= $x4['id_agnd']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
 
@@ -422,8 +422,8 @@
 
                   <div class="modal-body">
                     <form action="" method="post">
-                      <input type="hidden" name="id" value="<?= $x['id_agnd']; ?>">
-                        <p>Yakin Ingin Menghapus Absen Mata Pelajaran <?= $x['mpl']; ?> <?= $x['kls'] . ' ' . $x['jrsn']; ?>.?</p>
+                      <input type="hidden" name="id" value="<?= $x4['id_agnd']; ?>">
+                        <p>Yakin Ingin Menghapus Absen Mata Pelajaran <?= $x4['mpl']; ?> <?= $x4['kls'] . ' ' . $x4['jrsn']; ?>.?</p>
                   </div>
 
                   <div class="modal-footer">
@@ -440,8 +440,8 @@
 
       </div>
    
+      <?php endforeach; ?>
   <!-- /Modal Absensi/Agenda -->
-      
 </main>    
 
 <?php

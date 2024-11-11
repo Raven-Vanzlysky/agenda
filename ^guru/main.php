@@ -30,12 +30,12 @@
   if(isset($_POST['cari'])) 
   {
     $kata_cari = htmlspecialchars(strip_tags($_POST['kata_cari']));
-    $data_hasil = select("SELECT hasil_guru.id_hsil, mapel.mpl, kelas.kls, jurusan.jrsn, file FROM hasil_guru
+    $data_hasil = select("SELECT hasil_guru.id_hsil, mapel.mpl, kelas.kls, jurusan.jrsn FROM hasil_guru
     INNER JOIN mapel ON hasil_guru.id_mapel = mapel.id_mapel
     INNER JOIN kelas ON hasil_guru.id_kelas = kelas.id_kelas
     INNER JOIN jurusan ON hasil_guru.id_jurusan = jurusan.id_jurusan WHERE id_hsil like '%$kata_cari%' OR jrsn like '%$kata_cari%' OR mpl like '%$kata_cari%' ORDER BY id_mapel ASC");
    } else {
-    $data_hasil = select("SELECT hasil_guru.id_hsil, mapel.mpl, kelas.kls, jurusan.jrsn, file FROM hasil_guru
+    $data_hasil = select("SELECT hasil_guru.id_hsil, mapel.mpl, kelas.kls, jurusan.jrsn FROM hasil_guru
     INNER JOIN mapel ON hasil_guru.id_mapel = mapel.id_mapel
     INNER JOIN kelas ON hasil_guru.id_kelas = kelas.id_kelas
     INNER JOIN guru ON hasil_guru.id_guru = guru.id_guru
@@ -313,7 +313,6 @@
             <div class="modal-body">
               <form action="" method="post">
                 <input type="hidden" name="id" value="<?= $x['id_hsil']; ?>">
-                <input type="hidden" name="fileLama" value="<?= $x['file']; ?>">
                   <p>Yakin Ingin Menghapus <?= $title; ?> : <?= $x['mpl']; ?>.?</p>
             </div>
 

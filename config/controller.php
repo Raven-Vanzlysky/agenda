@@ -457,7 +457,7 @@
     $jurusan = strip_tags($post['jrsn']);
     
     // query tambah data
-    $query = "INSERT INTO hasil_guru VALUES(null, '$id', '$kelas', '$mapel', '$jurusan', '')";
+    $query = "INSERT INTO hasil_guru VALUES(null, '$id', '$kelas', '$mapel', '$jurusan')";
     
     mysqli_query($db, $query);
     
@@ -489,20 +489,6 @@
     global $db;
 
     $id = strip_tags($post['id']);
-    $fileLama = strip_tags($post['fileLama']);
-
-    // Hapus Foto
-    $fileApus = '../client/file/' . $fileLama;
-
-    if (file_exists($fileApus)) {
-      if (unlink($fileApus)) {
-        print "File Berhasil Di Hapus";
-      } else {
-        print "Gagal Menghapus Foto";
-      }
-    } else {
-      print "File Tidak Di temukan";
-    }
     
     // query hapus data mata_pljrn
     $query = "DELETE FROM hasil_guru WHERE id_hsil = $id";
