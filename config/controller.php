@@ -68,7 +68,7 @@
       $tmpName    = $_FILES['file']['tmp_name'];
       
       // Check file yang diupload
-      $extensifileValid = ['pdf', 'docx', 'xlsx'];
+      $extensifileValid = ['pdf'];
       $extensifile      = explode('.', $namaFile);
       $extensifile      = strtolower(end($extensifile));
 
@@ -82,11 +82,11 @@
           die();
       }
                 
-      // Check ukuran file 300 MB
-      if ($ukuranFile > 300000000) {
+      // Check ukuran file 30 MB
+      if ($ukuranFile > 3000000) {
           // Pesan gagal
           echo "<script>
-                  alert('Ukuran File Max 2 MB');
+                  alert('Ukuran File Max 3 MB');
                   document.location.href = 'admin_akun.php';
                 </script>";
           die();
