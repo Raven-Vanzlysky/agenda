@@ -505,26 +505,19 @@
   {
     global $db;
     
-    $id   = strip_tags($post['id']);
+    $id_agnd = htmlspecialchars(strip_tags($post['id_agnd']));   
+    $id_hsil = htmlspecialchars(strip_tags($post['id_hsil']));   
+    $id_guru = htmlspecialchars(strip_tags($post['id_guru']));   
+    $id_mapel = htmlspecialchars(strip_tags($post['id_mapel']));
+    $nm_fl = htmlspecialchars(strip_tags($post['nama_file']));
+    $fl = htmlspecialchars(strip_tags($post['file']));
+    $ktr = htmlspecialchars(strip_tags($post['ktr']));
+    $tgl_up = htmlspecialchars(strip_tags($post['tgl_up']));
 
-    $file = upload_file();
-    $fileLama = strip_tags($post['fileLama']);
-
-    // Hapus File
-    $fileApus = '../clienr/file/' . $fileLama;
-
-    if (file_exists($fileApus)) {
-      if (unlink($fileApus)) {
-        print "File Berhasil Di Hapus";
-      } else {
-        print "Gagal Menghapus Foto";
-      }
-    } else {
-      print "File Tidak Di temukan";
-    }
+    $fl = upload_file();
     
-    // query ubah data
-    $query = "UPDATE hasil_guru SET file = '$file' WHERE id_hsil = $id";
+    // query tambah data
+    $query = "INSERT INTO file_agnd VALUES(null, '$id_agnd', '$id_hsil', '$id_guru', '$id_mapel', '$ktr', '$tgl_up', '$nm_fl', '$fl')";
     
     mysqli_query($db, $query);
     

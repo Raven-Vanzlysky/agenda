@@ -409,7 +409,7 @@
           <?php endforeach; ?>
         <!-- /Modal Ubah Absen -->
 
-        <!-- Modal Hapus Akun -->
+        <!-- Modal Hapus Absen -->
           <?php foreach ($data_agenda as $x4) : ?>
             <div class="modal fade" id="modalHapusAbsn<?= $x4['id_agnd']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog">
@@ -436,7 +436,7 @@
               </div>
             </div>
           <?php endforeach; ?>
-        <!-- /Modal Hapus Akun -->
+        <!-- /Modal Hapus Absen -->
 
       </div>
    
