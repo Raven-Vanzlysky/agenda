@@ -132,6 +132,7 @@
                 <th class="bg-secondary">Email</th>
                 <th class="bg-secondary">Username</th>
                 <th class="bg-secondary">Level</th>
+                <th class="bg-secondary">Lulusan</th>
                 <th class="bg-secondary">Opsi</th>
               </tr>
             </thead>
@@ -150,6 +151,7 @@
                     <td><?= $x['email']; ?></td>
                     <td><?= $x['username']; ?></td>
                     <td><?= $x['level']; ?></td>
+                    <td><?= $x['lulusan']; ?></td>
                     <td class="text-center">
                     
                       <button type="button" class="btn btn-success mb-1" data-bs-toggle="modal" data-bs-target="#modalUbah<?= $x['id_guru']; ?>">

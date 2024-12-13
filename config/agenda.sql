@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 16 Okt 2024 pada 08.57
+-- Waktu pembuatan: 16 Nov 2024 pada 05.00
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -36,9 +36,36 @@ CREATE TABLE `dftr_agnd` (
   `id_jurusan` int(11) NOT NULL,
   `tgl` date NOT NULL,
   `jam` time NOT NULL,
-  `mtri` varchar(255) NOT NULL,
+  `mtri` text NOT NULL,
   `absn` varchar(255) NOT NULL,
-  `ktr` varchar(255) NOT NULL
+  `ktr` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `dftr_agnd`
+--
+
+INSERT INTO `dftr_agnd` (`id_agnd`, `id_hsil`, `id_guru`, `id_mapel`, `id_kelas`, `id_jurusan`, `tgl`, `jam`, `mtri`, `absn`, `ktr`) VALUES
+(64, 71, 2, 6, 4, 1, '2024-11-15', '11:45:00', 'apaan tau', 'ada', 'entah'),
+(65, 71, 2, 6, 4, 1, '2024-11-29', '11:11:00', '3w', '123', 'aq'),
+(66, 72, 2, 10, 4, 1, '0333-03-31', '05:55:00', 'hy', 'h', 'h');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `file_agnd`
+--
+
+CREATE TABLE `file_agnd` (
+  `id_file` int(11) NOT NULL,
+  `id_agnd` int(11) NOT NULL,
+  `id_hsil` int(11) NOT NULL,
+  `id_guru` int(30) NOT NULL,
+  `id_mapel` int(11) NOT NULL,
+  `ktr` text NOT NULL,
+  `tgl_upld` date NOT NULL,
+  `nama_file` varchar(255) NOT NULL,
+  `file` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -81,16 +108,17 @@ CREATE TABLE `hasil_guru` (
   `id_guru` int(30) NOT NULL,
   `id_kelas` int(11) NOT NULL,
   `id_mapel` int(11) NOT NULL,
-  `id_jurusan` int(11) NOT NULL,
-  `file` varchar(255) NOT NULL
+  `id_jurusan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `hasil_guru`
 --
 
-INSERT INTO `hasil_guru` (`id_hsil`, `id_guru`, `id_kelas`, `id_mapel`, `id_jurusan`, `file`) VALUES
-(37, 2, 5, 3, 2, '');
+INSERT INTO `hasil_guru` (`id_hsil`, `id_guru`, `id_kelas`, `id_mapel`, `id_jurusan`) VALUES
+(71, 2, 4, 6, 1),
+(72, 2, 4, 10, 1),
+(73, 2, 4, 13, 1);
 
 -- --------------------------------------------------------
 
@@ -198,6 +226,16 @@ ALTER TABLE `dftr_agnd`
   ADD KEY `id_jurusan` (`id_jurusan`);
 
 --
+-- Indeks untuk tabel `file_agnd`
+--
+ALTER TABLE `file_agnd`
+  ADD PRIMARY KEY (`id_file`),
+  ADD KEY `id_agnd` (`id_agnd`,`id_hsil`,`id_guru`,`id_mapel`),
+  ADD KEY `id_hsil` (`id_hsil`),
+  ADD KEY `id_guru` (`id_guru`),
+  ADD KEY `id_mapel` (`id_mapel`);
+
+--
 -- Indeks untuk tabel `guru`
 --
 ALTER TABLE `guru`
@@ -245,7 +283,13 @@ ALTER TABLE `thn_ajar`
 -- AUTO_INCREMENT untuk tabel `dftr_agnd`
 --
 ALTER TABLE `dftr_agnd`
-  MODIFY `id_agnd` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_agnd` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+
+--
+-- AUTO_INCREMENT untuk tabel `file_agnd`
+--
+ALTER TABLE `file_agnd`
+  MODIFY `id_file` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `guru`
@@ -257,7 +301,7 @@ ALTER TABLE `guru`
 -- AUTO_INCREMENT untuk tabel `hasil_guru`
 --
 ALTER TABLE `hasil_guru`
-  MODIFY `id_hsil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id_hsil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT untuk tabel `jurusan`
@@ -296,6 +340,15 @@ ALTER TABLE `dftr_agnd`
   ADD CONSTRAINT `dftr_agnd_ibfk_3` FOREIGN KEY (`id_mapel`) REFERENCES `hasil_guru` (`id_mapel`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `dftr_agnd_ibfk_4` FOREIGN KEY (`id_kelas`) REFERENCES `hasil_guru` (`id_kelas`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `dftr_agnd_ibfk_5` FOREIGN KEY (`id_jurusan`) REFERENCES `hasil_guru` (`id_jurusan`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `file_agnd`
+--
+ALTER TABLE `file_agnd`
+  ADD CONSTRAINT `file_agnd_ibfk_1` FOREIGN KEY (`id_agnd`) REFERENCES `dftr_agnd` (`id_agnd`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `file_agnd_ibfk_2` FOREIGN KEY (`id_hsil`) REFERENCES `dftr_agnd` (`id_hsil`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `file_agnd_ibfk_3` FOREIGN KEY (`id_guru`) REFERENCES `dftr_agnd` (`id_guru`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `file_agnd_ibfk_4` FOREIGN KEY (`id_mapel`) REFERENCES `dftr_agnd` (`id_mapel`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `hasil_guru`

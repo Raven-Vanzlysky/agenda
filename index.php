@@ -35,7 +35,7 @@
 
           // jika login benar arahkan ke file sesuai level
           if ($hasil['level'] == 'Admin') {
-            header("Location: ^admin/index.php");
+            header("Location: ^admin/admin_akun.php");
           exit;
           } else {
             header("Location: ^guru/index.php");

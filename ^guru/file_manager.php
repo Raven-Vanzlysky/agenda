@@ -45,18 +45,33 @@
       INNER JOIN jurusan ON dftr_agnd.id_jurusan = jurusan.id_jurusan WHERE dftr_agnd.id_guru = '$PK'");
   }
 
-    // jika tombol upload di tekan jalankan script berikut
+  // jika tombol upload di tekan jalankan script berikut
   if (isset($_POST['upload'])) {
     if (tambah_data_upload_hg($_POST) > 0) {
-      echo "<script>
-              alert('File Berhasil Ditambahkan');
-              document.location.href = 'file_manager.php';
-            </script>";
+      // echo "<script>
+      //         alert('File Berhasil Ditambahkan');
+      //         document.location.href = 'file_manager.php';
+      //       </script>";
     } else {
         echo "<script>
               alert('File Gagal Ditambahkan');
               document.location.href = 'file_manager.php';
             </script>";
+    }
+  }
+
+  // jika tombol hapus di tekan jalankan script berikut
+  if (isset($_POST['hapus'])) {
+    if (hapus_data_file_hg($_POST) > 0) {
+        echo "<script>
+                alert('Data File Berhasil Dihapus');
+                document.location.href = 'file_manager.php';
+              </script>";
+    } else {
+        echo "<script>
+                alert('Data File Gagal Dihapus');
+                document.location.href = 'file_manager.php';
+              </script>";
     }
   }
 
@@ -163,7 +178,7 @@
                 <input type="hidden" name="id_hsil" value="<?= $x0['id_hsil']; ?>">
                 <input type="hidden" name="id_guru" value="<?= $x0['id_guru']; ?>">
                 <input type="hidden" name="id_mapel" value="<?= $x0['id_mapel']; ?>">
-                <input type="hidden" name="tgl_up" value="<?= date("d-F-Y"); ?>">
+                <input type="hidden" name="tgl_up" value="<?= date("Y-m-d"); ?>">
                 
                 <div class="form-floating mb-2">
                   <input type="text" name="nama_file" id="floatingInput" class="form-control" placeholder="Nama File" required>
@@ -222,6 +237,14 @@
                       <td><?= $x1['nama_file'] ;?></td>
                       <td><?= $x1['ktr'] ;?></td>
                       <td>
+                        <a href="../client/file/<?= $x1['file'] ;?>" target="_blank" type="button" class="btn btn-primary mb-1">
+                        <svg 
+                          xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-down" viewBox="0 0 16 16">
+                          <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293z"/>
+                          <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+                        </svg>
+                          View
+                        </a>
                         <button type="button" class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#modalHapusFile<?= $x1['id_file']; ?>">
                           <svg 
                             xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
@@ -267,6 +290,7 @@
             <div class="modal-body">
               <form action="" method="post">
                 <input type="hidden" name="id" value="<?= $x1['id_file']; ?>">
+                <input type="hidden" name="fileLama" value="<?= $x1['file']; ?>">
                   <p>Yakin Ingin Menghapus File <?= $x1['nama_file']; ?> .?</p>
             </div>
 

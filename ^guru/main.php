@@ -106,6 +106,14 @@
       <!-- card-header -->
         <div class="card-header">
           <h3 class="card-title"><?= $title; ?></h3>
+
+          <form class="form" action="" method="post">
+          <div class="input-group">
+            <input type="text" class="form-control me-3" name="kata_cari" placeholder="Cari..." aria-label="Search" value="<?php if(isset($_POST['cari'])) { echo $_POST['kata_cari']; } ?>">
+            <button class="btn btn-outline-primary me-1" type="submit" name="cari">Cari</button>
+          </div>
+        </form>
+
         </div>
       <!-- /card-header -->
 

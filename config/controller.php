@@ -510,7 +510,6 @@
     $id_guru = htmlspecialchars(strip_tags($post['id_guru']));   
     $id_mapel = htmlspecialchars(strip_tags($post['id_mapel']));
     $nm_fl = htmlspecialchars(strip_tags($post['nama_file']));
-    $fl = htmlspecialchars(strip_tags($post['file']));
     $ktr = htmlspecialchars(strip_tags($post['ktr']));
     $tgl_up = htmlspecialchars(strip_tags($post['tgl_up']));
 
@@ -518,6 +517,37 @@
     
     // query tambah data
     $query = "INSERT INTO file_agnd VALUES(null, '$id_agnd', '$id_hsil', '$id_guru', '$id_mapel', '$ktr', '$tgl_up', '$nm_fl', '$fl')";
+    
+    mysqli_query($db, $query);
+    
+    return mysqli_affected_rows($db);
+  }
+
+  // fungsi menghapus file
+  function hapus_data_file_hg($post)
+  {
+    global $db;
+
+    $id = strip_tags($post['id']);
+    $fileLama = strip_tags($post['fileLama']);
+
+    // Hapus File
+    $file = '../client/file/' . $fileLama;
+
+    if (file_exists($file)) {
+      if (unlink($file)) {
+        print "File Berhasil Di Hapus";
+      } else {
+        print "Gagal Menghapus File";
+      }
+    } else {
+      print "File Tidak Di temukan";
+    }
+
+    
+    
+    // query hapus data mata_pljrn
+    $query = "DELETE FROM file_agnd WHERE id_file = $id";
     
     mysqli_query($db, $query);
     
