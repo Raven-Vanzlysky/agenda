@@ -30,19 +30,17 @@
   if(isset($_POST['cari'])) 
   {
     $kata_cari = $_POST['kata_cari'];
-      $data_agenda = select("SELECT dftr_agnd.*, hasil_guru.*, guru.*, mapel.*, kelas.*, jurusan.* FROM dftr_agnd
-      INNER JOIN hasil_guru ON dftr_agnd.id_hsil = hasil_guru.id_hsil
-      INNER JOIN guru ON dftr_agnd.id_guru = guru.id_guru
-      INNER JOIN mapel ON dftr_agnd.id_mapel = mapel.id_mapel
-      INNER JOIN kelas ON dftr_agnd.id_kelas = kelas.id_kelas
-      INNER JOIN jurusan ON dftr_agnd.id_jurusan = jurusan.id_jurusan WHERE dftr_agnd.id_guru = '$PK' AND kls like '%".$kata_cari."%' OR jrsn like '%".$kata_cari."%' OR mpl like '%".$kata_cari."%'");
+      $data_file = select("SELECT file_agnd.*, dftr_agnd.*, hasil_guru.*, mapel.* FROM file_agnd
+      INNER JOIN dftr_agnd ON file_agnd.id_agnd = dftr_agnd.id_agnd
+      INNER JOIN hasil_guru ON file_agnd.id_hsil = hasil_guru.id_hsil
+      INNER JOIN guru ON file_agnd.id_guru = guru.id_guru
+      INNER JOIN mapel ON file_agnd.id_mapel = mapel.id_mapel WHERE file_agnd.id_guru = '$PK' AND kls like '%".$kata_cari."%' OR jrsn like '%".$kata_cari."%' OR mpl like '%".$kata_cari."%'");
   } else {
-      $data_agenda = select("SELECT dftr_agnd.*, hasil_guru.*, guru.*, mapel.*, kelas.*, jurusan.* FROM dftr_agnd
-      INNER JOIN hasil_guru ON dftr_agnd.id_hsil = hasil_guru.id_hsil
-      INNER JOIN guru ON dftr_agnd.id_guru = guru.id_guru
-      INNER JOIN mapel ON dftr_agnd.id_mapel = mapel.id_mapel
-      INNER JOIN kelas ON dftr_agnd.id_kelas = kelas.id_kelas
-      INNER JOIN jurusan ON dftr_agnd.id_jurusan = jurusan.id_jurusan WHERE dftr_agnd.id_guru = '$PK'");
+    $data_file = select("SELECT file_agnd.*, dftr_agnd.*, hasil_guru.*, mapel.* FROM file_agnd
+      INNER JOIN dftr_agnd ON file_agnd.id_agnd = dftr_agnd.id_agnd
+      INNER JOIN hasil_guru ON file_agnd.id_hsil = hasil_guru.id_hsil
+      INNER JOIN guru ON file_agnd.id_guru = guru.id_guru
+      INNER JOIN mapel ON file_agnd.id_mapel = mapel.id_mapel WHERE file_agnd.id_guru = '$PK'");
   }
 
   // jika tombol upload di tekan jalankan script berikut
@@ -110,30 +108,39 @@
             <thead>
               <tr>
                 <th class="bg-secondary">No</th>
-                <th class="bg-secondary">Mata Pelajaran</th>
-                <th class="bg-secondary">Kelas</th>
-                <th class="bg-secondary">Jurusan</th>
+                <th class="bg-secondary">Nama File</th>
+                <th class="bg-secondary">Keterangan</th>
+                <th class="bg-secondary">Tanggal Upload</th>
                 <th class="bg-secondary">Opsi</th>
               </tr>
             </thead>
 
             <tbody>
               <?php $no = 1; ?>
-                <?php foreach ($data_agenda as $x) : ?>
+                <?php foreach ($data_file as $x) : ?>
                   
                   <tr>
                     <td><?= $no++; ?></td>
-                    <td><?= $x['mpl']; ?></td>
-                    <td><?= $x['kls']; ?></td>
-                    <td><?= $x['jrsn']; ?></td>
+                    <td><?= $x['nama_file']; ?></td>
+                    <td><?= $x['ktrf']; ?></td>
+                    <td><?= $x['tgl_upld']; ?></td>
                     <td class="text-center">
-                      <button type="button" class="btn btn-success mb-1" data-bs-toggle="modal" data-bs-target="#extraLargeModal<?= $x['id_agnd']; ?>">
-                        <svg 
-                          xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                        </svg>
-                        View Upload
-                      </button>
+                    <button type="button" class="btn btn-success mb-1" data-bs-toggle="modal" data-bs-target="#modalUbah<?= $x['id_file']; ?>">
+                          <svg 
+                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                            <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
+                          </svg>  
+                          Ubah
+                        </button>
+
+                        <button type="button" class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#modalHapus<?= $x['id_file']; ?>">
+                          <svg 
+                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                          </svg>
+                          Hapus
+                        </button>
                     </td>
                   </tr>
                 <?php endforeach; ?>

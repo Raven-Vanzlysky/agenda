@@ -96,7 +96,6 @@
 <main class="container">
 
   <hr>
-  <h1 class="animate__animated animate__fadeInLeft"><?= $_SESSION['nama'];?></h1>
   <br>
 
   <!-- Card -->
@@ -108,9 +107,11 @@
           <h3 class="card-title"><?= $title; ?></h3>
 
           <form class="form" action="" method="post">
-          <div class="input-group">
-            <input type="text" class="form-control me-3" name="kata_cari" placeholder="Cari..." aria-label="Search" value="<?php if(isset($_POST['cari'])) { echo $_POST['kata_cari']; } ?>">
-            <button class="btn btn-outline-primary me-1" type="submit" name="cari">Cari</button>
+          <div class="input-group d-flex justify-content-end">
+            <div class="col-md-4">
+              <input type="text" class="form-control me-3" name="kata_cari" placeholder="Cari..." aria-label="Search" value="<?php if(isset($_POST['cari'])) { echo $_POST['kata_cari']; } ?>">
+            </div>
+            <button class="btn ms-3 btn-outline-primary me-1" type="submit" name="cari">Cari</button>
           </div>
         </form>
 
@@ -131,14 +132,14 @@
 
           <div class="table-responsive">
 
-            <table id="table" class="table table-sm table-bordered table-hover">
+            <table id="table" class="table text-center table-sm table-bordered table-hover">
               <thead>
                 <tr>
-                  <th class="bg-secondary">No</th>
-                  <th class="bg-secondary">Mata Pelajaran</th>
-                  <th class="bg-secondary">Kelas</th>
-                  <th class="bg-secondary">Jurusan</th>
-                  <th class="bg-secondary">Opsi</th>
+                  <th class="bg-secondary" style="width: 5px;">No</th>
+                  <th class="bg-secondary" style="width: 10px;">Mata Pelajaran</th>
+                  <th class="bg-secondary" style="width: 5px;">Kelas</th>
+                  <th class="bg-secondary" style="width: 7px;">Jurusan</th>
+                  <th class="bg-secondary" style="width: 20px;">Opsi</th>
                 </tr>
               </thead>
 
@@ -334,7 +335,7 @@
         </div>
       </div>
     <?php endforeach; ?>
-  <!-- /Modal Hapus Akun -->
+  <!-- /Modal Hapus Mapel -->
       
 </main>    
 

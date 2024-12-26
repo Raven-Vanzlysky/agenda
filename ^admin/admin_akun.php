@@ -30,7 +30,7 @@
   if(isset($_POST['cari'])) 
   {
     $kata_cari = htmlspecialchars(strip_tags($_POST['kata_cari']));
-    $data_guru = select("SELECT * FROM guru WHERE nama like '%$kata_cari%' OR nip like '%$kata_cari%' ORDER BY nama ASC");
+    $data_guru = select("SELECT * FROM guru WHERE CONCAT(nama, nip, alamat, level) LIKE '%$kata_cari%' ORDER BY nama ASC");
    } else {
     $data_guru = select("SELECT * FROM guru");
   }
@@ -126,13 +126,12 @@
                 <th class="bg-secondary">NIP</th>
                 <th class="bg-secondary">Nama</th>
                 <th class="bg-secondary">Alamat</th>
-                <th class="bg-secondary">Jenis Kelamin</th>
+                <th class="bg-secondary">Gender</th>
                 <th class="bg-secondary">Agama</th>
                 <th class="bg-secondary">Foto</th>
                 <th class="bg-secondary">Email</th>
                 <th class="bg-secondary">Username</th>
                 <th class="bg-secondary">Level</th>
-                <th class="bg-secondary">Lulusan</th>
                 <th class="bg-secondary">Opsi</th>
               </tr>
             </thead>
@@ -151,7 +150,6 @@
                     <td><?= $x['email']; ?></td>
                     <td><?= $x['username']; ?></td>
                     <td><?= $x['level']; ?></td>
-                    <td><?= $x['lulusan']; ?></td>
                     <td class="text-center">
                     
                       <button type="button" class="btn btn-success mb-1" data-bs-toggle="modal" data-bs-target="#modalUbah<?= $x['id_guru']; ?>">
@@ -211,8 +209,9 @@
                     <label for="floatingInput">Nama</label>
                   </div>
 
-                  <div class="form-floating mb-2">
-                    <textarea name="alamat" id="floatingInput" class="form-control" placeholder="Alamat" required></textarea>
+                  <div class="form mb-2">
+                    <label for="almt">Alamat</label>
+                    <textarea name="alamat" id="almt" class="form-control" placeholder="Alamat" required></textarea>
                   </div>
 
                   <div class="form-group mb-2">

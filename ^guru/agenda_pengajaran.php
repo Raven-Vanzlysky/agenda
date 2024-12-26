@@ -43,15 +43,7 @@
      INNER JOIN jurusan ON hasil_guru.id_jurusan = jurusan.id_jurusan WHERE hasil_guru.id_guru = $ID");
    }
   
-   $data_agenda = select("SELECT dftr_agnd.*, hasil_guru.id_hsil, guru.id_guru, mapel.mpl, mapel.id_mapel, kelas.kls, jurusan.jrsn
-   FROM dftr_agnd 
-   INNER JOIN hasil_guru ON dftr_agnd.id_hsil = hasil_guru.id_hsil
-   INNER JOIN mapel ON hasil_guru.id_mapel = mapel.id_mapel
-   INNER JOIN kelas ON hasil_guru.id_kelas = kelas.id_kelas
-   INNER JOIN guru ON hasil_guru.id_guru = guru.id_guru 
-   INNER JOIN jurusan ON hasil_guru.id_jurusan = jurusan.id_jurusan 
-   WHERE hasil_guru.id_guru = '$ID'");
-
+ 
   // jika tombol tambah di tekan jalankan script berikut
   if (isset($_POST['tambah'])) {
     if (tambah_data_absn($_POST) > 0) {
@@ -102,7 +94,6 @@
 <main class="container">
 
   <hr>
-  <h1 class="animate__animated animate__fadeInLeft"><?= $_SESSION['nama'];?></h1>
   <br>
 
   <!-- Card -->
@@ -113,9 +104,11 @@
         <h3 class="card-title"><?= $title; ?></h3>
 
         <form class="form" action="" method="post">
-          <div class="input-group">
-            <input type="text" class="form-control me-3" name="kata_cari" placeholder="Cari..." aria-label="Search" value="<?php if(isset($_POST['cari'])) { echo $_POST['kata_cari']; } ?>">
-            <button class="btn btn-outline-primary me-1" type="submit" name="cari">Cari</button>
+          <div class="input-group d-flex justify-content-end">
+            <div class="col-md-4">
+              <input type="text" class="form-control me-3" name="kata_cari" placeholder="Cari..." aria-label="Search" value="<?php if(isset($_POST['cari'])) { echo $_POST['kata_cari']; } ?>">
+            </div>
+            <button class="btn ms-3 btn-outline-primary me-1" type="submit" name="cari">Cari</button>
           </div>
         </form>
 
@@ -127,14 +120,14 @@
 
         <div class="table-responsive">
 
-          <table id="table" class="table table-sm table-bordered table-hover">
+          <table id="table" class="table text-center table-sm table-bordered table-hover">
             <thead>
               <tr>
-                <th class="bg-secondary">No</th>
-                <th class="bg-secondary">Mata Pelajaran</th>
-                <th class="bg-secondary">Kelas</th>
-                <th class="bg-secondary">Jurusan</th>
-                <th class="bg-secondary">Opsi</th>
+                <th class="bg-secondary" style="width: 5px;">No</th>
+                <th class="bg-secondary" style="width: 10px;">Mata Pelajaran</th>
+                <th class="bg-secondary" style="width: 5px;">Kelas</th>
+                <th class="bg-secondary" style="width: 7px;">Jurusan</th>
+                <th class="bg-secondary" style="width: 10px;">Opsi</th>
               </tr>
             </thead>
 
@@ -187,20 +180,20 @@
                   <table align="center" style="width: max-content;" id="table2" class="table table-bordered table-hover">
                   
                       <tr>
-                        <th style="width: 230px;" class="bg-secondary">Nama Mata Pelajaran</th>
-                        <td style="width: 10px;" class="text-center">:</td>
+                        <th style="width: 230px;" class="bg-secondary">Mapel</th>
+                        
                         <td style="width: 230px;" class=""><?= $x0['mpl']; ?></td>
                       </tr>
 
                       <tr>
                         <th style="width: 230px;" class="bg-secondary">Kelas</th>
-                        <td style="width: 10px;" class="text-center">:</td>
+                        
                         <td style="width: 230px;" class=""><?= $x0['kls']; ?></td>
                       </tr>
 
                       <tr>
                         <th style="width: 230px;" class="bg-secondary">Jurusan</th>
-                        <td style="width: 10px;" class="text-center">:</td>
+                     
                         <td style="width: 230px;" class=""><?= $x0['jrsn']; ?></td>
                       </tr>
                     
@@ -290,7 +283,7 @@
               </div>
 
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+          
               </div>
           
             </div>

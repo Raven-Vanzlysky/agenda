@@ -220,9 +220,18 @@
         </div>
       </nav>
 
-      <div class="text-end me-5 animate__animated animate__fadeInRight">
-        <?php print date("l, d-F-Y"); ?>
+      <div class="d-flex justify-content-between">
+        
+        <div class="user ms-5 ps-5 animate__animated animate__fadeInLeft">
+         <h5> Pengguna : <?= $_SESSION['nama']; ?> </h5>
+        </div>
+
+        <div class="date me-5 animate__animated animate__fadeInRight">
+         <?= date("l, d-F-Y"); ?>
+        </div>
+
       </div>
+      
     </header>
 
     <div class="modal-profile">

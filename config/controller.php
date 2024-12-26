@@ -492,10 +492,8 @@
     
     // query hapus data mata_pljrn
     $query = "DELETE FROM hasil_guru WHERE id_hsil = $id";
-    $query1 = "DELETE FROM dftr_agnd WHERE id_hsil = $id";
     
     mysqli_query($db, $query);
-    mysqli_query($db, $query1);
     
     return mysqli_affected_rows($db);
   }
