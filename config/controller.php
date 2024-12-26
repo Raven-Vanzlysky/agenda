@@ -507,14 +507,14 @@
     $id_hsil = htmlspecialchars(strip_tags($post['id_hsil']));   
     $id_guru = htmlspecialchars(strip_tags($post['id_guru']));   
     $id_mapel = htmlspecialchars(strip_tags($post['id_mapel']));
-    $nm_fl = htmlspecialchars(strip_tags($post['nama_file']));
-    $ktr = htmlspecialchars(strip_tags($post['ktr']));
-    $tgl_up = htmlspecialchars(strip_tags($post['tgl_up']));
+    $nm_fl = htmlspecialchars(strip_tags($post['nmfl']));
+    $ktr = htmlspecialchars(strip_tags($post['ktrf']));
+    $tgl_up = htmlspecialchars(strip_tags($post['tglupld']));
 
     $fl = upload_file();
     
     // query tambah data
-    $query = "INSERT INTO file_agnd VALUES(null, '$id_agnd', '$id_hsil', '$id_guru', '$id_mapel', '$ktr', '$tgl_up', '$nm_fl', '$fl')";
+    $query = "INSERT INTO file_agnd VALUES('', '$id_agnd', '$id_hsil', '$id_guru', '$id_mapel', '$ktr', '$tgl_up', '$nm_fl', '$fl')";
     
     mysqli_query($db, $query);
     
