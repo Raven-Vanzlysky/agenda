@@ -22,6 +22,7 @@
 
   $title = 'Daftar Agenda Guru';
   $subtitle = 'Daftar Agenda';
+  $subtitle0 = 'Daftar File Agenda';
 
   include '../layout/header.php';
 
@@ -42,7 +43,6 @@
      INNER JOIN guru ON hasil_guru.id_guru = guru.id_guru
      INNER JOIN jurusan ON hasil_guru.id_jurusan = jurusan.id_jurusan WHERE hasil_guru.id_guru = $ID");
    }
-  
  
   // jika tombol tambah di tekan jalankan script berikut
   if (isset($_POST['tambah'])) {
@@ -54,6 +54,21 @@
     } else {
         echo "<script>
               alert('Data Absensi Gagal Ditambahkan');
+              document.location.href = 'agenda_pengajaran.php';
+            </script>";
+    }
+  }
+
+  // jika tombol tambah di tekan jalankan script berikut
+  if (isset($_POST['tambahfl'])) {
+    if (tambah_data_upload_hg($_POST) > 0) {
+      echo "<script>
+              alert('Data File Berhasil Ditambahkan');
+              document.location.href = 'agenda_pengajaran.php';
+            </script>";
+    } else {
+        echo "<script>
+              alert('Data File Gagal Ditambahkan');
               document.location.href = 'agenda_pengajaran.php';
             </script>";
     }
@@ -100,63 +115,63 @@
     <div class="card animate__animated animate__zoomInDown">
 
       <!-- .card-header -->
-      <div class="card-header">
-        <h3 class="card-title"><?= $title; ?></h3>
+        <div class="card-header">
+          <h3 class="card-title"><?= $title; ?></h3>
 
-        <form class="form" action="" method="post">
-          <div class="input-group d-flex justify-content-end">
-            <div class="col-md-4">
-              <input type="text" class="form-control me-3" name="kata_cari" placeholder="Cari..." aria-label="Search" value="<?php if(isset($_POST['cari'])) { echo $_POST['kata_cari']; } ?>">
+          <form class="form" action="" method="post">
+            <div class="input-group d-flex justify-content-end">
+              <div class="col-md-4">
+                <input type="text" class="form-control me-3" name="kata_cari" placeholder="Cari..." aria-label="Search" value="<?php if(isset($_POST['cari'])) { echo $_POST['kata_cari']; } ?>">
+              </div>
+              <button class="btn ms-3 btn-outline-primary me-1" type="submit" name="cari">Cari</button>
             </div>
-            <button class="btn ms-3 btn-outline-primary me-1" type="submit" name="cari">Cari</button>
-          </div>
-        </form>
+          </form>
 
-      </div>
+        </div>
       <!-- /.card-header -->
 
       <!-- .card-body -->
-      <div class="card-body">
+        <div class="card-body">
 
-        <div class="table-responsive">
+          <div class="table-responsive">
 
-          <table id="table" class="table text-center table-sm table-bordered table-hover">
-            <thead>
-              <tr>
-                <th class="bg-secondary" style="width: 5px;">No</th>
-                <th class="bg-secondary" style="width: 10px;">Mata Pelajaran</th>
-                <th class="bg-secondary" style="width: 5px;">Kelas</th>
-                <th class="bg-secondary" style="width: 7px;">Jurusan</th>
-                <th class="bg-secondary" style="width: 10px;">Opsi</th>
-              </tr>
-            </thead>
+            <table id="table" class="table text-center table-sm table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th class="bg-secondary" style="width: 5px;">No</th>
+                  <th class="bg-secondary" style="width: 10px;">Mata Pelajaran</th>
+                  <th class="bg-secondary" style="width: 5px;">Kelas</th>
+                  <th class="bg-secondary" style="width: 7px;">Jurusan</th>
+                  <th class="bg-secondary" style="width: 10px;">Opsi</th>
+                </tr>
+              </thead>
 
-            <tbody>
-              <?php $no = 1; ?>
-                <?php foreach ($data_hasil as $x) : ?>
-                  <tr>
-                    <td><?= $no++; ?></td>
-                    <td><?= $x['mpl']; ?></td>
-                    <td><?= $x['kls']; ?></td>
-                    <td><?= $x['jrsn']; ?></td>
-                    
-                    <td class="text-center">
-                      <button type="button" class="btn btn-success mb-1" data-bs-toggle="modal" data-bs-target="#extraLargeModal<?= $x['id_hsil']; ?>">
-                        <svg 
-                          xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                        </svg>
-                        View Agenda
-                      </button>
-                    </td>
-                  </tr>
-                <?php endforeach; ?>
-            </tbody>
-          </table>
+              <tbody>
+                <?php $no = 1; ?>
+                  <?php foreach ($data_hasil as $x) : ?>
+                    <tr>
+                      <td><?= $no++; ?></td>
+                      <td><?= $x['mpl']; ?></td>
+                      <td><?= $x['kls']; ?></td>
+                      <td><?= $x['jrsn']; ?></td>
+                      
+                      <td class="text-center">
+                        <button type="button" class="btn btn-success mb-1" data-bs-toggle="modal" data-bs-target="#extraLargeModal<?= $x['id_hsil']; ?>">
+                          <svg 
+                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                          </svg>
+                          View Agenda
+                        </button>
+                      </td>
+                    </tr>
+                  <?php endforeach; ?>
+              </tbody>
+            </table>
+
+          </div>
 
         </div>
-
-      </div>
       <!-- /.card-body -->
 
     </div>
@@ -225,12 +240,12 @@
                         <table id="table3" class="table table-bordered table-hover">
                           <thead>
                             <tr>
-                              <th class="bg-secondary">No</th>
-                              <th class="bg-secondary">Tanggal</th>
-                              <th class="bg-secondary">Materi</th>
-                              <th class="bg-secondary">Absen</th>
-                              <th class="bg-secondary">Keterangan</th>
-                              <th class="bg-secondary">Opsi</th>
+                              <th class="bg-secondary text-center">No</th>
+                              <th class="bg-secondary text-center">Tanggal</th>
+                              <th class="bg-secondary text-center">Materi</th>
+                              <th class="bg-secondary text-center">Absen</th>
+                              <th class="bg-secondary text-center">Keterangan</th>
+                              <th class="bg-secondary text-center">Opsi</th>
                             </tr>
                           </thead>
 
@@ -260,6 +275,15 @@
                                       Ubah
                                     </button>
 
+                                    <button type="button" class="btn btn-warning mb-1" data-bs-toggle="modal" data-bs-target="#modalUpldFl<?= $x1['id_agnd']; ?>">
+                                      <svg 
+                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-text" viewBox="0 0 16 16">
+                                        <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
+                                        <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>
+                                      </svg>
+                                        Upload File
+                                    </button>
+
                                     <button type="button" class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#modalHapusAbsn<?= $x1['id_agnd']; ?>">
                                       <svg 
                                         xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
@@ -283,7 +307,7 @@
               </div>
 
               <div class="modal-footer">
-          
+                <!-- Kosong? -->
               </div>
           
             </div>
@@ -440,8 +464,74 @@
 
       </div>
    
-      <?php endforeach; ?>
   <!-- /Modal Absensi/Agenda -->
+      
+  <!-- Modal File Agenda -->
+    
+   <div class="modal-file">
+
+    <!-- Modal Tambah File -->
+      <?php foreach ($data_agenda as $xf) : ?>
+        <div class="modal fade" id="modalUpldFl<?= $xf['id_hsil'];?>" tabindex="-1" aria-labelledby="defaultModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalUpldFl">Tambah <?= $subtitle0; ?></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"/>
+              </div>
+
+              <div class="modal-body">
+              
+                <form action="" method="post" enctype="multipart/form-data">
+
+                  <input type="hidden" name="id_agnd" value="<?= $xf['id_agnd']; ?>">
+                  <input type="hidden" name="id_hsil" value="<?= $xf['id_hsil']; ?>">
+                  <input type="hidden" name="id_guru" value="<?= $xf['id_guru']; ?>">
+                  <input type="hidden" name="id_mapel" value="<?= $xf['id_mapel']; ?>">
+
+                  <div class="form-floating mb-2">
+                    <input type="date" name="tglupld" id="floatingInput" class="form-control" placeholder="Tanggal Upload" required>
+                    <label for="floatingInput">Tanggal Upload</label>
+                  </div>
+                  
+                  <div class="form-floating mb-2">
+                    <input type="text" name="nmfl" id="floatingInput" class="form-control" placeholder="Nama File" required>
+                    <label for="floatingInput">Nama File</label>
+                  </div>
+
+                  <div class="form-group mb-2">
+                    <textarea name="ktrf" id="floatingInput" class="form-control" placeholder="Keterangan" required></textarea>
+                  </div>
+
+                  <div class="form-group mb-2">
+                    <label for="file"><b>File</b></label><br>
+                    <div class="custom-file">
+                      <label class="custom-file-label" for="file">Pilih file...</label>
+                      <input type="file" class="custom-file-input" id="file" name="file" required>
+                    </div>
+                  </div>
+  
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                <button type="submit" name="tambahfl" class="btn btn-primary">Tambah</button>
+              </div>
+                    
+              </form>
+            </div>
+          </div>
+        </div>
+      <?php endforeach; ?>
+    <!-- /Modal Tambah File -->
+
+   </div>
+
+  <!-- /Modal File Agenda -->
+      
+    <?php endforeach; ?>
+
 </main>    
 
 <?php

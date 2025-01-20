@@ -155,14 +155,14 @@
 
     $nip       = htmlspecialchars(strip_tags($post['nip']));
     $nama      = htmlspecialchars(strip_tags($post['nama']));
-    $alamat      = htmlspecialchars(strip_tags($post['alamat']));
-    $jnis_klmn   = htmlspecialchars(strip_tags($post['jenis_kelamin']));
-    $agama   = htmlspecialchars(strip_tags($post['agama']));
-    $foto   = upload_foto();
-    $email   = htmlspecialchars(strip_tags($post['email']));
-    $username   = htmlspecialchars(strip_tags($post['username']));
-    $password   = htmlspecialchars(strip_tags($post['password']));
-    $level   = htmlspecialchars(strip_tags($post['level']));
+    $alamat    = htmlspecialchars(strip_tags($post['alamat']));
+    $jnis_klmn = htmlspecialchars(strip_tags($post['jenis_kelamin']));
+    $agama     = htmlspecialchars(strip_tags($post['agama']));
+    $foto      = upload_foto();
+    $email     = htmlspecialchars(strip_tags($post['email']));
+    $username  = htmlspecialchars(strip_tags($post['username']));
+    $password  = htmlspecialchars(strip_tags($post['password']));
+    $level     = htmlspecialchars(strip_tags($post['level']));
 
    // check upload foto
     if (!$foto) {
@@ -185,16 +185,16 @@
   {
     global $db;
     
-    $id         = htmlspecialchars(strip_tags($post['id_guru']));
-    $nip         = htmlspecialchars(strip_tags($post['nip']));
-    $nama       = htmlspecialchars(strip_tags($post['nama']));
+    $id        = htmlspecialchars(strip_tags($post['id_guru']));
+    $nip       = htmlspecialchars(strip_tags($post['nip']));
+    $nama      = htmlspecialchars(strip_tags($post['nama']));
     $alm       = htmlspecialchars(strip_tags($post['alamat']));
-    $jnis_klmn       = htmlspecialchars(strip_tags($post['jenis_kelamin']));
-    $agama       = htmlspecialchars(strip_tags($post['agama']));
-    $email       = htmlspecialchars(strip_tags($post['email']));
-    $username   = htmlspecialchars(strip_tags($post['username']));
-    $password   = htmlspecialchars(strip_tags($post['password']));
-    $level   = htmlspecialchars(strip_tags($post['level']));
+    $jnis_klmn = htmlspecialchars(strip_tags($post['jenis_kelamin']));
+    $agama     = htmlspecialchars(strip_tags($post['agama']));
+    $email     = htmlspecialchars(strip_tags($post['email']));
+    $username  = htmlspecialchars(strip_tags($post['username']));
+    $password  = htmlspecialchars(strip_tags($post['password']));
+    $level     = htmlspecialchars(strip_tags($post['level']));
 
     // enkripsi password
     $password = password_hash($password, PASSWORD_DEFAULT);
@@ -261,7 +261,7 @@
   {
     global $db;
     
-    $id   = htmlspecialchars(strip_tags($post['id_mapel']));
+    $id    = htmlspecialchars(strip_tags($post['id_mapel']));
     $mapel = htmlspecialchars(strip_tags($post['mpl']));
     
     // query ubah data
@@ -312,7 +312,7 @@
   {
     global $db;
     
-    $id   = htmlspecialchars(strip_tags($post['id_jurusan']));
+    $id      = htmlspecialchars(strip_tags($post['id_jurusan']));
     $jurusan = htmlspecialchars(strip_tags($post['jrsn']));
     
     // query ubah data
@@ -363,7 +363,7 @@
   {
     global $db;
     
-    $id   = htmlspecialchars(strip_tags($post['id_kelas']));
+    $id    = htmlspecialchars(strip_tags($post['id_kelas']));
     $kelas = htmlspecialchars(strip_tags($post['kls']));
     
     // query ubah data
@@ -414,7 +414,7 @@
   {
     global $db;
     
-    $id   = htmlspecialchars(strip_tags($post['id_ajr']));
+    $id  = htmlspecialchars(strip_tags($post['id_ajr']));
     $thn = htmlspecialchars(strip_tags($post['thn_ajr']));
     $sts = htmlspecialchars(strip_tags($post['status']));
     
@@ -451,9 +451,9 @@
   {
     global $db;
 
-    $id = strip_tags($post['id']);  
-    $mapel = strip_tags($post['mpl']);  
-    $kelas = strip_tags($post['kls']);  
+    $id      = strip_tags($post['id']);  
+    $mapel   = strip_tags($post['mpl']);  
+    $kelas   = strip_tags($post['kls']);  
     $jurusan = strip_tags($post['jrsn']);
     
     // query tambah data
@@ -469,10 +469,10 @@
   {
     global $db;
     
-    $id   = strip_tags($post['id_hsil']);
-    $idg   = strip_tags($post['idg']);
-    $mapel = strip_tags($post['mpl']);
-    $kelas = strip_tags($post['kls']);
+    $id      = strip_tags($post['id_hsil']);
+    $idg     = strip_tags($post['idg']);
+    $mapel   = strip_tags($post['mpl']);
+    $kelas   = strip_tags($post['kls']);
     $jurusan = strip_tags($post['jrsn']);
     
     // query ubah data
@@ -503,13 +503,13 @@
   {
     global $db;
     
-    $id_agnd = htmlspecialchars(strip_tags($post['id_agnd']));   
-    $id_hsil = htmlspecialchars(strip_tags($post['id_hsil']));   
-    $id_guru = htmlspecialchars(strip_tags($post['id_guru']));   
+    $id_agnd  = htmlspecialchars(strip_tags($post['id_agnd']));   
+    $id_hsil  = htmlspecialchars(strip_tags($post['id_hsil']));   
+    $id_guru  = htmlspecialchars(strip_tags($post['id_guru']));   
     $id_mapel = htmlspecialchars(strip_tags($post['id_mapel']));
-    $nm_fl = htmlspecialchars(strip_tags($post['nmfl']));
-    $ktr = htmlspecialchars(strip_tags($post['ktrf']));
-    $tgl_up = htmlspecialchars(strip_tags($post['tglupld']));
+    $nm_fl    = htmlspecialchars(strip_tags($post['nmfl']));
+    $ktr      = htmlspecialchars(strip_tags($post['ktrf']));
+    $tgl_up   = htmlspecialchars(strip_tags($post['tglupld']));
 
     $fl = upload_file();
     
@@ -526,7 +526,7 @@
   {
     global $db;
 
-    $id = strip_tags($post['id']);
+    $id       = strip_tags($post['id']);
     $fileLama = strip_tags($post['fileLama']);
 
     // Hapus File
@@ -561,16 +561,16 @@
   {
     global $db;
 
-    $id_hsil = htmlspecialchars(strip_tags($post['id_hsil']));   
-    $id_guru = htmlspecialchars(strip_tags($post['id_guru']));   
-    $id_mapel = htmlspecialchars(strip_tags($post['id_mapel']));   
-    $id_kelas = htmlspecialchars(strip_tags($post['id_kelas']));   
+    $id_hsil    = htmlspecialchars(strip_tags($post['id_hsil']));   
+    $id_guru    = htmlspecialchars(strip_tags($post['id_guru']));   
+    $id_mapel   = htmlspecialchars(strip_tags($post['id_mapel']));   
+    $id_kelas   = htmlspecialchars(strip_tags($post['id_kelas']));   
     $id_jurusan = htmlspecialchars(strip_tags($post['id_jurusan']));   
-    $tgl = htmlspecialchars(strip_tags($post['tgl']));   
-    $jam = htmlspecialchars(strip_tags($post['jam']));  
-    $mtri = htmlspecialchars(strip_tags($post['mtri']));  
-    $absn = htmlspecialchars(strip_tags($post['absn']));  
-    $ktr = htmlspecialchars(strip_tags($post['ktr']));  
+    $tgl        = htmlspecialchars(strip_tags($post['tgl']));   
+    $jam        = htmlspecialchars(strip_tags($post['jam']));  
+    $mtri       = htmlspecialchars(strip_tags($post['mtri']));  
+    $absn       = htmlspecialchars(strip_tags($post['absn']));  
+    $ktr        = htmlspecialchars(strip_tags($post['ktr']));  
     
     // query tambah data
     $query = "INSERT INTO dftr_agnd VALUES(null, '$id_hsil', '$id_guru', '$id_mapel', '$id_kelas', '$id_jurusan', '$tgl', '$jam', '$mtri', '$absn', '$ktr')";
@@ -586,11 +586,11 @@
     global $db;
     
     $id   = htmlspecialchars(strip_tags($post['id_agnd']));
-    $tgl = htmlspecialchars(strip_tags($post['tgl']));  
-    $jam = htmlspecialchars(strip_tags($post['jam']));  
+    $tgl  = htmlspecialchars(strip_tags($post['tgl']));  
+    $jam  = htmlspecialchars(strip_tags($post['jam']));  
     $mtri = htmlspecialchars(strip_tags($post['mtri']));  
     $absn = htmlspecialchars(strip_tags($post['absn']));  
-    $ktr = htmlspecialchars(strip_tags($post['ktr']));  
+    $ktr  = htmlspecialchars(strip_tags($post['ktr']));  
     
     // query ubah data
     $query = "UPDATE dftr_agnd SET tgl = '$tgl', jam = '$jam', mtri = '$mtri', absn = '$absn', ktr = '$ktr' WHERE id_agnd = $id";
