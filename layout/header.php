@@ -32,6 +32,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta author="&copy;Raven" content="All right has been reserved" />
     <title><?= $title; ?></title>
+
     <style>
       body {
         /* user-select: none; */
@@ -40,12 +41,11 @@
         -webkit-user-drag: none;
       }
     </style>
+
     <link rel="icon" type="image/png" href="../img/g1W.png"/>
-    <link rel="stylesheet" href="../assets/node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-    />
+    <link rel="stylesheet" href="../assets/node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../assets/node_modules/animation/animate.min.css">
+  
   </head>
   <body>
 
