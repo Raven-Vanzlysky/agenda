@@ -22,18 +22,16 @@
 
   // Perjudulan
   $title = 'Home';
-  $subtitle = 'Daftar Akun';
+  $subtitle = 'Data Statistik';
 
   include '../layout/header.php';
 
   // Data table
   $j_g = mysqli_query($db, "SELECT * FROM guru");
-  $j_f = mysqli_query($db, "SELECT * FROM file_agnd");
   $j_a = mysqli_query($db, "SELECT * FROM dftr_agnd");
   
   // Menghitung jumlah data
   $jum_gu = mysqli_num_rows($j_g);
-  $jum_fi = mysqli_num_rows($j_f);
   $jum_ag = mysqli_num_rows($j_a);
   $now  = date("Y-m-d");
   $jum_ag_now = mysqli_num_rows(mysqli_query($db, "SELECT * FROM dftr_agnd WHERE tgl= '$now'"));
@@ -46,7 +44,7 @@
   <h1 class="animate__animated animate__fadeInLeft d-flex justify-content-between align-items-center"><?= $title;?> </h1>
   <br>
 
-  <!-- Card Akun -->
+  <!-- Card Statistik -->
     <div class="card animate__animated animate__zoomInDown">
 
       <!-- .card-header -->
@@ -64,16 +62,13 @@
           <table style="width: max-content;" align="center" id="table" class="table table-bordered table-hover">
             <h3>
               <tr>
-                <th style="width: 230px;">Agenda Hari Ini </th> <td style="width: 230px;"> <?= $jum_ag_now; ?> </td>
+                <th class="bg-secondary" style="width: 230px;">Agenda Hari Ini </th> <td style="width: 230px;"> <?= $jum_ag_now; ?> </td>
               </tr>
               <tr>
-                <th style="width: 230px;">Semua Agenda </th> <td style="width: 230px;"> <?= $jum_ag; ?> </td>
+                <th class="bg-secondary" style="width: 230px;">Semua Agenda </th> <td style="width: 230px;"> <?= $jum_ag; ?> </td>
               </tr>
               <tr>
-                <th style="width: 230px;">Jumlah Guru </th> <td style="width: 230px;"> <?= $jum_gu; ?> </td>
-              </tr>
-              <tr>
-                <th style="width: 230px;">File Perangkat </th> <td style="width: 230px;"> <?= $jum_fi; ?> </td>
+                <th class="bg-secondary" style="width: 230px;">Jumlah Guru </th> <td style="width: 230px;"> <?= $jum_gu; ?> </td>
               </tr>
             </h3>
           </table>
@@ -83,9 +78,7 @@
       <!-- /.card-body -->
 
     </div>
-  <!-- /Card Akun -->
-
-  
+  <!-- /Card Statistik -->
 
 </main>    
 

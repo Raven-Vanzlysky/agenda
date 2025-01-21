@@ -30,7 +30,7 @@
         }
 
         // Mengubah table header style sesuai dengan theme
-        const tableHeaders = document.querySelectorAll('table thead th');
+        const tableHeaders = document.querySelectorAll('table th');
         if (theme === 'dark') {
           tableHeaders.forEach(th => {
             th.classList.remove('text-dark', 'bg-primary');

@@ -1,2 +1,1 @@
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import "@popperjs/core/dist/cjs/popper.js";
+console.log("I Don't Know, This is for what");

@@ -22,7 +22,6 @@
 
   $title = 'Daftar Agenda Guru';
   $subtitle = 'Daftar Agenda';
-  $subtitle0 = 'Daftar File Agenda';
 
   include '../layout/header.php';
 
@@ -32,10 +31,11 @@
    if(isset($_POST['cari'])) 
    {
      $kata_cari = htmlspecialchars(strip_tags($_POST['kata_cari']));
-     $data_hasil = select("SELECT hasil_guru.id_hsil, mapel.mpl, kelas.kls, jurusan.jrsn FROM hasil_guru
+     $data_hasil = select("SELECT hasil_guru.id_hsil, hasil_guru.id_mapel, guru.id_guru, mapel.id_mapel, mapel.mpl, kelas.id_kelas, kelas.kls, jurusan.id_jurusan, jurusan.jrsn FROM hasil_guru
      INNER JOIN mapel ON hasil_guru.id_mapel = mapel.id_mapel
      INNER JOIN kelas ON hasil_guru.id_kelas = kelas.id_kelas
-     INNER JOIN jurusan ON hasil_guru.id_jurusan = jurusan.id_jurusan WHERE hasil_guru.id_guru = $ID AND id_hsil like '%$kata_cari%' OR jrsn like '%$kata_cari%' OR mpl like '%$kata_cari%' ORDER BY id_mapel ASC");
+     INNER JOIN guru ON hasil_guru.id_guru = guru.id_guru
+     INNER JOIN jurusan ON hasil_guru.id_jurusan = jurusan.id_jurusan WHERE hasil_guru.id_guru = $ID AND id_hsil like '%$kata_cari%' OR jrsn like '%$kata_cari%' OR mpl like '%$kata_cari%' ORDER BY hasil_guru.id_mapel ASC");
     } else {
      $data_hasil = select("SELECT hasil_guru.id_hsil, hasil_guru.id_mapel, guru.id_guru, mapel.id_mapel, mapel.mpl, kelas.id_kelas, kelas.kls, jurusan.id_jurusan, jurusan.jrsn FROM hasil_guru
      INNER JOIN mapel ON hasil_guru.id_mapel = mapel.id_mapel
@@ -54,21 +54,6 @@
     } else {
         echo "<script>
               alert('Data Absensi Gagal Ditambahkan');
-              document.location.href = 'agenda_pengajaran.php';
-            </script>";
-    }
-  }
-
-  // jika tombol tambah di tekan jalankan script berikut
-  if (isset($_POST['tambahfl'])) {
-    if (tambah_data_upload_hg($_POST) > 0) {
-      echo "<script>
-              alert('Data File Berhasil Ditambahkan');
-              document.location.href = 'agenda_pengajaran.php';
-            </script>";
-    } else {
-        echo "<script>
-              alert('Data File Gagal Ditambahkan');
               document.location.href = 'agenda_pengajaran.php';
             </script>";
     }
@@ -123,7 +108,7 @@
               <div class="col-md-4">
                 <input type="text" class="form-control me-3" name="kata_cari" placeholder="Cari..." aria-label="Search" value="<?php if(isset($_POST['cari'])) { echo $_POST['kata_cari']; } ?>">
               </div>
-              <button class="btn ms-3 btn-outline-primary me-1" type="submit" name="cari">Cari</button>
+              <button class="btn ms-3 btn-outline-primary me-1" type="submit" name="cari"><i class="bi bi-search"></i></button>
             </div>
           </form>
 
@@ -227,13 +212,10 @@
                     <div class="card-body">
 
                       <button type="button" class="btn btn-primary btn-sm mb-1" data-bs-toggle="modal" data-bs-target="#modalTambahAbsn<?= $x0['id_hsil']; ?>">
-                        <svg 
-                          xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
-                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-                        </svg>
+                      <i class="bi bi-plus-circle"></i>
                         Tambah
                       </button> 
+                      <a href="cetak.php?id=<?php echo $x0['id_hsil']; ?>" target="_blank"><button class="btn btn-secondary">Cetak / Print</button></a>
                     
                       <div class="table-responsive">
 
@@ -268,28 +250,17 @@
                                   <td><?= $x1['ktr']; ?></td>
                                   <td class="text-center">
                                     <button type="button" class="btn btn-success mb-1" data-bs-toggle="modal" data-bs-target="#modalUbahAbsn<?= $x1['id_agnd']; ?>">
-                                      <svg 
-                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
-                                        <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
-                                      </svg>  
+                                    <i class="bi bi-pen"></i> 
                                       Ubah
                                     </button>
 
-                                    <button type="button" class="btn btn-warning mb-1" data-bs-toggle="modal" data-bs-target="#modalUpldFl<?= $x1['id_agnd']; ?>">
-                                      <svg 
-                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-text" viewBox="0 0 16 16">
-                                        <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
-                                        <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>
-                                      </svg>
-                                        Upload File
-                                    </button>
+                                    <a href="../assets/client/file/<?= $x1['file'];?>" class="btn btn-warning mb-1" >
+                                    <i class="bi bi-eye"></i>
+                                        Lihat File
+                                    </a>
 
                                     <button type="button" class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#modalHapusAbsn<?= $x1['id_agnd']; ?>">
-                                      <svg 
-                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
-                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
-                                      </svg>
+                                    <i class="bi bi-trash"></i>
                                       Hapus
                                     </button>
                                   </td>
@@ -334,42 +305,49 @@
 
                   <div class="modal-body">
                   
-                        <form action="" method="post" enctype="multipart/form-data">
+                    <form action="" method="post" enctype="multipart/form-data">
 
-                          <input type="hidden" name="id_hsil" value="<?= $x2['id_hsil']; ?>">
-                          <input type="hidden" name="id_guru" value="<?= $x2['id_guru']; ?>">
-                          <input type="hidden" name="id_mapel" value="<?= $x2['id_mapel']; ?>">
-                          <input type="hidden" name="id_kelas" value="<?= $x2['id_kelas']; ?>">
-                          <input type="hidden" name="id_jurusan" value="<?= $x2['id_jurusan']; ?>">
+                      <input type="hidden" name="id_hsil" value="<?= $x2['id_hsil']; ?>">
+                      <input type="hidden" name="id_guru" value="<?= $x2['id_guru']; ?>">
+                      <input type="hidden" name="id_mapel" value="<?= $x2['id_mapel']; ?>">
+                      <input type="hidden" name="id_kelas" value="<?= $x2['id_kelas']; ?>">
+                      <input type="hidden" name="id_jurusan" value="<?= $x2['id_jurusan']; ?>">
 
-                          <div class="form-floating mb-2">
-                            <input type="date" name="tgl" id="floatingInput" class="form-control" placeholder="Tanggal" required>
-                            <label for="floatingInput">Tanggal</label>
-                          </div>
+                      <div class="form-floating mb-2">
+                        <input type="date" name="tgl" id="floatingInput" class="form-control" placeholder="Tanggal" required>
+                        <label for="floatingInput">Tanggal</label>
+                      </div>
 
-                          <div class="form-floating mb-2">
-                            <input type="time" name="jam" id="floatingInput" class="form-control" placeholder="Jam" required>
-                            <label for="floatingInput">Jam</label>
-                          </div>
+                      <div class="form-floating mb-2">
+                        <input type="time" name="jam" id="floatingInput" class="form-control" placeholder="Jam" required>
+                        <label for="floatingInput">Jam</label>
+                      </div>
 
-                          <div class="form-group mb-2">
-                            <textarea name="mtri" id="floatingInput" class="form-control" placeholder="Pokok Bahasan" required></textarea>
-                          </div>
+                      <div class="form-group mb-2">
+                        <textarea name="mtri" id="floatingInput" class="form-control" placeholder="Pokok Bahasan" required></textarea>
+                      </div>
 
-                          <div class="form-group mb-2">
-                            <input type="text" name="absn" id="floatingInput" class="form-control" placeholder="Absen" required>
-                          </div>
+                      <div class="form-group mb-2">
+                        <input type="text" name="absn" id="floatingInput" class="form-control" placeholder="Absen" required>
+                      </div>
 
-                          <div class="form-group mb-2">
-                            <textarea name="ktr" id="floatingInput" class="form-control" placeholder="Keterangan" required></textarea>
-                          </div>
+                      <div class="form-group mb-2">
+                        <textarea name="ktr" id="floatingInput" class="form-control" placeholder="Keterangan" required></textarea>
+                      </div>
 
+                      <div class="form-group mb-2">
+                        <label for="file"><b>File</b></label><br>
+                        <div class="custom-file">
+                          <label class="custom-file-label" for="file">Pilih file...</label>
+                          <input type="file" class="custom-file-input" id="file" name="file" required>
+                        </div>
+                      </div>
                           
                   </div>
 
                   <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                          <button type="submit" name="tambah" class="btn btn-primary">Tambah</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                    <button type="submit" name="tambah" class="btn btn-primary">Tambah</button>
                   </div>
                         
                     </form>
@@ -465,70 +443,6 @@
       </div>
    
   <!-- /Modal Absensi/Agenda -->
-      
-  <!-- Modal File Agenda -->
-    
-   <div class="modal-file">
-
-    <!-- Modal Tambah File -->
-      <?php foreach ($data_agenda as $xf) : ?>
-        <div class="modal fade" id="modalUpldFl<?= $xf['id_hsil'];?>" tabindex="-1" aria-labelledby="defaultModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-
-              <div class="modal-header">
-                <h5 class="modal-title" id="modalUpldFl">Tambah <?= $subtitle0; ?></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"/>
-              </div>
-
-              <div class="modal-body">
-              
-                <form action="" method="post" enctype="multipart/form-data">
-
-                  <input type="hidden" name="id_agnd" value="<?= $xf['id_agnd']; ?>">
-                  <input type="hidden" name="id_hsil" value="<?= $xf['id_hsil']; ?>">
-                  <input type="hidden" name="id_guru" value="<?= $xf['id_guru']; ?>">
-                  <input type="hidden" name="id_mapel" value="<?= $xf['id_mapel']; ?>">
-
-                  <div class="form-floating mb-2">
-                    <input type="date" name="tglupld" id="floatingInput" class="form-control" placeholder="Tanggal Upload" required>
-                    <label for="floatingInput">Tanggal Upload</label>
-                  </div>
-                  
-                  <div class="form-floating mb-2">
-                    <input type="text" name="nmfl" id="floatingInput" class="form-control" placeholder="Nama File" required>
-                    <label for="floatingInput">Nama File</label>
-                  </div>
-
-                  <div class="form-group mb-2">
-                    <textarea name="ktrf" id="floatingInput" class="form-control" placeholder="Keterangan" required></textarea>
-                  </div>
-
-                  <div class="form-group mb-2">
-                    <label for="file"><b>File</b></label><br>
-                    <div class="custom-file">
-                      <label class="custom-file-label" for="file">Pilih file...</label>
-                      <input type="file" class="custom-file-input" id="file" name="file" required>
-                    </div>
-                  </div>
-  
-              </div>
-
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                <button type="submit" name="tambahfl" class="btn btn-primary">Tambah</button>
-              </div>
-                    
-              </form>
-            </div>
-          </div>
-        </div>
-      <?php endforeach; ?>
-    <!-- /Modal Tambah File -->
-
-   </div>
-
-  <!-- /Modal File Agenda -->
       
     <?php endforeach; ?>
 

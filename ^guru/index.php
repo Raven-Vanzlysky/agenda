@@ -44,38 +44,42 @@
       <!-- /card-header -->
 
       <!-- card-body -->
-       <div class="card-body text-center">
+       <div class="row">
+        <div class="col">
+          <div class="card-body text-center">
 
-        <h1>APLIKASI KEGIATAN HARIAN GURU</h1>
-        <?php foreach ($thn as $t) : ?>
-        <h2>TAHUN AJARAN <?= $t['tahun_ajaran'] ?> </h2>
-        <?php endforeach; ?>
+            <h1>APLIKASI KEGIATAN HARIAN GURU</h1>
+            <?php foreach ($thn as $t) : ?>
+            <h2>TAHUN AJARAN <?= $t['tahun_ajaran'] ?> </h2>
+            <?php endforeach; ?>
 
-        <hr style="border: 1px dashed;">
+            <hr style="border: 1px dashed;">
 
-        <div class="d-flex flex-column align-items-center ">
+            <div class="d-flex flex-column align-items-center ">
 
-          <img src="../img/g1.png" class="rounded-circle border img-fluid" height="85px" width="85px" alt="">
+              <img src="../assets/img/g1.png" class="rounded-circle border img-fluid" height="85px" width="85px" alt="">
 
+            </div>
+
+            <div class="mt-3 d-grid gap-2">
+
+              <div class="">
+                  <span class="pe-1"><b>Nama</b></span><span class="pe-1">:</span><span><?= $NM; ?></span>
+              </div>
+
+              <div class="">
+                  <span class="pe-1"><b>NIP</b></span><span class="pe-1">:</span><span><?= $PK; ?></span>
+              </div>
+
+              </div>
+
+            <hr>
+
+            <h1>SMK NEGERI COMPRENG</h1>
+            <span>Jl. Raya Compreng, Mekarjaya, Kec. Compreng, Kab. Subang, Prov. Jawa Barat</span>
+
+          </div>
         </div>
-
-        <div class="mt-3 d-grid gap-2">
-
-          <div class="">
-              <span class="pe-1"><b>Nama</b></span><span class="pe-1">:</span><span><?= $NM; ?></span>
-          </div>
-
-          <div class="">
-              <span class="pe-1"><b>NIP</b></span><span class="pe-1">:</span><span><?= $PK; ?></span>
-          </div>
-
-          </div>
-
-        <hr>
-
-        <h1>SMK NEGERI COMPRENG</h1>
-        <span>Jl. Raya Compreng, Mekarjaya, Kec. Compreng, Kab. Subang, Prov. Jawa Barat</span>
-
        </div>
       <!-- /card-body -->
 
