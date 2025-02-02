@@ -95,6 +95,10 @@
                       <i class="bi bi-calendar-day"></i>
                         Tahun Ajaran
                       </a></li>
+                      <li><a class="dropdown-item" href="admin_manage_file.php">
+                      <i class="bi bi-folder2-open"></i>
+                        Manage File
+                      </a></li>
                     <?php endif; ?>
 
                     <?php if ($_SESSION['level'] == 'Guru') : ?>
@@ -109,11 +113,6 @@
                       <li><a class="dropdown-item" href="agenda_pengajaran.php">
                       <i class="bi bi-journal-bookmark"></i>
                         Agenda Pengajaran
-                      </a></li>
-                      <li><a class="dropdown-item" href="file_manager.php">
-                      <i class="bi bi-file-earmark-text"></i>
-                        </svg>
-                        File Pengajaran
                       </a></li>
                     <?php endif; ?>
                     

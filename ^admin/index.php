@@ -29,10 +29,12 @@
   // Data table
   $j_g = mysqli_query($db, "SELECT * FROM guru");
   $j_a = mysqli_query($db, "SELECT * FROM dftr_agnd");
+  $j_f = mysqli_query($db, "SELECT file FROM dftr_agnd");
   
   // Menghitung jumlah data
   $jum_gu = mysqli_num_rows($j_g);
   $jum_ag = mysqli_num_rows($j_a);
+  $jum_fi = mysqli_num_rows($j_f);
   $now  = date("Y-m-d");
   $jum_ag_now = mysqli_num_rows(mysqli_query($db, "SELECT * FROM dftr_agnd WHERE tgl= '$now'"));
 
@@ -69,6 +71,9 @@
               </tr>
               <tr>
                 <th class="bg-secondary" style="width: 230px;">Jumlah Guru </th> <td style="width: 230px;"> <?= $jum_gu; ?> </td>
+              </tr>
+              <tr>
+                <th class="bg-secondary" style="width: 230px;">Jumlah File </th> <td style="width: 230px;"> <?= $jum_fi; ?> </td>
               </tr>
             </h3>
           </table>

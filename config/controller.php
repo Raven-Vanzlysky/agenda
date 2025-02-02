@@ -82,7 +82,7 @@
           die();
       }
                 
-      // Check ukuran file 30 MB
+      // Check ukuran file 3 MB
       if ($ukuranFile > 3000000) {
           // Pesan gagal
           echo "<script>
@@ -287,7 +287,6 @@
     return mysqli_affected_rows($db);
   }
 
-
 ?>
 
 <?php //Jurusan
@@ -337,7 +336,6 @@
     
     return mysqli_affected_rows($db);
   }
-
 
 ?>
 
@@ -441,7 +439,6 @@
     return mysqli_affected_rows($db);
   }
 
-
 ?>
 
 <?php //Hasil Guru
@@ -497,7 +494,6 @@
     
     return mysqli_affected_rows($db);
   }
-
   
 ?> 
 

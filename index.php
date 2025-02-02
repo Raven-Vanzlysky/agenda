@@ -75,12 +75,12 @@
 
     <main class="container d-flex justify-content-center">
 
-      <div class="card mt-5 animate__animated animate__flipInY" style="width: 20rem; height: 25rem;">
+      <div class="card mt-5 animate__animated animate__flipInY animate__fast" style="width: 20rem; height: 25rem;">
 
         <form action="" method="post">
 
           <div class="card-header">
-            <img class="img" style="width: 100px; height: 100px;" src="assets/img/g1W.png" alt="">
+            <img class="img animate__animated animate__zoomIn animate__slow" style="width: 100px; height: 100px;" src="assets/img/g1W.png" alt="">
             <h3 class="ms-3">Login</h3>
           </div>
 
