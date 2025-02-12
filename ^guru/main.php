@@ -30,12 +30,12 @@
   if(isset($_POST['cari'])) 
   {
     $kata_cari = htmlspecialchars(strip_tags($_POST['kata_cari']));
-    $data_hasil = select("SELECT hasil_guru.id_hsil, mapel.mpl, kelas.kls, jurusan.jrsn FROM hasil_guru
+    $data_hasil = select("SELECT hasil_guru.*, mapel.*, kelas.*, jurusan.* FROM hasil_guru
     INNER JOIN mapel ON hasil_guru.id_mapel = mapel.id_mapel
     INNER JOIN kelas ON hasil_guru.id_kelas = kelas.id_kelas
-    INNER JOIN jurusan ON hasil_guru.id_jurusan = jurusan.id_jurusan WHERE id_hsil like '%$kata_cari%' OR jrsn like '%$kata_cari%' OR mpl like '%$kata_cari%' ORDER BY id_mapel ASC");
+    INNER JOIN jurusan ON hasil_guru.id_jurusan = jurusan.id_jurusan WHERE CONCAT(mpl, kls, jrsn) LIKE '%$kata_cari%' ORDER BY id_mapel ASC");
    } else {
-    $data_hasil = select("SELECT hasil_guru.id_hsil, mapel.mpl, kelas.kls, jurusan.jrsn FROM hasil_guru
+    $data_hasil = select("SELECT hasil_guru.*, mapel.*, kelas.*, jurusan.* FROM hasil_guru
     INNER JOIN mapel ON hasil_guru.id_mapel = mapel.id_mapel
     INNER JOIN kelas ON hasil_guru.id_kelas = kelas.id_kelas
     INNER JOIN guru ON hasil_guru.id_guru = guru.id_guru
@@ -109,7 +109,7 @@
           <form class="form" action="" method="post">
           <div class="input-group d-flex justify-content-end">
             <div class="col-md-4">
-              <input type="text" class="form-control me-3" name="kata_cari" placeholder="Cari..." aria-label="Search" value="<?php if(isset($_POST['cari'])) { echo $_POST['kata_cari']; } ?>">
+              <input type="search" class="form-control me-3" name="kata_cari" placeholder="Cari..." aria-label="Search" value="<?php if(isset($_POST['cari'])) { echo $_POST['kata_cari']; } ?>">
             </div>
             <button class="btn ms-3 btn-outline-primary me-1" type="submit" name="cari"><i class="bi bi-search"></i></button>
           </div>

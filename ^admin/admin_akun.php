@@ -88,87 +88,92 @@
   <br>
 
   <!-- Card Akun -->
-    <div class="card animate__animated animate__zoomInDown">
+   <div class="row justify-content-center">
+    <div class="col-sm-6 col-md-8 col-lg-12">
+      <div class="card animate__animated animate__zoomInDown">
 
-      <!-- .card-header -->
-      <div class="card-header d-flex justify-content-between align-items-center">
+        <!-- .card-header -->
+        <div class="card-header d-flex justify-content-between align-items-center">
 
-        <h3 class="card-title"><?= $subtitle; ?></h3>
+          <h3 class="card-title"><?= $subtitle; ?></h3>
 
-        <form class="form" action="" method="post">
-          <div class="input-group">
-            <input type="text" class="form-control me-3" name="kata_cari" placeholder="Cari..." aria-label="Search" value="<?php if(isset($_POST['cari'])) { echo $_POST['kata_cari']; } ?>">
-            <button class="btn btn-outline-primary me-1" type="submit" name="cari"><i class="bi bi-search"></i></button>
-          </div>
-        </form>
-
-      </div>
-      <!-- /.card-header -->
-
-      <!-- .card-body -->
-      <div class="card-body overflow-auto" style="max-height: 400px;">
-
-        <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#modalTambah">
-        <i class="bi bi-plus-circle"></i>
-          Tambah
-        </button>  
-
-        <div class="table-responsive">
-
-          <table id="table" class="table table-sm table-bordered table-hover text-center">
-            <thead class="text-center">
-              <tr>
-                <th class="bg-secondary">No</th>
-                <th class="bg-secondary">NIP</th>
-                <th class="bg-secondary">Nama</th>
-                <th class="bg-secondary">Alamat</th>
-                <th class="bg-secondary">Gender</th>
-                <th class="bg-secondary">Agama</th>
-                <th class="bg-secondary">Foto</th>
-                <th class="bg-secondary">Email</th>
-                <th class="bg-secondary">Username</th>
-                <th class="bg-secondary">Level</th>
-                <th class="bg-secondary">Opsi</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <?php $no = 1; ?>
-                <?php foreach ($data_guru as $x) : ?>
-                  <tr style="height: 15px;">
-                    <td><?= $no++; ?></td>
-                    <td><?= $x['nip']; ?></td>
-                    <td><?= $x['nama']; ?></td>
-                    <td><?= $x['alamat']; ?></td>
-                    <td><?= $x['jenis_kelamin']; ?></td>
-                    <td><?= $x['agama']; ?></td>
-                    <td><img src="../assets/client/foto/<?= $x['foto']; ?>" alt="" width="70px" height="70px"></td>
-                    <td><?= $x['email']; ?></td>
-                    <td><?= $x['username']; ?></td>
-                    <td><?= $x['level']; ?></td>
-                    <td>
-                    
-                      <button type="button" class="btn btn-success mb-1" data-bs-toggle="modal" data-bs-target="#modalUbah<?= $x['id_guru']; ?>">
-                      <i class="bi bi-pen"></i>
-                        Ubah
-                      </button>
-
-                      <button type="button" class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#modalHapus<?= $x['id_guru']; ?>">
-                      <i class="bi bi-trash"></i>
-                        Hapus
-                      </button>
-                    </td>
-                  </tr>
-                <?php endforeach; ?>
-            </tbody>
-          </table>
+          <form class="form" action="" method="post">
+            <div class="input-group">
+              <input type="search" class="form-control me-3" name="kata_cari" placeholder="Cari..." aria-label="Search" value="<?php if(isset($_POST['cari'])) { echo $_POST['kata_cari']; } ?>">
+              <button class="btn btn-outline-primary me-1" type="submit" name="cari"><i class="bi bi-search"></i></button>
+            </div>
+          </form>
 
         </div>
+        <!-- /.card-header -->
+
+        <!-- .card-body -->
+        <div class="card-body overflow-auto" style="max-height: 400px;">
+
+          <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#modalTambah">
+          <i class="bi bi-plus-circle"></i>
+            Tambah
+          </button>  
+
+          <div class="table-responsive">
+
+            <table id="table" class="table table-sm table-bordered table-hover">
+              <thead class="text-center">
+                <tr>
+                  <th scope="col" class="bg-secondary">No</th>
+                  <th scope="col" class="bg-secondary">NIP</th>
+                  <th scope="col" class="bg-secondary">Nama</th>
+                  <th scope="col" class="bg-secondary">Alamat</th>
+                  <th scope="col" class="bg-secondary">Gender</th>
+                  <th scope="col" class="bg-secondary">Agama</th>
+                  <th scope="col" class="bg-secondary">Foto</th>
+                  <th scope="col" class="bg-secondary">Email</th>
+                  <th scope="col" class="bg-secondary">Username</th>
+                  <th scope="col" class="bg-secondary">Level</th>
+                  <th scope="col" class="bg-secondary">Opsi</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <?php $no = 1; ?>
+                  <?php foreach ($data_guru as $x) : ?>
+                    <tr style="height: 10px;">
+                      <td><?= $no++; ?></td>
+                      <td><?= $x['nip']; ?></td>
+                      <td><?= $x['nama']; ?></td>
+                      <td><?= $x['alamat']; ?></td>
+                      <td><?= $x['jenis_kelamin']; ?></td>
+                      <td><?= $x['agama']; ?></td>
+                      <td><img src="../assets/client/foto/<?= $x['foto']; ?>" alt="" width="70px" height="70px"></td>
+                      <td><?= $x['email']; ?></td>
+                      <td><?= $x['username']; ?></td>
+                      <td><?= $x['level']; ?></td>
+                      <td class="text-center">
+                      
+                        <button type="button" class="btn btn-sm btn-success mb-1" data-bs-toggle="modal" data-bs-target="#modalUbah<?= $x['id_guru']; ?>">
+                        <i class="bi bi-pen"></i>
+                          Ubah
+                        </button>
+
+                        <button type="button" class="btn btn-sm btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#modalHapus<?= $x['id_guru']; ?>">
+                        <i class="bi bi-trash"></i>
+                          Hapus
+                        </button>
+                        
+                      </td>
+                    </tr>
+                  <?php endforeach; ?>
+              </tbody>
+            </table>
+
+          </div>
+
+        </div>
+        <!-- /.card-body -->
 
       </div>
-      <!-- /.card-body -->
-
     </div>
+   </div>
   <!-- /Card Akun -->
 
   <!-- Modal Akun -->
@@ -299,19 +304,19 @@
 
                       <div class="form-group mb-3">
                         <label for="floatingInput">Jenis Kelamin</label><br>
-                        <input type="radio" name="jenis_kelamin" id="floatingInput" value="Pria" <?php if($x['jenis_kelamin'] == 'Pria') print 'checked'; ?>> Laki - Laki
-                        <input type="radio" name="jenis_kelamin" id="floatingInput" value="Wanita" <?php if($x['jenis_kelamin'] == 'Wanita') print 'checked'; ?>> Perempuan
+                        <input type="radio" name="jenis_kelamin" id="floatingInput" value="Pria" <?php if($x['jenis_kelamin'] == 'Pria') print 'checked'; ?> > Laki - Laki
+                        <input type="radio" name="jenis_kelamin" id="floatingInput" value="Wanita" <?php if($x['jenis_kelamin'] == 'Wanita') print 'checked'; ?> > Perempuan
                       </div>
 
                       <div class="form-group mb-3">
                         <label for="floatingInput">Agama</label>
                         <select name="agama" id="agama" class="form-control" required>
-                          <option value="Islam" <?= $x['agama'] == 'Islam' ? 'selected' : null  ?>>Islam</option>
-                          <option value="Kristen" <?= $x['agama'] == 'Kristen' ? 'selected' : null  ?>>Kristen</option>
-                          <option value="Hindhu" <?= $x['agama'] == 'Hindhu' ? 'selected' : null  ?>>Hindhu</option>
-                          <option value="Budha" <?= $x['agama'] == 'Budha' ? 'selected' : null  ?>>Budha</option>
-                          <option value="Protestan" <?= $x['agama'] == 'Protestan' ? 'selected' : null  ?>>Protestan</option>
-                          <option value="Konghuchu" <?= $x['agama'] == 'Konghuchu' ? 'selected' : null  ?>>Konghuchu</option>
+                          <option value="Islam" <?= $x['agama'] == 'Islam' ? 'selected' : null ; ?> >Islam</option>
+                          <option value="Kristen" <?= $x['agama'] == 'Kristen' ? 'selected' : null ; ?> >Kristen</option>
+                          <option value="Hindhu" <?= $x['agama'] == 'Hindhu' ? 'selected' : null ; ?> >Hindhu</option>
+                          <option value="Budha" <?= $x['agama'] == 'Budha' ? 'selected' : null ; ?> >Budha</option>
+                          <option value="Protestan" <?= $x['agama'] == 'Protestan' ? 'selected' : null ; ?> >Protestan</option>
+                          <option value="Konghuchu" <?= $x['agama'] == 'Konghuchu' ? 'selected' : null ; ?> >Konghuchu</option>
                         </select>
                       </div>
 
@@ -333,8 +338,8 @@
                       <div class="form-group mb-3">
                         <label for="floatingInput">Level</label>
                         <select name="level" id="level" class="form-control" required>
-                          <option value="Admin" <?= $x['level'] == 'Admin' ? 'selected' : null  ?>>Admin</option>
-                          <option value="Guru" <?= $x['level'] == 'Guru' ? 'selected' : null  ?>>Guru</option>
+                          <option value="Admin" <?= $x['level'] == 'Admin' ? 'selected' : null ; ?> >Admin</option>
+                          <option value="Guru" <?= $x['level'] == 'Guru' ? 'selected' : null ; ?> >Guru</option>
                         </select>
                       </div>
 

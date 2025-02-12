@@ -22,7 +22,9 @@
 
   // Perjudulan
   $title = 'Home';
-  $subtitle = 'Data Statistik';
+  $subtitle0 = 'Data Guru';
+  $subtitle1 = 'Data Agenda';
+  $subtitle2 = 'Data File';
 
   include '../layout/header.php';
 
@@ -46,44 +48,113 @@
   <h1 class="animate__animated animate__fadeInLeft d-flex justify-content-between align-items-center"><?= $title;?> </h1>
   <br>
 
-  <!-- Card Statistik -->
-    <div class="card animate__animated animate__zoomInDown">
+  <div class="row pb-3">
+    <div class="col">
 
-      <!-- .card-header -->
-      <div class="card-header d-flex justify-content-between align-items-center">
+      <!-- Card Guru -->
+        <div class="card animate__animated animate__zoomInDown">
 
-        <h3 class="card-title"><?= $subtitle; ?></h3>
+          <!-- .card-header -->
+          <div class="card-header d-flex justify-content-between align-items-center">
 
-      </div>
-      <!-- /.card-header -->
+            <h3 class="card-title"><?= $subtitle0; ?></h3>
 
-      <!-- .card-body -->
-      <div class="card-body">
+          </div>
+          <!-- /.card-header -->
 
-        <div class="table-responsive">
-          <table style="width: max-content;" align="center" id="table" class="table table-bordered table-hover">
-            <h3>
-              <tr>
-                <th class="bg-secondary" style="width: 230px;">Agenda Hari Ini </th> <td style="width: 230px;"> <?= $jum_ag_now; ?> </td>
-              </tr>
-              <tr>
-                <th class="bg-secondary" style="width: 230px;">Semua Agenda </th> <td style="width: 230px;"> <?= $jum_ag; ?> </td>
-              </tr>
-              <tr>
-                <th class="bg-secondary" style="width: 230px;">Jumlah Guru </th> <td style="width: 230px;"> <?= $jum_gu; ?> </td>
-              </tr>
-              <tr>
-                <th class="bg-secondary" style="width: 230px;">Jumlah File </th> <td style="width: 230px;"> <?= $jum_fi; ?> </td>
-              </tr>
-            </h3>
-          </table>
+          <!-- .card-body -->
+          <div class="card-body">
+
+            <h2> Jumlah Guru : <?= $jum_gu; ?> </h2>
+
+          </div>
+          <!-- /.card-body -->
+
         </div>
-
-      </div>
-      <!-- /.card-body -->
+      <!-- /Card Guru -->
 
     </div>
-  <!-- /Card Statistik -->
+
+    <div class="col">
+
+      <!-- Card Agenda -->
+        <div class="card animate__animated animate__zoomInDown">
+
+          <!-- .card-header -->
+          <div class="card-header d-flex justify-content-between align-items-center">
+
+            <h3 class="card-title"><?= $subtitle1; ?></h3>
+
+          </div>
+          <!-- /.card-header -->
+
+          <!-- .card-body -->
+          <div class="card-body">
+
+             <h2> Jumlah Semua Agenda : <?= $jum_ag; ?> </h2>
+
+          </div>
+          <!-- /.card-body -->
+
+        </div>
+      <!-- /Card Agenda -->
+
+    </div>
+  </div>
+
+  <div class="row pt-3">
+    <div class="col">
+
+      <!-- Card Statistik -->
+        <div class="card animate__animated animate__zoomInDown">
+
+          <!-- .card-header -->
+          <div class="card-header d-flex justify-content-between align-items-center">
+
+            <h3 class="card-title"><?= $subtitle2; ?></h3>
+
+          </div>
+          <!-- /.card-header -->
+
+          <!-- .card-body -->
+          <div class="card-body">
+
+          <h2> Jumlah File : <?= $jum_fi; ?> </h2>
+
+          </div>
+          <!-- /.card-body -->
+
+        </div>
+      <!-- /Card Statistik -->
+
+    </div>
+
+    <div class="col">
+
+      <!-- Card Statistik -->
+        <div class="card animate__animated animate__zoomInDown">
+
+          <!-- .card-header -->
+          <div class="card-header d-flex justify-content-between align-items-center">
+
+            <h3 class="card-title"><?= $subtitle1; ?></h3>
+
+          </div>
+          <!-- /.card-header -->
+
+          <!-- .card-body -->
+          <div class="card-body">
+
+          <h2> Jumlah Agenda Hari ini : <?= $jum_ag_now; ?> </h2>
+
+          </div>
+          <!-- /.card-body -->
+
+        </div>
+      <!-- /Card Statistik -->
+
+    </div>
+  </div>
 
 </main>    
 

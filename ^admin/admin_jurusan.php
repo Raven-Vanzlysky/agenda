@@ -98,7 +98,7 @@
 
           <form class="form" action="" method="post">
             <div class="input-group">
-              <input type="text" class="form-control me-3" name="kata_cari" placeholder="Cari..." aria-label="Search" value="<?php if(isset($_POST['cari'])) { echo $_POST['kata_cari']; } ?>">
+              <input type="search" class="form-control me-3" name="kata_cari" placeholder="Cari..." aria-label="Search" value="<?php if(isset($_POST['cari'])) { echo $_POST['kata_cari']; } ?>">
               <button class="btn btn-outline-primary me-1" type="submit" name="cari"><i class="bi bi-search"></i></button>
             </div>
           </form>
@@ -107,7 +107,7 @@
         <!-- /.card-header -->
 
         <!-- .card-body -->
-        <div class="card-body overflow-auto" style="max-height: 200px;">
+        <div class="card-body overflow-auto" style="max-height: 300px;">
 
           <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#modalTambah">
           <i class="bi bi-plus-circle"></i>

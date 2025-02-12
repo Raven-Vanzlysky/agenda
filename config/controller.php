@@ -68,7 +68,7 @@
       $tmpName    = $_FILES['file']['tmp_name'];
       
       // Check file yang diupload
-      $extensifileValid = ['pdf'];
+      $extensifileValid = ['pdf','docx','xlsx','pptx'];
       $extensifile      = explode('.', $namaFile);
       $extensifile      = strtolower(end($extensifile));
 
@@ -117,7 +117,7 @@
     $password   = htmlspecialchars(strip_tags($post['password']));
 
     // Hapus Foto
-    $filePoto = '../client/foto/' . $fotoLama;
+    $filePoto = '../assets/client/foto/' . $fotoLama;
 
     if (file_exists($filePoto)) {
       if (unlink($filePoto)) {
@@ -217,7 +217,7 @@
     $fotoLama = strip_tags($post['fotoLama']);
 
     // Hapus Foto
-    $filePoto = '../client/foto/' . $fotoLama;
+    $filePoto = '../assets/client/foto/' . $fotoLama;
 
     if (file_exists($filePoto)) {
       if (unlink($filePoto)) {
@@ -515,6 +515,11 @@
     $absn       = htmlspecialchars(strip_tags($post['absn']));  
     $ktr        = htmlspecialchars(strip_tags($post['ktr']));  
     $fl = upload_file();
+
+    // check upload foto
+    if (!$fl) {
+      return false;
+    }
     
     // query tambah data
     $query = "INSERT INTO dftr_agnd VALUES(null, '$id_hsil', '$id_guru', '$id_mapel', '$id_kelas', '$id_jurusan', '$tgl', '$jam', '$mtri', '$absn', '$ktr', '$fl')";
@@ -534,10 +539,31 @@
     $jam  = htmlspecialchars(strip_tags($post['jam']));  
     $mtri = htmlspecialchars(strip_tags($post['mtri']));  
     $absn = htmlspecialchars(strip_tags($post['absn']));  
-    $ktr  = htmlspecialchars(strip_tags($post['ktr']));  
+    $ktr  = htmlspecialchars(strip_tags($post['ktr'])); 
+    $fileLama  = htmlspecialchars(strip_tags($post['fileLama'])); 
+
+    // Hapus File
+    $fileapus = '../assets/client/file/' . $fileLama;
+
+    if (file_exists($fileapus)) {
+      if (unlink($fileapus)) {
+        print "File Berhasil Di Hapus";
+      } else {
+        print "Gagal Menghapus File";
+      }
+    } else {
+      print "File Tidak Di temukan";
+    }
+
+    // check upload file baru atau tidak
+    if ($_FILES['file']['error'] == 4) {
+      $file = $fileLama;
+    } else {
+      $file = upload_file();
+    }  
     
     // query ubah data
-    $query = "UPDATE dftr_agnd SET tgl = '$tgl', jam = '$jam', mtri = '$mtri', absn = '$absn', ktr = '$ktr' WHERE id_agnd = $id";
+    $query = "UPDATE dftr_agnd SET tgl = '$tgl', jam = '$jam', mtri = '$mtri', absn = '$absn', ktr = '$ktr', file = '$file' WHERE id_agnd = $id";
     
     mysqli_query($db, $query);
     
@@ -550,8 +576,22 @@
     global $db;
 
     $id = strip_tags($post['id']);
+    $fileLama = strip_tags($post['fileLama']);
+
+    // Hapus File
+    $fileapus = '../assets/client/file/' . $fileLama;
+
+    if (file_exists($fileapus)) {
+      if (unlink($fileapus)) {
+        print "File Berhasil Di Hapus";
+      } else {
+        print "Gagal Menghapus File";
+      }
+    } else {
+      print "File Tidak Di temukan";
+    }
     
-    // query hapus data mata_pljrn
+    // query hapus data agenda
     $query = "DELETE FROM dftr_agnd WHERE id_agnd = $id";
     
     mysqli_query($db, $query);

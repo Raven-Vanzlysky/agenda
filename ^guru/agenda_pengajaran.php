@@ -31,13 +31,13 @@
    if(isset($_POST['cari'])) 
    {
      $kata_cari = htmlspecialchars(strip_tags($_POST['kata_cari']));
-     $data_hasil = select("SELECT hasil_guru.id_hsil, hasil_guru.id_mapel, guru.id_guru, mapel.id_mapel, mapel.mpl, kelas.id_kelas, kelas.kls, jurusan.id_jurusan, jurusan.jrsn FROM hasil_guru
+     $data_hasil = select("SELECT hasil_guru.*, guru.id_guru, mapel.*, kelas.*, jurusan.* FROM hasil_guru
      INNER JOIN mapel ON hasil_guru.id_mapel = mapel.id_mapel
      INNER JOIN kelas ON hasil_guru.id_kelas = kelas.id_kelas
      INNER JOIN guru ON hasil_guru.id_guru = guru.id_guru
-     INNER JOIN jurusan ON hasil_guru.id_jurusan = jurusan.id_jurusan WHERE hasil_guru.id_guru = $ID AND id_hsil like '%$kata_cari%' OR jrsn like '%$kata_cari%' OR mpl like '%$kata_cari%' ORDER BY hasil_guru.id_mapel ASC");
+     INNER JOIN jurusan ON hasil_guru.id_jurusan = jurusan.id_jurusan WHERE hasil_guru.id_guru = $ID AND CONCAT(mpl, kls, jrsn) LIKE '%$kata_cari%' ORDER BY hasil_guru.id_mapel ASC");
     } else {
-     $data_hasil = select("SELECT hasil_guru.id_hsil, hasil_guru.id_mapel, guru.id_guru, mapel.id_mapel, mapel.mpl, kelas.id_kelas, kelas.kls, jurusan.id_jurusan, jurusan.jrsn FROM hasil_guru
+     $data_hasil = select("SELECT hasil_guru.*, guru.id_guru, mapel.*, kelas.*, jurusan.* FROM hasil_guru
      INNER JOIN mapel ON hasil_guru.id_mapel = mapel.id_mapel
      INNER JOIN kelas ON hasil_guru.id_kelas = kelas.id_kelas
      INNER JOIN guru ON hasil_guru.id_guru = guru.id_guru
@@ -106,7 +106,7 @@
           <form class="form" action="" method="post">
             <div class="input-group d-flex justify-content-end">
               <div class="col-md-4">
-                <input type="text" class="form-control me-3" name="kata_cari" placeholder="Cari..." aria-label="Search" value="<?php if(isset($_POST['cari'])) { echo $_POST['kata_cari']; } ?>">
+                <input type="search" class="form-control me-3" name="kata_cari" placeholder="Cari..." aria-label="Search" value="<?php if(isset($_POST['cari'])) { echo $_POST['kata_cari']; } ?>">
               </div>
               <button class="btn ms-3 btn-outline-primary me-1" type="submit" name="cari"><i class="bi bi-search"></i></button>
             </div>
@@ -215,7 +215,10 @@
                       <i class="bi bi-plus-circle"></i>
                         Tambah
                       </button> 
-                      <a href="cetak.php?id=<?php echo $x0['id_hsil']; ?>" target="_blank"><button class="btn btn-secondary">Cetak / Print</button></a>
+                      <a class="btn btn-sm mb-1 btn-secondary" href="cetak.php?id=<?= $x0['id_hsil']; ?>" target="_blank">
+                      <i class="bi bi-printer"></i>
+                        Cetak / Print
+                      </a>
                     
                       <div class="table-responsive">
 
@@ -236,10 +239,10 @@
                             <?php $data_agenda = select("SELECT dftr_agnd.*, hasil_guru.*, guru.id_guru, mapel.mpl, mapel.id_mapel, kelas.kls, jurusan.jrsn
                             FROM dftr_agnd 
                             INNER JOIN hasil_guru ON dftr_agnd.id_hsil = hasil_guru.id_hsil
-                            INNER JOIN mapel ON hasil_guru.id_mapel = mapel.id_mapel
-                            INNER JOIN kelas ON hasil_guru.id_kelas = kelas.id_kelas
-                            INNER JOIN guru ON hasil_guru.id_guru = guru.id_guru 
-                            INNER JOIN jurusan ON hasil_guru.id_jurusan = jurusan.id_jurusan 
+                            INNER JOIN mapel ON dftr_agnd.id_mapel = mapel.id_mapel
+                            INNER JOIN kelas ON dftr_agnd.id_kelas = kelas.id_kelas
+                            INNER JOIN guru ON dftr_agnd.id_guru = guru.id_guru 
+                            INNER JOIN jurusan ON dftr_agnd.id_jurusan = jurusan.id_jurusan 
                             WHERE dftr_agnd.id_guru = '$ID' AND dftr_agnd.id_hsil ='$id'");?>
                               <?php foreach ($data_agenda as $x1) : ?>
                                 <tr>
@@ -254,9 +257,9 @@
                                       Ubah
                                     </button>
 
-                                    <a href="../assets/client/file/<?= $x1['file'];?>" class="btn btn-warning mb-1" >
-                                    <i class="bi bi-eye"></i>
-                                        Lihat File
+                                    <a href="../assets/client/file/<?= $x1['file'];?>" target="_blank" class="btn btn-warning mb-1" >
+                                    <i class="bi bi-download"></i>
+                                        Download File
                                     </a>
 
                                     <button type="button" class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#modalHapusAbsn<?= $x1['id_agnd']; ?>">
@@ -372,6 +375,7 @@
 
                     <form action="" method="post" enctype="multipart/form-data">
                       <input type="hidden" name="id_agnd" value="<?= $x3['id_agnd']; ?>">
+                      <input type="hidden" name="fileLama" value="<?= $x3['file']; ?>">
 
                         <div class="form-floating mb-3">
                           <input type="date" name="tgl" id="floatingInput" class="form-control" placeholder="Tanggal" value="<?= $x3['tgl']; ?>" required>
@@ -396,6 +400,14 @@
                         <div class="form-group mb-3">
                           <label for="groupInput">Keterangan</label>
                           <textarea name="ktr" id="groupInput" class="form-control" placeholder="Keterangan" required><?= $x3['ktr']; ?></textarea>
+                        </div>
+
+                        <div class="form-group mb-3">
+                          <label for="file"><b>File</b></label><br>
+                          <div class="custom-file">
+                            <label class="custom-file-label" for="file">Pilih ulang file...</label>
+                            <input type="file" class="custom-file-input" id="file" name="file">
+                          </div>
                         </div>
 
                   </div>
@@ -425,6 +437,7 @@
                   <div class="modal-body">
                     <form action="" method="post">
                       <input type="hidden" name="id" value="<?= $x4['id_agnd']; ?>">
+                      <input type="hidden" name="fileLama" value="<?= $x4['file']; ?>">
                         <p>Yakin Ingin Menghapus Absen Mata Pelajaran <?= $x4['mpl']; ?> <?= $x4['kls'] . ' ' . $x4['jrsn']; ?>.?</p>
                   </div>
 

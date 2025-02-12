@@ -14,8 +14,6 @@
         echo "<script>
                 alert('Data Akun Berhasil Diubah');
               </script>";
-        header("Refresh: 0");
-        exit();
     } else {
         echo "<script>
                 alert('Data Akun Gagal Diubah');
@@ -35,7 +33,7 @@
 
     <style>
       body {
-        /* user-select: none; */
+        user-select: none;
       }
       img {
         -webkit-user-drag: none;
@@ -95,10 +93,10 @@
                       <i class="bi bi-calendar-day"></i>
                         Tahun Ajaran
                       </a></li>
-                      <li><a class="dropdown-item" href="admin_manage_file.php">
+                      <!-- <li><a class="dropdown-item" href="admin_manage_file.php">
                       <i class="bi bi-folder2-open"></i>
                         Manage File
-                      </a></li>
+                      </a></li> -->
                     <?php endif; ?>
 
                     <?php if ($_SESSION['level'] == 'Guru') : ?>
@@ -134,10 +132,10 @@
                   <i class="bi bi-person-circle"></i>
                     Profile
                   </button></li>
-                  <li><a class="dropdown-item" href="#">
+                  <!-- <li><a class="dropdown-item" href="#">
                   <i class="bi bi-gear-wide-connected"></i>
                     Settings
-                  </a></li>
+                  </a></li> -->
                   <li><a class="dropdown-item" href="../logout.php" onclick="return confirm('Yakin ingin keluar.?')">
                   <i class="bi bi-box-arrow-left"></i>
                     Logout
@@ -184,12 +182,12 @@
                     <label for="file"><b>Foto</b></label><br>
                     <div class="custom-file">
                       <label class="custom-file-label" for="file">Pilih ulang gambar...</label>
-                      <input type="file" class="custom-file-input" id="foto" name="foto" onchange="previewImg()" required>
+                      <input type="file" class="custom-file-input" id="foto" name="foto" onchange="previewImg()">
                     </div>
                     <div class="mt-1">
                       <img src="../assets/client/foto/<?= $x['foto']; ?>" alt="" class="img-thumbnail img-preview" width="100px">
                     </div>
-                </div>
+                  </div>
 
                   <div class="form-floating mb-3">
                     <input type="text" name="username" id="floatingInput" class="form-control" placeholder="Username" value="<?= $x['username']; ?>" required>
