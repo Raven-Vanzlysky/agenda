@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 20 Jan 2025 pada 09.08
+-- Waktu pembuatan: 12 Feb 2025 pada 09.09
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -38,42 +38,17 @@ CREATE TABLE `dftr_agnd` (
   `jam` time NOT NULL,
   `mtri` text NOT NULL,
   `absn` varchar(255) NOT NULL,
-  `ktr` text NOT NULL
+  `ktr` text NOT NULL,
+  `file` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `dftr_agnd`
 --
 
-INSERT INTO `dftr_agnd` (`id_agnd`, `id_hsil`, `id_guru`, `id_mapel`, `id_kelas`, `id_jurusan`, `tgl`, `jam`, `mtri`, `absn`, `ktr`) VALUES
-(1, 1, 11, 2, 4, 1, '2025-01-09', '11:41:00', 'A', 'B', 'C'),
-(4, 1, 11, 2, 4, 1, '2025-01-15', '10:56:00', 'i', 'i', 'i');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `file_agnd`
---
-
-CREATE TABLE `file_agnd` (
-  `id_file` int(11) NOT NULL,
-  `id_agnd` int(11) NOT NULL,
-  `id_hsil` int(11) NOT NULL,
-  `id_guru` int(30) NOT NULL,
-  `id_mapel` int(11) NOT NULL,
-  `ktrf` text NOT NULL,
-  `tgl_upld` date NOT NULL,
-  `nama_file` varchar(255) NOT NULL,
-  `file` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data untuk tabel `file_agnd`
---
-
-INSERT INTO `file_agnd` (`id_file`, `id_agnd`, `id_hsil`, `id_guru`, `id_mapel`, `ktrf`, `tgl_upld`, `nama_file`, `file`) VALUES
-(10, 1, 1, 11, 2, 'asdsad', '2025-01-17', 'GAGA', '6789fb7152ad4.pdf'),
-(11, 1, 1, 11, 2, 'bgybgv', '2025-01-13', 'G', '678a0d666e578.pdf');
+INSERT INTO `dftr_agnd` (`id_agnd`, `id_hsil`, `id_guru`, `id_mapel`, `id_kelas`, `id_jurusan`, `tgl`, `jam`, `mtri`, `absn`, `ktr`, `file`) VALUES
+(5, 1, 11, 2, 4, 1, '2025-01-21', '15:00:00', 'er', 'er', 'er', '67abf9d336df5.pptx'),
+(6, 2, 11, 7, 5, 3, '2025-02-05', '09:44:00', '11', 'qq', 'qq', '67abfa1e8a457.xlsx');
 
 -- --------------------------------------------------------
 
@@ -101,7 +76,9 @@ CREATE TABLE `guru` (
 
 INSERT INTO `guru` (`id_guru`, `nip`, `nama`, `alamat`, `jenis_kelamin`, `agama`, `foto`, `email`, `username`, `password`, `level`) VALUES
 (1, 1, 'Mandala Raven Aditya', 'Galaxy Bimasakti', 'Pria', 'Islam', '675bddc4562d7.png', 'asdjcds@gmail.com', 'Chiron', '$2y$10$rUSFLIfl.YWgL7ycQHhoxuwCTsidZ5lyeAi3TdsRyx9KCKhwOmCkS', 'Admin'),
-(11, 666, 'Raze', 'Galaxy Andromeda', 'Pria', 'Islam', '676cc92c9eef9.png', 'lutzslwly@proton.me', 'Guru0', '$2y$10$hzbFe6xktlLT96k8VGmYUOvpBp57.3oHyT9jpjhsvXm9R9M/FSEgS', 'Guru');
+(11, 666, 'Raze', 'Galaxy Andromeda', 'Pria', 'Islam', '67a183018b42d.png', 'lutzslwly@proton.me', 'Guru0', '$2y$10$wgn6h6k.wBgZ4erfj4rX7eMGwqJlEq0xDbEx5J6TUB6iTG3.NsYhy', 'Guru'),
+(12, 4324, 'Guru32', 'bbb', 'Wanita', 'Islam', '67a196525a903.png', 'casdafd@fasf', 'Guru1', '$2y$10$0RMi44SKsZvCG8bv7ZMuzO/rCPf2PHulQYyEYQD1jvcKqi4GM8ls.', 'Guru'),
+(13, 8432, 'Siapa', 'Dimana', 'Pria', 'Islam', '67a199a9b724b.jpeg', 'Ipsumh@outlook.co.id', 'fauzi', '$2y$10$H8vJSZ7h15lXVdnFOkg5FuG2F7VxasAjvWIcoec7dcmEg2pQFXwMu', 'Admin');
 
 -- --------------------------------------------------------
 
@@ -122,7 +99,8 @@ CREATE TABLE `hasil_guru` (
 --
 
 INSERT INTO `hasil_guru` (`id_hsil`, `id_guru`, `id_kelas`, `id_mapel`, `id_jurusan`) VALUES
-(1, 11, 4, 2, 1);
+(1, 11, 4, 2, 1),
+(2, 11, 5, 7, 3);
 
 -- --------------------------------------------------------
 
@@ -163,6 +141,27 @@ INSERT INTO `kelas` (`id_kelas`, `kls`) VALUES
 (4, 'XII'),
 (5, 'XI'),
 (6, 'X');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `kepsek`
+--
+
+CREATE TABLE `kepsek` (
+  `id_kepsek` int(11) NOT NULL,
+  `nip` varchar(255) NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `kepsek`
+--
+
+INSERT INTO `kepsek` (`id_kepsek`, `nip`, `nama`, `username`, `password`) VALUES
+(1, '1974111020050152010\r\n', 'Walyati Retnoningsih,S.Si.,M.AP', 'retno', 'retno');
 
 -- --------------------------------------------------------
 
@@ -231,16 +230,6 @@ ALTER TABLE `dftr_agnd`
   ADD KEY `id_guru` (`id_guru`);
 
 --
--- Indeks untuk tabel `file_agnd`
---
-ALTER TABLE `file_agnd`
-  ADD PRIMARY KEY (`id_file`),
-  ADD KEY `id_agnd` (`id_agnd`,`id_hsil`,`id_guru`,`id_mapel`),
-  ADD KEY `id_hsil` (`id_hsil`),
-  ADD KEY `id_guru` (`id_guru`),
-  ADD KEY `id_mapel` (`id_mapel`);
-
---
 -- Indeks untuk tabel `guru`
 --
 ALTER TABLE `guru`
@@ -269,6 +258,12 @@ ALTER TABLE `kelas`
   ADD PRIMARY KEY (`id_kelas`);
 
 --
+-- Indeks untuk tabel `kepsek`
+--
+ALTER TABLE `kepsek`
+  ADD PRIMARY KEY (`id_kepsek`);
+
+--
 -- Indeks untuk tabel `mapel`
 --
 ALTER TABLE `mapel`
@@ -288,25 +283,19 @@ ALTER TABLE `thn_ajar`
 -- AUTO_INCREMENT untuk tabel `dftr_agnd`
 --
 ALTER TABLE `dftr_agnd`
-  MODIFY `id_agnd` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT untuk tabel `file_agnd`
---
-ALTER TABLE `file_agnd`
-  MODIFY `id_file` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_agnd` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `guru`
 --
 ALTER TABLE `guru`
-  MODIFY `id_guru` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_guru` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `hasil_guru`
 --
 ALTER TABLE `hasil_guru`
-  MODIFY `id_hsil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_hsil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `jurusan`
@@ -319,6 +308,12 @@ ALTER TABLE `jurusan`
 --
 ALTER TABLE `kelas`
   MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT untuk tabel `kepsek`
+--
+ALTER TABLE `kepsek`
+  MODIFY `id_kepsek` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `mapel`
@@ -345,15 +340,6 @@ ALTER TABLE `dftr_agnd`
   ADD CONSTRAINT `dftr_agnd_ibfk_4` FOREIGN KEY (`id_kelas`) REFERENCES `hasil_guru` (`id_kelas`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `dftr_agnd_ibfk_5` FOREIGN KEY (`id_jurusan`) REFERENCES `hasil_guru` (`id_jurusan`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `dftr_agnd_ibfk_6` FOREIGN KEY (`id_guru`) REFERENCES `hasil_guru` (`id_guru`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ketidakleluasaan untuk tabel `file_agnd`
---
-ALTER TABLE `file_agnd`
-  ADD CONSTRAINT `file_agnd_ibfk_1` FOREIGN KEY (`id_agnd`) REFERENCES `dftr_agnd` (`id_agnd`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `file_agnd_ibfk_2` FOREIGN KEY (`id_hsil`) REFERENCES `dftr_agnd` (`id_hsil`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `file_agnd_ibfk_3` FOREIGN KEY (`id_guru`) REFERENCES `dftr_agnd` (`id_guru`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `file_agnd_ibfk_4` FOREIGN KEY (`id_mapel`) REFERENCES `dftr_agnd` (`id_mapel`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `hasil_guru`
