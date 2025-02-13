@@ -55,7 +55,7 @@
         <div class="card animate__animated animate__zoomInDown">
 
           <!-- .card-header -->
-          <div class="card-header d-flex justify-content-between align-items-center">
+          <div class="card-header bg-primary d-flex justify-content-between align-items-center">
 
             <h3 class="card-title"><?= $subtitle0; ?></h3>
 
@@ -81,7 +81,7 @@
         <div class="card animate__animated animate__zoomInDown">
 
           <!-- .card-header -->
-          <div class="card-header d-flex justify-content-between align-items-center">
+          <div class="card-header bg-warning d-flex justify-content-between align-items-center">
 
             <h3 class="card-title"><?= $subtitle1; ?></h3>
 
@@ -109,7 +109,7 @@
         <div class="card animate__animated animate__zoomInDown">
 
           <!-- .card-header -->
-          <div class="card-header d-flex justify-content-between align-items-center">
+          <div class="card-header bg-danger d-flex justify-content-between align-items-center">
 
             <h3 class="card-title"><?= $subtitle2; ?></h3>
 
@@ -135,7 +135,7 @@
         <div class="card animate__animated animate__zoomInDown">
 
           <!-- .card-header -->
-          <div class="card-header d-flex justify-content-between align-items-center">
+          <div class="card-header bg-success d-flex justify-content-between align-items-center">
 
             <h3 class="card-title"><?= $subtitle1; ?></h3>
 
