@@ -93,26 +93,29 @@
       <div class="card card-center animate__animated animate__zoomInDown">
 
         <!-- .card-header -->
-        <div class="card-header d-flex justify-content-between align-items-center">
-          <h3 class="card-title"><?= $subtitle; ?></h3>
+        <div class="card-header">
 
-          <form class="form" action="" method="post">
-            <div class="input-group">
-              <input type="search" class="form-control me-3" name="kata_cari" placeholder="Cari..." aria-label="Search" value="<?php if(isset($_POST['cari'])) { echo $_POST['kata_cari']; } ?>">
-              <button class="btn btn-outline-primary me-1" type="submit" name="cari"><i class="bi bi-search"></i></button>
-            </div>
-          </form>
+          <div class="card-wrap d-flex justify-content-between align-items-center">
+            <h3 class="card-title"><?= $subtitle; ?></h3>
+
+            <form class="form" action="" method="post">
+              <div class="input-group">
+                <input type="search" class="form-control me-3" name="kata_cari" placeholder="Cari..." aria-label="Search" value="<?php if(isset($_POST['cari'])) { echo $_POST['kata_cari']; } ?>">
+                <button class="btn btn-outline-primary me-1" type="submit" name="cari"><i class="bi bi-search"></i></button>
+              </div>
+            </form>
+          </div>
+
+          <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#modalTambah">
+          <i class="bi bi-plus-circle"></i>
+            Tambah
+          </button> 
 
         </div>
         <!-- /.card-header -->
 
         <!-- .card-body -->
-        <div class="card-body overflow-auto" style="max-height: 300px;">
-
-          <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#modalTambah">
-          <i class="bi bi-plus-circle"></i>
-            Tambah
-          </button>  
+        <div class="card-body" style="max-height: 300px;"> 
 
           <div class="table-responsive">
 
@@ -184,9 +187,9 @@
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
                   <button type="submit" name="tambah" class="btn btn-primary">Tambah</button>
+                  </form>
                 </div>
                 
-                </form>
             </div>
           </div>
         </div>
@@ -218,8 +221,9 @@
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
                   <button type="submit" name="ubah" class="btn btn-primary">Ubah</button>
-                </div>
                   </form>
+                </div>
+
               </div>
             </div>
           </div>
@@ -244,11 +248,11 @@
                       </div>
 
                       <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                          <button type="submit" class="btn btn-danger" name="hapus">Hapus</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                        <button type="submit" class="btn btn-danger" name="hapus">Hapus</button>
+                        </form>
                       </div>
 
-                      </form>
                   </div>
             </div>
           </div>

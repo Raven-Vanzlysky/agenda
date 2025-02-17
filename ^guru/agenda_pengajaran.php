@@ -101,22 +101,24 @@
 
       <!-- .card-header -->
         <div class="card-header">
-          <h3 class="card-title"><?= $title; ?></h3>
 
-          <form class="form" action="" method="post">
-            <div class="input-group d-flex justify-content-end">
-              <div class="col-md-4">
-                <input type="search" class="form-control me-3" name="kata_cari" placeholder="Cari..." aria-label="Search" value="<?php if(isset($_POST['cari'])) { echo $_POST['kata_cari']; } ?>">
+          <div class="card-wrap d-flex justify-content-between align-items-center">
+
+            <h3 class="card-title"><?= $title; ?></h3>
+
+            <form class="form" action="" method="post">
+              <div class="input-group">
+                <input type="search" class="form-control me-1" name="kata_cari" placeholder="Cari..." aria-label="Search" value="<?php if(isset($_POST['cari'])) { echo $_POST['kata_cari']; } ?>">
+                <button class="btn ms-1 btn-outline-primary me-1" type="submit" name="cari"><i class="bi bi-search"></i></button>
               </div>
-              <button class="btn ms-3 btn-outline-primary me-1" type="submit" name="cari"><i class="bi bi-search"></i></button>
-            </div>
-          </form>
+            </form>
+          </div>
 
         </div>
       <!-- /.card-header -->
 
       <!-- .card-body -->
-        <div class="card-body">
+        <div class="card-body overflow-auto" style="max-height: 400px;">
 
           <div class="table-responsive">
 
@@ -142,10 +144,7 @@
                       
                       <td class="text-center">
                         <button type="button" class="btn btn-success mb-1" data-bs-toggle="modal" data-bs-target="#extraLargeModal<?= $x['id_hsil']; ?>">
-                          <svg 
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                          </svg>
+                        <i class="bi bi-search"></i>
                           View Agenda
                         </button>
                       </td>
@@ -206,10 +205,8 @@
                   <div class="card">
 
                     <div class="card-header">
-                      <h3 class="card-title"><?= $subtitle; ?></h3>
-                    </div>
 
-                    <div class="card-body">
+                      <h3 class="card-title"><?= $subtitle; ?></h3>
 
                       <button type="button" class="btn btn-primary btn-sm mb-1" data-bs-toggle="modal" data-bs-target="#modalTambahAbsn<?= $x0['id_hsil']; ?>">
                       <i class="bi bi-plus-circle"></i>
@@ -219,6 +216,10 @@
                       <i class="bi bi-printer"></i>
                         Cetak / Print
                       </a>
+
+                    </div>
+
+                    <div class="card-body overflow-auto" style="max-height: 400px;">
                     
                       <div class="table-responsive">
 
@@ -298,7 +299,7 @@
         <!-- Modal Tambah Absen -->
           <?php foreach ($data_hasil as $x2) : ?>
             <div class="modal fade" id="modalTambahAbsn<?= $x2['id_hsil'];?>" tabindex="-1" aria-labelledby="defaultModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
+              <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
 
                   <div class="modal-header">
@@ -316,44 +317,43 @@
                       <input type="hidden" name="id_kelas" value="<?= $x2['id_kelas']; ?>">
                       <input type="hidden" name="id_jurusan" value="<?= $x2['id_jurusan']; ?>">
 
-                      <div class="form-floating mb-2">
-                        <input type="date" name="tgl" id="floatingInput" class="form-control" placeholder="Tanggal" required>
-                        <label for="floatingInput">Tanggal</label>
-                      </div>
-
-                      <div class="form-floating mb-2">
-                        <input type="time" name="jam" id="floatingInput" class="form-control" placeholder="Jam" required>
-                        <label for="floatingInput">Jam</label>
+                      <div class="form-group mb-2">
+                        <label for="groupInput">Tanggal</label>
+                        <input type="date" id="groupInput" name="tgl" class="form-control" placeholder="Tanggal" required>
                       </div>
 
                       <div class="form-group mb-2">
-                        <textarea name="mtri" id="floatingInput" class="form-control" placeholder="Pokok Bahasan" required></textarea>
+                        <label for="groupInput">Jam</label>
+                        <input type="time" id="groupInput" name="jam" class="form-control" placeholder="Jam" required>
                       </div>
 
                       <div class="form-group mb-2">
-                        <input type="text" name="absn" id="floatingInput" class="form-control" placeholder="Absen" required>
+                        <textarea name="mtri" class="form-control" placeholder="Pokok Bahasan" required></textarea>
                       </div>
 
                       <div class="form-group mb-2">
-                        <textarea name="ktr" id="floatingInput" class="form-control" placeholder="Keterangan" required></textarea>
+                        <textarea name="absn" class="form-control" placeholder="Absen" required></textarea>
+                      </div>
+
+                      <div class="form-group mb-2">
+                        <textarea name="ktr" class="form-control" placeholder="Keterangan" required></textarea>
                       </div>
 
                       <div class="form-group mb-2">
                         <label for="file"><b>File</b></label><br>
-                        <div class="custom-file">
-                          <label class="custom-file-label" for="file">Pilih file...</label>
-                          <input type="file" class="custom-file-input" id="file" name="file" required>
+                        <div class="form-control">
+                          <label for="file">Pilih file...</label>
+                          <input type="file" id="file" name="file" required>
                         </div>
                       </div>
                           
                   </div>
 
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
                     <button type="submit" name="tambah" class="btn btn-primary">Tambah</button>
+                    </form>
                   </div>
                         
-                    </form>
                 </div>
               </div>
             </div>
@@ -363,7 +363,7 @@
         <!-- Modal Ubah Absen -->
           <?php foreach ($data_agenda as $x3) : ?>
             <div class="modal fade" id="modalUbahAbsn<?= $x3['id_agnd']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
+              <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
 
                   <div class="modal-header">
@@ -377,46 +377,45 @@
                       <input type="hidden" name="id_agnd" value="<?= $x3['id_agnd']; ?>">
                       <input type="hidden" name="fileLama" value="<?= $x3['file']; ?>">
 
-                        <div class="form-floating mb-3">
-                          <input type="date" name="tgl" id="floatingInput" class="form-control" placeholder="Tanggal" value="<?= $x3['tgl']; ?>" required>
-                          <label for="floatingInput">Tanggal</label>
+                        <div class="form-group mb-3">
+                          <label for="groupInput">Tanggal</label>
+                          <input type="date" id="groupInput" name="tgl" class="form-control" placeholder="Tanggal" value="<?= $x3['tgl']; ?>" required>
                         </div>
 
-                        <div class="form-floating mb-3">
-                          <input type="time" name="jam" id="floatingInput" class="form-control" placeholder="Jam" value="<?= $x3['jam']; ?>" required>
-                          <label for="floatingInput">Jam</label>
+                        <div class="form-group mb-3">
+                          <label for="groupInput">Jam</label>
+                          <input type="time" id="groupInput" name="jam" class="form-control" placeholder="Jam" value="<?= $x3['jam']; ?>" required>
                         </div>
 
                         <div class="form-group mb-3">
                           <label for="groupInput">Materi</label>
-                          <textarea name="mtri" id="groupInput" class="form-control" placeholder="Pokok Bahasan" required><?= $x3['mtri']; ?></textarea>
+                          <textarea id="groupInput" name="mtri" class="form-control" placeholder="Pokok Bahasan" required><?= $x3['mtri']; ?></textarea>
                         </div>
 
-                        <div class="form-floating mb-3">
-                          <input type="text" name="absn" id="floatingInput" class="form-control" placeholder="Absen" value="<?= $x3['absn']; ?>" required>
-                          <label for="floatingInput">Absen</label>
+                        <div class="form-group mb-3">
+                          <label for="groupInput">Absen</label>
+                          <textarea id="groupInput" name="absn" class="form-control" placeholder="Keterangan" required><?= $x3['absn']; ?></textarea>
                         </div>
 
                         <div class="form-group mb-3">
                           <label for="groupInput">Keterangan</label>
-                          <textarea name="ktr" id="groupInput" class="form-control" placeholder="Keterangan" required><?= $x3['ktr']; ?></textarea>
+                          <textarea id="groupInput" name="ktr" class="form-control" placeholder="Keterangan" required><?= $x3['ktr']; ?></textarea>
                         </div>
 
                         <div class="form-group mb-3">
                           <label for="file"><b>File</b></label><br>
-                          <div class="custom-file">
-                            <label class="custom-file-label" for="file">Pilih ulang file...</label>
-                            <input type="file" class="custom-file-input" id="file" name="file">
+                          <div class="form-control">
+                            <label for="file">Pilih ulang file...</label>
+                            <input type="file" id="file" name="file">
                           </div>
                         </div>
 
                   </div>
 
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
                     <button type="submit" name="ubah" class="btn btn-primary">Ubah</button>
-                  </div>
                     </form>
+                  </div>
                 </div>
               </div>
             </div>
@@ -442,11 +441,10 @@
                   </div>
 
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
                     <button type="submit" class="btn btn-danger" name="hapus">Hapus</button>
+                    </form>
                   </div>
 
-                    </form>
                 </div>
               </div>
             </div>

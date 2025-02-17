@@ -104,27 +104,28 @@
 
       <!-- card-header -->
         <div class="card-header">
-          <h3 class="card-title"><?= $title; ?></h3>
 
-          <form class="form" action="" method="post">
-          <div class="input-group d-flex justify-content-end">
-            <div class="col-md-4">
-              <input type="search" class="form-control me-3" name="kata_cari" placeholder="Cari..." aria-label="Search" value="<?php if(isset($_POST['cari'])) { echo $_POST['kata_cari']; } ?>">
-            </div>
-            <button class="btn ms-3 btn-outline-primary me-1" type="submit" name="cari"><i class="bi bi-search"></i></button>
+          <div class="card-wrap d-flex justify-content-between align-items-center">
+            <h3 class="card-title"><?= $title; ?></h3>
+
+            <form class="form" action="" method="post">
+              <div class="input-group">
+                  <input type="search" class="form-control me-1" name="kata_cari" placeholder="Cari..." aria-label="Search" value="<?php if(isset($_POST['cari'])) { echo $_POST['kata_cari']; } ?>">
+                <button class="btn ms-1 btn-outline-primary me-1" type="submit" name="cari"><i class="bi bi-search"></i></button>
+              </div>
+            </form>
           </div>
-        </form>
+
+          <button type="button" class="btn btn-primary btn-sm mb-1" data-bs-toggle="modal" data-bs-target="#modalTambah">
+          <i class="bi bi-plus-circle"></i>
+            Tambah
+          </button> 
 
         </div>
       <!-- /card-header -->
 
       <!-- card-body -->
-        <div class="card-body">
-
-          <button type="button" class="btn btn-primary btn-sm mb-1" data-bs-toggle="modal" data-bs-target="#modalTambah">
-          <i class="bi bi-plus-circle"></i>
-            Tambah
-          </button>  
+        <div class="card-body overflow-auto" style="max-height: 400px;"> 
 
           <div class="table-responsive">
 
@@ -223,9 +224,9 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
               <button type="submit" name="tambah" class="btn btn-primary">Tambah</button>
+              </form>
             </div>
             
-          </form>
         </div>
       </div>
     </div>
@@ -289,8 +290,8 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
               <button type="submit" name="ubah" class="btn btn-primary">Ubah</button>
-            </div>
               </form>
+            </div>
           </div>
         </div>
       </div>
@@ -317,9 +318,9 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
               <button type="submit" class="btn btn-danger" name="hapus">Hapus</button>
+              </form>
             </div>
 
-              </form>
           </div>
         </div>
       </div>

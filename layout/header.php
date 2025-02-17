@@ -164,7 +164,7 @@
     <div class="modal-profile">
 
       <div class="modal fade" id="modalProfile<?= $x['id_guru']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-md">
           <div class="modal-content">
 
             <div class="modal-header">
@@ -180,9 +180,9 @@
 
                   <div class="form-group mb-3">
                     <label for="file"><b>Foto</b></label><br>
-                    <div class="custom-file">
-                      <label class="custom-file-label" for="file">Pilih ulang gambar...</label>
-                      <input type="file" class="custom-file-input" id="foto" name="foto" onchange="previewImg()">
+                    <div class="form-control">
+                      <label for="file">Pilih ulang gambar...</label>
+                      <input type="file" class="grouInput" id="foto" name="foto" onchange="previewImg()">
                     </div>
                     <div class="mt-1">
                       <img src="../assets/client/foto/<?= $x['foto']; ?>" alt="" class="img-thumbnail img-preview" width="100px">
@@ -204,8 +204,9 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
               <button type="submit" name="ubahProfile" class="btn btn-primary">Ubah</button>
-            </div>
               </form>
+            </div>
+
           </div>
         </div>
       </div>

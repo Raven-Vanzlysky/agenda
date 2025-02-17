@@ -84,7 +84,7 @@
         
 <main class="container">
   <hr>
-  <h1 class="animate__animated animate__fadeInLeft d-flex justify-content-between align-items-center"><?= $title;?> </h1>
+  <h1 class="animate__animated animate__fadeInLeft align-items-center"><?= $title;?> </h1>
   <br>
 
   <!-- Card Akun -->
@@ -93,27 +93,29 @@
       <div class="card animate__animated animate__zoomInDown">
 
         <!-- .card-header -->
-        <div class="card-header d-flex justify-content-between align-items-center">
+        <div class="card-header">
 
-          <h3 class="card-title"><?= $subtitle; ?></h3>
+          <div class="card-wrap d-flex justify-content-between align-items-center">
+            <h3 class="card-title"><?= $subtitle; ?></h3>
 
-          <form class="form" action="" method="post">
-            <div class="input-group">
-              <input type="search" class="form-control me-3" name="kata_cari" placeholder="Cari..." aria-label="Search" value="<?php if(isset($_POST['cari'])) { echo $_POST['kata_cari']; } ?>">
-              <button class="btn btn-outline-primary me-1" type="submit" name="cari"><i class="bi bi-search"></i></button>
-            </div>
-          </form>
+            <form class="form" action="" method="post">
+              <div class="input-group">
+                <input type="search" class="form-control me-3" name="kata_cari" placeholder="Cari..." aria-label="Search" value="<?php if(isset($_POST['cari'])) { echo $_POST['kata_cari']; } ?>">
+                <button class="btn btn-outline-primary me-1" type="submit" name="cari"><i class="bi bi-search"></i></button>
+              </div>
+            </form>
+          </div>
+
+          <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#modalTambah">
+          <i class="bi bi-plus-circle"></i>
+            Tambah
+          </button>  
 
         </div>
         <!-- /.card-header -->
 
         <!-- .card-body -->
         <div class="card-body overflow-auto" style="max-height: 400px;">
-
-          <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#modalTambah">
-          <i class="bi bi-plus-circle"></i>
-            Tambah
-          </button>  
 
           <div class="table-responsive">
 
@@ -181,7 +183,7 @@
 
       <!-- Modal Tambah Akun -->
         <div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
+          <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
 
               <div class="modal-header">
@@ -228,10 +230,10 @@
                   </div>
 
                   <div class="form-group mb-2">
-                    <label for="file"><b>Foto</b></label><br>
-                    <div class="custom-file">
-                      <label class="custom-file-label" for="file">Pilih gambar...</label>
-                      <input type="file" class="custom-file-input" id="foto" name="foto" onchange="previewImg()" required>
+                    <label for="foto"><b>Foto</b></label><br>
+                    <div class="form-control">
+                      <label for="foto">Pilih gambar...</label>
+                      <input type="file" class="form-control" id="foto" name="foto" onchange="previewImg()" required>
                     </div>
                   </div>
 
@@ -264,9 +266,9 @@
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
                   <button type="submit" name="tambah" class="btn btn-primary">Tambah</button>
+                  </form>
                 </div>
                 
-                </form>
               </div>
           </div>
         </div>
@@ -336,7 +338,7 @@
                       </div>
 
                       <div class="form-group mb-3">
-                        <label for="floatingInput">Level</label>
+                        <label for="level">Level</label>
                         <select name="level" id="level" class="form-control" required>
                           <option value="Admin" <?= $x['level'] == 'Admin' ? 'selected' : null ; ?> >Admin</option>
                           <option value="Guru" <?= $x['level'] == 'Guru' ? 'selected' : null ; ?> >Guru</option>
@@ -348,8 +350,9 @@
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
                   <button type="submit" name="ubah" class="btn btn-primary">Ubah</button>
-                </div>
                   </form>
+                </div>
+
               </div>
             </div>
           </div>
@@ -377,9 +380,9 @@
                       <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
                           <button type="submit" class="btn btn-danger" name="hapus">Hapus</button>
+                          </form>
                       </div>
 
-                      </form>
                   </div>
               </div>
           </div>
