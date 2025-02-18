@@ -29,10 +29,10 @@
   // Data Mapel
   if(isset($_POST['cari'])) 
   {
-    $kata_cari = $_POST['kata_cari'];
-    $data_mapel = select("SELECT * FROM mapel WHERE mpl like '%".$kata_cari."%' ");
-  } else {
-    $data_mapel = select("SELECT * FROM mapel");
+      $kata_cari = $_POST['kata_cari'];
+      $data_mapel = select("SELECT * FROM mapel WHERE mpl like '%".$kata_cari."%' ");
+    } else {
+      $data_mapel = select("SELECT * FROM mapel ORDER BY mpl ASC");
   }
 
   // jika tombol tambah di tekan jalankan script berikut
@@ -99,7 +99,7 @@
           <form class="form" action="" method="post">
             <div class="input-group">
               <input type="search" class="form-control me-3" name="kata_cari" placeholder="Cari..." aria-label="Search" value="<?php if(isset($_POST['cari'])) { echo $_POST['kata_cari']; } ?>">
-              <button class="btn btn-outline-primary me-1" type="submit" name="cari"><i class="bi bi-search"></i></button>
+              <button class="btn btn-outline-info me-1" type="submit" name="cari"><i class="bi bi-search"></i></button>
             </div>
           </form>
         </div>

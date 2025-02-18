@@ -32,7 +32,7 @@
     $kata_cari = htmlspecialchars(strip_tags($_POST['kata_cari']));
     $data_kelas = select("SELECT * FROM kelas WHERE kls like '%$kata_cari%' ORDER BY kls ASC");
    } else {
-    $data_kelas = select("SELECT * FROM kelas");
+    $data_kelas = select("SELECT * FROM kelas ORDER BY kls ASC");
   }
 
   // jika tombol tambah di tekan jalankan script berikut
@@ -99,7 +99,7 @@
           <form class="form" action="" method="post">
             <div class="input-group">
               <input type="search" class="form-control me-3" name="kata_cari" placeholder="Cari..." aria-label="Search" value="<?php if(isset($_POST['cari'])) { echo $_POST['kata_cari']; } ?>">
-              <button class="btn btn-outline-primary me-1" type="submit" name="cari"><i class="bi bi-search"></i></button>
+              <button class="btn btn-outline-info me-1" type="submit" name="cari"><i class="bi bi-search"></i></button>
             </div>
           </form>
         </div>

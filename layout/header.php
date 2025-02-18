@@ -24,7 +24,7 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="id" data-bs-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -51,7 +51,7 @@
       <nav id="themeNavbar" class="navbar bg-secondary navbar-expand-lg mt-1 ms-1 me-1">
         <div class="container-fluid d-flex justify-content-between align-items-center">
           
-            <a class="navbar-brand animate__animated animate__bounceIn" href="https://www.instagram.com/ioreum.d?igsh=YnVrbWlwMXdkbGpo">
+            <a class="navbar-brand animate__animated animate__bounceIn" href="https://github.com/Raven-Vanzlysky/agenda" target="_blank">
               <img src="../assets/img/g1.png" width="75" height="75" alt="Gambar">
             </a>
             <button 
@@ -59,6 +59,7 @@
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
               <ul class="navbar-nav nav-tabs me-auto mb-2 mb-lg-0">
 
                 <li class="nav-item dropdown">
@@ -68,7 +69,7 @@
                   <ul class="dropdown-menu">
 
                     <?php if ($_SESSION['level'] == 'Admin') : ?>
-                      <li><a class="dropdown-item" href="index.php">
+                      <li><a class="dropdown-item" href=".">
                       <i class="bi bi-house-fill"></i>
                         Home
                       </a></li>
@@ -100,7 +101,7 @@
                     <?php endif; ?>
 
                     <?php if ($_SESSION['level'] == 'Guru') : ?>
-                      <li><a class="dropdown-item" href="index.php">
+                      <li><a class="dropdown-item" href=".">
                       <i class="bi bi-house-fill"></i>
                         Home
                       </a></li>
@@ -113,7 +114,6 @@
                         Agenda Pengajaran
                       </a></li>
                     <?php endif; ?>
-                    
                   
                   </ul>
                 </li>

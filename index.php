@@ -35,10 +35,10 @@
 
           // jika login benar arahkan ke file sesuai level
           if ($hasil['level'] == 'Admin') {
-            header("Location: ^admin/index.php");
+            header("Location: ^admin/");
           exit;
           } else {
-            header("Location: ^guru/index.php");
+            header("Location: ^guru/");
           exit;
           }
       }else {
@@ -51,7 +51,7 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="id" data-bs-theme="dark">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

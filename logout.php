@@ -6,7 +6,7 @@
   if (!isset($_SESSION["login"])) {
       echo "<script>
               alert('AKSES DI TOLAK!');
-              document.location.href = 'login.php';
+              document.location.href = '.';
             </script>";
       exit;
   }
@@ -16,4 +16,4 @@
 
   session_unset();
   session_destroy();
-  header("Location: index.php");
+  header("Location: .");

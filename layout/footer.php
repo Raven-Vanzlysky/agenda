@@ -14,6 +14,7 @@
     
     <!-- Code Toggle theme -->
     <script>
+      
       // Function to update theme and elements
       function updateTheme(theme) {
         // Set the new theme on the html element
@@ -44,7 +45,7 @@
         }
 
         // Update label text based on theme
-        document.querySelector('.form-check-label').textContent = theme === 'dark' ? 'Light Mode' : 'Dark Mode';
+        document.querySelector('.form-check-label').textContent = theme === 'dark' ? 'Dark Mode' : 'Light Mode';
       }
 
       // On page load, check localStorage for the theme and apply it

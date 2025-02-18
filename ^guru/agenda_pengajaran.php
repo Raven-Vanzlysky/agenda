@@ -109,7 +109,7 @@
             <form class="form" action="" method="post">
               <div class="input-group">
                 <input type="search" class="form-control me-1" name="kata_cari" placeholder="Cari..." aria-label="Search" value="<?php if(isset($_POST['cari'])) { echo $_POST['kata_cari']; } ?>">
-                <button class="btn ms-1 btn-outline-primary me-1" type="submit" name="cari"><i class="bi bi-search"></i></button>
+                <button class="btn ms-1 btn-outline-info me-1" type="submit" name="cari"><i class="bi bi-search"></i></button>
               </div>
             </form>
           </div>

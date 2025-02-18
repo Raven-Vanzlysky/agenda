@@ -42,9 +42,9 @@
     INNER JOIN jurusan ON hasil_guru.id_jurusan = jurusan.id_jurusan WHERE hasil_guru.id_guru = $ID");
   }
 
-  $data_mapel = select("SELECT * FROM mapel");
-  $data_kelas = select("SELECT * FROM kelas");
-  $data_jurusan = select("SELECT * FROM jurusan");
+  $data_mapel = select("SELECT * FROM mapel ORDER BY mpl ASC");
+  $data_kelas = select("SELECT * FROM kelas ORDER BY kls ASC");
+  $data_jurusan = select("SELECT * FROM jurusan ORDER BY jrsn ASC");
 
   // jika tombol tambah di tekan jalankan script berikut
   if (isset($_POST['tambah'])) {
@@ -111,7 +111,7 @@
             <form class="form" action="" method="post">
               <div class="input-group">
                   <input type="search" class="form-control me-1" name="kata_cari" placeholder="Cari..." aria-label="Search" value="<?php if(isset($_POST['cari'])) { echo $_POST['kata_cari']; } ?>">
-                <button class="btn ms-1 btn-outline-primary me-1" type="submit" name="cari"><i class="bi bi-search"></i></button>
+                <button class="btn ms-1 btn-outline-info me-1" type="submit" name="cari"><i class="bi bi-search"></i></button>
               </div>
             </form>
           </div>
